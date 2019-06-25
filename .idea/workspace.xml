@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e2674c6e-d931-442e-ab0f-e0446604a37b" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/rapportagetool_laravel/composer.json</pharConfigPath>
+    <execution>
+      <executable path="composer" />
+    </execution>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/.env">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="13" column="27" selection-start-line="13" selection-start-column="27" selection-end-line="13" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/config/database.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="58" column="29" lean-forward="true" selection-start-line="58" selection-start-column="29" selection-end-line="58" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2014_10_12_000000_create_users_table.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="21" column="36" lean-forward="true" selection-start-line="21" selection-start-column="36" selection-end-line="21" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/factories/UserFactory.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-51" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/seeds/DatabaseSeeder.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="13" column="48" lean-forward="true" selection-start-line="13" selection-start-column="48" selection-end-line="13" selection-end-column="48" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/.gitignore">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="4" lean-forward="true" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2014_10_12_100000_create_password_resets_table.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/users.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1445">
+              <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/welcome.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1479">
+              <caret line="87" column="20" selection-start-line="87" selection-start-column="20" selection-end-line="93" selection-end-column="75" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>modules</find>
+      <find>extension</find>
+    </findStrings>
+  </component>
+  <component name="FrameworkCommandLineHistory">
+    <commandsHistory>
+      <command text="artisan serve --port=8080" />
+      <command text="cd rapportagetool_laravel/" />
+      <command text="artisan serve --port=8080" />
+      <command text="artisan serve" />
+      <command text="artisan update" />
+      <command text="composer update" />
+      <command text="artisan serve" />
+      <command text="artisan reload" />
+      <command text="artisan help " />
+      <command text="artisan help commands" />
+      <command text="artisan help command" />
+      <command text="artisan serve" />
+      <command text="composer updaye" />
+      <command text="composer update" />
+      <command text="cd rapportagetool_laravel/" />
+      <command text="composer update" />
+      <command text="artisan serve" />
+      <command text="php -v" />
+      <command text="artisan serve" />
+      <command text="php --ini" />
+      <command text="artisan -v" />
+      <command text="artisan serve" />
+      <command text="artisan migrate" />
+      <command text="artisan version" />
+      <command text="artisan help" />
+    </commandsHistory>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.txt" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/config/app.php" />
+        <option value="C:/xampp7-3/php/php.ini" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/composer.json" />
+        <option value="$PROJECT_DIR$/.idea/commandlinetools/Tool_based_on_Symfony_Console_25_6_19_21_41_artisan.xml" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/routes/web.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/views/welcome.blade.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/views/users.blade.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/.env" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/config/database.php" />
+      </list>
+    </option>
+  </component>
+  <component name="PhpServers">
+    <servers />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP">
+    <include_path>
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/psy/psysh" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/vlucas/phpdotenv" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/fzaninotto/faker" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/hamcrest/hamcrest-php" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/laravel/framework" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/laravel/tinker" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/beyondcode/laravel-dump-server" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/tijsverkoyen/css-to-inline-styles" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/psr/simple-cache" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/opis/closure" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/sebastian/code-unit-reverse-lookup" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/sebastian/resource-operations" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/sebastian/object-reflector" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/dragonmantank/cron-expression" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/nesbot/carbon" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/phpspec/prophecy" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/nunomaduro/collision" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/composer" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/phpunit/php-token-stream" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/ramsey/uuid" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/symfony/translation-contracts" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/jakub-onderka/php-console-highlighter" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/jakub-onderka/php-console-color" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/symfony/event-dispatcher-contracts" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/phpoption/phpoption" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/symfony/css-selector" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/symfony/routing" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/symfony/http-kernel" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/symfony/polyfill-php73" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/phar-io/version" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/symfony/polyfill-php72" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/phar-io/manifest" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/symfony/polyfill-intl-idn" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/filp/whoops" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/symfony/polyfill-iconv" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/symfony/mime" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/symfony/debug" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/fideloper/proxy" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/mockery/mockery" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/league/flysystem" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/dnoegel/php-xdg-base-dir" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/erusev/parsedown" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/theseer/tokenizer" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/seld/phar-utils" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/seld/jsonlint" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/barryvdh/reflection-docblock" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/barryvdh/laravel-ide-helper" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/justinrainbow/json-schema" />
+    </include_path>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="816" />
+    <option name="height" value="576" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
+              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
+              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
+              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
+              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+              <item name="factories" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
+              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+              <item name="migrations" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
+              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+              <item name="seeds" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
+              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
+              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
+              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/rapportagetool_laravel/resources/views" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php.zend.framework.tool" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Isa\laravelProjects\rapportagetool_laravel\resources\views" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e2674c6e-d931-442e-ab0f-e0446604a37b" name="Default Changelist" comment="" />
+      <created>1561491443304</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1561491443304</updated>
+      <workItem from="1561491445044" duration="2064000" />
+      <workItem from="1561493522057" duration="1477000" />
+      <workItem from="1561495003035" duration="449000" />
+      <workItem from="1561495464175" duration="5607000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="9597000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25799572" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Command Line Tools Console" order="10" visible="true" weight="0.42903575" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32936078" />
+      <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://C:/xampp7-3/php/php.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="960" column="21" lean-forward="true" selection-start-line="960" selection-start-column="21" selection-end-line="960" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/config/app.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1615">
+          <caret line="95" column="30" selection-start-line="95" selection-start-column="30" selection-end-line="95" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/config/auth.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/config/session.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/.env.example">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/yarn.lock">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="16" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/artisan">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-73" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/vendor/autoload.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="40" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/vendor/composer/autoload_real.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-340">
+          <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/commandlinetools/Tool_based_on_Symfony_Console_25_6_19_21_41_artisan.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="19" lean-forward="true" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/composer.lock">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="8" lean-forward="true" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/public/css/app.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2244" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/public/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1377" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/public/robots.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/public/index.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/public/.htaccess">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/bootstrap/app.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/bootstrap/cache/services.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-306" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Providers/RouteServiceProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-855">
+          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/server.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/js/bootstrap.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/js/app.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/js/components/ExampleComponent.vue">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/sass/_variables.scss">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/sass/app.scss">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/routes/console.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/routes/channels.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="2" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
+          <folding>
+            <element signature="e#7#400#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="18" lean-forward="true" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
+          <folding>
+            <element signature="e#7#389#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/welcome.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1479">
+          <caret line="87" column="20" selection-start-line="87" selection-start-column="20" selection-end-line="93" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/users.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1445">
+          <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="27" selection-start-line="13" selection-start-column="27" selection-end-line="13" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2014_10_12_100000_create_password_resets_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2014_10_12_000000_create_users_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="21" column="36" lean-forward="true" selection-start-line="21" selection-start-column="36" selection-end-line="21" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/factories/UserFactory.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-51" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/seeds/DatabaseSeeder.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="48" lean-forward="true" selection-start-line="13" selection-start-column="48" selection-end-line="13" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="4" lean-forward="true" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/config/database.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="58" column="29" lean-forward="true" selection-start-line="58" selection-start-column="29" selection-end-line="58" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
