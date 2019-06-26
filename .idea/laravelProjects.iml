@@ -24,6 +24,7 @@
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/justinrainbow/json-schema" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/laravel/framework" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/laravel/tinker" />
+      <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/laravelcollective/html" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/league/flysystem" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/mockery/mockery" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/monolog/monolog" />
@@ -89,6 +90,7 @@
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/symfony/var-dumper" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/theseer/tokenizer" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/tijsverkoyen/css-to-inline-styles" />
+      <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/unisharp/laravel-ckeditor" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/vlucas/phpdotenv" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/webmozart/assert" />
     </content>

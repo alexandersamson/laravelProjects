@@ -89,6 +89,8 @@
       <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/barryvdh/reflection-docblock" />
       <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/barryvdh/laravel-ide-helper" />
       <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/justinrainbow/json-schema" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/laravelcollective/html" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/unisharp/laravel-ckeditor" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

@@ -11,10 +11,20 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'PagesController@index');
+Route::get('/about', 'PagesController@about');
+Route::get('/services', 'PagesController@services');
+
+Route::resource('posts', 'PostsController');
+
+Route::get('/users', function () {
+    return view('pages.users');
 });
 
-Route::get('users', function () {
-    return view('users');
-});
+//Route::get('/users/{id}/{name}', function ($id, $name) {
+//    return 'this is: ' . $id . ' and name ' . $name;
+//});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

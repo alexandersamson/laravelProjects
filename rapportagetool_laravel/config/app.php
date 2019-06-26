@@ -1,5 +1,7 @@
 <?php
 
+use Unisharp\Ckeditor\ServiceProvider;
+
 return [
 
     /*
@@ -178,6 +180,12 @@ return [
         // Laravel IDE helper
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
+        //CollectiveHTML
+        Collective\Html\HtmlServiceProvider::class,
+
+        //CK Editor
+        Unisharp\Ckeditor\ServiceProvider::class,
+
     ],
 
     /*
@@ -228,6 +236,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\FormFacade::class,
 
     ],
 
