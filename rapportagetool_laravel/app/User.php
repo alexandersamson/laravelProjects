@@ -40,4 +40,12 @@ class User extends Authenticatable
     public function posts(){
         return $this->hasMany('App\Post');
     }
+
+    public function casefiles(){
+        return $this->hasMany('App\Casefile');
+    }
+
+    public function permissing(){
+        return $this->belongsTo('App\Permission');
+    }
 }

@@ -13,13 +13,20 @@
 
 Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
-Route::get('/services', 'PagesController@services');
 
+Route::get('/permissions/{permissionRequired}', 'PermissionsController@getBitwiseValue');
+
+Route::get('/permissions/getvalue/{permissionName}', 'PermissionsController@getBitwiseValue');
+
+//Resource routes
 Route::resource('posts', 'PostsController');
+Route::resource('casefiles', 'CasefilesController');
+Route::resource('clients', 'ClientController');
+Route::resource('users', 'UserController');
 
-Route::get('/users', function () {
-    return view('pages.users');
-});
+//Route::get('/users', function () {
+//    return view('pages.users');
+//});
 
 //Route::get('/users/{id}/{name}', function ($id, $name) {
 //    return 'this is: ' . $id . ' and name ' . $name;
@@ -28,3 +35,7 @@ Route::get('/users', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//testing
+Route::get('/testpermissionsvalue', 'PermissionsController@testBitwiseValue');
+Route::get('/testrandom', 'Services\CasefileNumberGenerator@generateCasefileCode');

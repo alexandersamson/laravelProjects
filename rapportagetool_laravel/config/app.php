@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PermissionsController;
+use Collective\Html\FormFacade;
 use Unisharp\Ckeditor\ServiceProvider;
 
 return [
@@ -238,6 +240,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\FormFacade::class,
+        'PermissionsController' => PermissionsController::class,
 
     ],
 

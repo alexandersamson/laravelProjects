@@ -23,6 +23,8 @@ class PostsController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('permission:Guest', ['only' => ['index', 'show']]);
+        $this->middleware('permission:Registered,Moderator', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
     }
     /**
      * Display a listing of the resource.
