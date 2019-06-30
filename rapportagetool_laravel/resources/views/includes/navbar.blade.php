@@ -12,15 +12,21 @@
                     <a class="nav-link" href="/posts">Posts</a>
                 </li>
                 @auth
-                    <li class="nav-item">
-                        <a class="nav-link" href="/casefiles">Cases</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/clients">Clients</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users">Users</a>
-                    </li>
+                    @if((new \App\Http\Controllers\PermissionsController)->checkPermission((new \App\Http\Controllers\PermissionsController)->getBitwiseValue(['Casemanager','Investigator']), NULL, true)['permission'] == true)
+                        <li class="nav-item">
+                            <a class="nav-link" href="/casefiles">Cases</a>
+                        </li>
+                    @endif
+                    @if((new \App\Http\Controllers\PermissionsController)->checkPermission((new \App\Http\Controllers\PermissionsController)->getBitwiseValue(['Casemanager','Relations']), NULL, true)['permission'] == true)
+                        <li class="nav-item">
+                            <a class="nav-link" href="/clients">Clients</a>
+                        </li>
+                    @endif
+                    @if((new \App\Http\Controllers\PermissionsController)->checkPermission((new \App\Http\Controllers\PermissionsController)->getBitwiseValue(['Staff','Manager','Owner']), NULL, true)['permission'] == true)
+                        <li class="nav-item">
+                            <a class="nav-link" href="/users">Users</a>
+                        </li>
+                    @endif
                 @endauth
             </ul>
 
@@ -37,22 +43,21 @@
                         </li>
                     @endif
                 @else
-                    @if((new \App\Http\Controllers\PermissionsController)->checkPermission((new \App\Http\Controllers\PermissionsController)->getBitwiseValue('Moderator'))[0]['permission'] == true)
+                    @if((new \App\Http\Controllers\PermissionsController)->checkPermission((new \App\Http\Controllers\PermissionsController)->getBitwiseValue(['Staff','Moderator']), NULL, true)['permission'] == true)
                         <li class="nav-item">
                             <a class="nav-link" href="/posts/create">New Post</a>
                         </li>
                     @endif
-                    @if((new \App\Http\Controllers\PermissionsController)->checkPermission((new \App\Http\Controllers\PermissionsController)->getBitwiseValue('Investigator'))[0]['permission'] == true)
-                        <li class="nav-item">
-                            <a class="nav-link" href="/casefiles/create">New Case</a>
+                    @if((new \App\Http\Controllers\PermissionsController)->checkPermission((new \App\Http\Controllers\PermissionsController)->getBitwiseValue('Casemanager'), NULL, false)['permission'] == true)
+                        <li class="nav-item"><a class="nav-link" href="/casefiles/create">New Case</a>
                         </li>
                     @endif
-                    @if((new \App\Http\Controllers\PermissionsController)->checkPermission((new \App\Http\Controllers\PermissionsController)->getBitwiseValue('Relations'))[0]['permission'] == true)
+                    @if((new \App\Http\Controllers\PermissionsController)->checkPermission((new \App\Http\Controllers\PermissionsController)->getBitwiseValue('Relations'), NULL, true)['permission'] == true)
                         <li class="nav-item">
                             <a class="nav-link" href="/clients/create">New Client</a>
                         </li>
                     @endif
-                    @if((new \App\Http\Controllers\PermissionsController)->checkPermission((new \App\Http\Controllers\PermissionsController)->getBitwiseValue('Manager'))[0]['permission'] == true)
+                    @if((new \App\Http\Controllers\PermissionsController)->checkPermission((new \App\Http\Controllers\PermissionsController)->getBitwiseValue(['Manager', 'Owner']), NULL, true)['permission'] == true)
                         <li class="nav-item">
                             <a class="nav-link" href="/users/create">New User</a>
                         </li>

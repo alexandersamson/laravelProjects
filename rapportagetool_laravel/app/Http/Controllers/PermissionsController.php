@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PermissionsController extends Controller
 {
-    public function checkPermission($permissionRequired, $userPermission = NULL){
+    public function checkPermission($permissionRequired, $userPermission = NULL, $checkAny = false){
 
         //First check whether or not someone is logged in
         //If no one is logged is, check if resource is available for Guests (0 permission value)
@@ -18,20 +18,21 @@ class PermissionsController extends Controller
         //This extra failsafe is intended for unintended leaks and improper settings
         if(!Auth::id()){
             if($permissionRequired == 0){
-                return [['permission' => true]];
+                return ['permission' => true];
             }
             else {
-                return [['permission' => false]];
+                return ['permission' => false];
             }
         }
 
         //Check whether or not the userPermission parameter has been set. If it has been set manually, use that value.
         //If it's not been set, then use Auth::id()->permission value (permission of current user logged in)
-        if($userPermission == NULL) {
-            $userStartPermission = User::find(Auth::id())->permission;
-        } else {
+        if(is_numeric ($userPermission)) {
             $userStartPermission = $userPermission;
+        } else {
+            $userStartPermission = User::find(Auth::id())->permission;
         }
+
 
         //The actual checkPermission method:
         $up = $userStartPermission;
@@ -45,6 +46,10 @@ class PermissionsController extends Controller
                 $permissionRequired -= $sv;
                 $pCounter += 1;
                 if($up >= $sv){
+                    //if checkAny == true this method wil return true on the first match
+                    if($checkAny == true){
+                        return ['permission' => true];
+                    }
                     $up -= $sv;
                     $pCounter -= 1;
                 }
@@ -58,12 +63,13 @@ class PermissionsController extends Controller
 
         //return true if all permissions matches
         if($pCounter == 0) {
-            return [['permission' => true]];
+            return ['permission' => true];
         }
         else{
-            return [['permission' => false]];
+            return ['permission' => false];
         }
     }
+
 
 
     //This method returns the bitwise value of a single or multiple permission name(s) passed to it

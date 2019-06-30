@@ -18,4 +18,12 @@ class Casefile extends Model
     public function client(){
         return $this->belongsTo('App\Client');
     }
+
+    public function assignedInvestigators(){
+        return $this->hasMany('App\AssignedInvestigator');
+    }
+
+    public function assignedClients(){
+        return $this->hasMany('App\AssignedClients');
+    }
 }

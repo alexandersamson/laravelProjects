@@ -16,9 +16,7 @@ class CreateClientsTable extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('organization')->nullable();
-            $table->string('vat')->nullable();
-            $table->string('coc')->nullable();
+            $table->integer('organization_id')->nullable();
             $table->string('email_work')->nullable();
             $table->string('email')->unique();
             $table->string('phone_work')->nullable();
@@ -28,6 +26,7 @@ class CreateClientsTable extends Migration
             $table->rememberToken();
             $table->string('style')->default('default');
             $table->boolean('active')->default(1);
+            $table->boolean('deleted')->default(0);
             $table->biginteger('permission')->unsigned()->default(0);
             $table->timestamps();
         });

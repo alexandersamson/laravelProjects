@@ -28,4 +28,22 @@ class HomeController extends Controller
         $user = User::find($user_id);
         return view('home')->with('posts', $user->posts);
     }
+
+
+    public function ajaxRequest()
+    {
+        return view('ajax.ajaxRequest');
+    }
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function ajaxRequestPost(Request $request)
+
+    {
+        $input = $request->all();
+        return response()->json(['success'=>'AJAX TEST OK']);
+    }
 }

@@ -37,12 +37,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
     public function posts(){
         return $this->hasMany('App\Post');
     }
 
     public function casefiles(){
         return $this->hasMany('App\Casefile');
+    }
+
+    public function assignedInvestigators(){
+        return $this->hasMany('App\AssignedInvestigator');
     }
 
     public function permissing(){

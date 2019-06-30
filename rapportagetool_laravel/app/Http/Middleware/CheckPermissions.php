@@ -15,11 +15,16 @@ class CheckPermissions
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, ...$permissions)
+    public function handle($request, Closure $next, $checkAny = 'matchAll', ...$permissions)
     {
+        if($checkAny == 'matchOne'){
+            $checkAnyCmd = true;
+        } else {
+            $checkAnyCmd = false;
+        }
         $permissionCheck = new PermissionsController;
-        $result = $permissionCheck->checkPermission($permissionCheck->getBitwiseValue($permissions));
-        if($result[0]['permission'] == false){
+        $result = $permissionCheck->checkPermission($permissionCheck->getBitwiseValue($permissions), NULL, $checkAnyCmd);
+        if($result['permission'] == false){
             throw new AuthorizationException('No permission');
         }
         return $next($request);

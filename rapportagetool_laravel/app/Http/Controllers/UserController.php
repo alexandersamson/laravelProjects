@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth'); //Anyone can Show, Edit and Update their own profile TODO: handle user profile permissions
+        $this->middleware('permission:matchOne,Staff,Manager,Owner', ['only' => ['index']]);
+        $this->middleware('permission:matchOne,Manager,Owner', ['only' => ['create', 'store', 'destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -89,5 +96,31 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getSelectList(){
+
+        //Instantiate assignedInvestigatorsController
+        $assignedInvestigatorsController = new AssignedInvestigatorController();
+        //Get viable Investigators
+        $viableInvestigators = $assignedInvestigatorsController->getAvailableInvestigators();
+
+        $data = array(
+            'investigators' => $viableInvestigators
+        );
+        return view('modals.includes.investigator-selector')->with('data', $data);
+    }
+
+    public function getSelectListLeader(){
+
+        //Instantiate assignedInvestigatorsController
+        $assignedInvestigatorsController = new AssignedInvestigatorController();
+        //Get viable Investigators
+        $viableInvestigators = $assignedInvestigatorsController->getAvailableInvestigators();
+
+        $data = array(
+            'investigators' => $viableInvestigators
+        );
+        return view('modals.includes.leader-investigator-selector')->with('data', $data);
     }
 }

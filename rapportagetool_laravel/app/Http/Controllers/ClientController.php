@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:matchOne,Relations,Casemanager', ['only' => ['index', 'show']]);
+        $this->middleware('permission:matchAll,Relations',             ['only' => ['create', 'store', 'destroy', 'edit', 'update']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -88,5 +94,15 @@ class ClientController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getSelectList(){
+        $clients = Client::orderBy('created_at', 'desc')->paginate(10);
+
+        $data = array(
+            'clients' => $clients,
+        );
+
+        return view('modals.includes.client-selector')->with('data', $data);
     }
 }

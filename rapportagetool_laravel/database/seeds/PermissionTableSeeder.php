@@ -13,16 +13,16 @@ class PermissionTableSeeder extends Seeder
     public function run()
     {
         $permissions = [
-            ['name' => 'Guest',             'description' => 'Can see/do nothing extra',            'bitwise_value' => 0],
-            ['name' => 'Registered',        'description' => 'Can read blog posts',                 'bitwise_value' => 1],
-            ['name' => 'Staff',             'description' => 'Can see users & can manage own blog', 'bitwise_value' => 2],
-            ['name' => 'Investigator',      'description' => 'Can manage own cases & see clients',  'bitwise_value' => 4],
-            ['name' => 'Moderator',         'description' => 'Can manage blog',                     'bitwise_value' => 8],
-            ['name' => 'Finance',           'description' => 'Can manage invoicing',                'bitwise_value' => 16],
-            ['name' => 'Relations',         'description' => 'Can manage clients',                  'bitwise_value' => 32],
-            ['name' => 'Manager',           'description' => 'Can manage cases & assign roles',     'bitwise_value' => 64],
-            ['name' => 'Administrator',     'description' => 'Can do technical/advanced things',    'bitwise_value' => 128],
-            ['name' => 'Owner',             'description' => 'Can manage Managers/Administrators',  'bitwise_value' => 256]
+            ['name' => 'Registered',        'description' => 'Can log in',                          'bitwise_value' => 0],
+            ['name' => 'Staff',             'description' => 'Can manage own posts & see users',    'bitwise_value' => 1],
+            ['name' => 'Investigator',      'description' => 'Can partially manage assigned cases', 'bitwise_value' => 2],
+            ['name' => 'Casemanager',       'description' => 'Can manage all cases & see clients',  'bitwise_value' => 4],
+            ['name' => 'Moderator',         'description' => 'Can manage all posts',                'bitwise_value' => 8],
+            ['name' => 'Finance',           'description' => 'Can manage all financial',            'bitwise_value' => 16],
+            ['name' => 'Relations',         'description' => 'Can manage all clients',              'bitwise_value' => 32],
+            ['name' => 'Manager',           'description' => 'Can manage most users',               'bitwise_value' => 64],
+            ['name' => 'Administrator',     'description' => 'Can manage technical settings',       'bitwise_value' => 128],
+            ['name' => 'Owner',             'description' => 'Can manage all users',                'bitwise_value' => 256]
         ];
         foreach($permissions as $permission){
             Permission::create($permission);

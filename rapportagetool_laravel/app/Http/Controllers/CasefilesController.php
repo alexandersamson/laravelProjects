@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Casefile;
 use App\CaseState;
+use App\Client;
 use App\Http\Controllers\Services\CasefileNumberGenerator;
-use App\Post;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -15,8 +15,8 @@ class CasefilesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('permission:Registered', ['only' => ['index', 'show']]);
-        $this->middleware('permission:Registered,Investigator', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
+        $this->middleware('permission:matchOne,Investigator,Casemanager', ['only' => ['index', 'show', 'edit', 'update']]);
+        $this->middleware('permission:matchAll,Casemanager',              ['only' => ['create', 'store', 'destroy']]);
     }
     /**
      * Display a listing of the resource.
@@ -25,19 +25,25 @@ class CasefilesController extends Controller
      */
     public function index()
     {
-
         $casefiles = Casefile::orderBy('created_at', 'desc')->paginate(10);
         $casestates = CaseState::all();
-        $assignees = array();
+
+        $assignedClientController = new AssignedClientController();
+        $assignedInvestigatorController = new AssignedInvestigatorController();
+        $assignedClients = array();
+        $assignedUsers = array();
         foreach ($casefiles as $casefile){
-            $assignees[$casefile->id] = User::where('id', $casefile->lead_investigator_index)->get()[0]->name;
+            $assignedClients[$casefile->id] = $assignedClientController->getAssignedClients($casefile->id);
+            $assignedUsers[$casefile->id] = $assignedInvestigatorController->getAssignedInvestigators($casefile->id);
         }
+
         $data = array(
             'casefiles' => $casefiles,
             'casestates' => $casestates,
-            'assignees' => $assignees,
+            'assignedClients' => $assignedClients,
+            'assignedUsers' => $assignedUsers,
         );
-
+        //return $data;
         return view('casefiles.dashboard')->with('data', $data);
     }
 
@@ -52,22 +58,15 @@ class CasefilesController extends Controller
         $caseCodeGenerator = new CasefileNumberGenerator();
         $caseCode = $caseCodeGenerator->generateCasefileCode();
 
-        //Instantiate Permissions controller
-        $permissionsController = new PermissionsController();
-
+        //Instantiate assignedInvestigatorsController
+        $assignedInvestigatorsController = new AssignedInvestigatorController();
 
         //Get viable Investigators
-        $viableUsers = array();
-        $users = User::where('permission', '>=', $permissionsController->getBitwiseValue('Investigator'))->get();
-        foreach ($users as $user) {
-            if ($permissionsController->checkPermission($permissionsController->getBitwiseValue('Investigator'), $user->permission)[0]['permission']) {
-                $viableUsers[] = $user;
-            }
-        }
+        $viableInvestigators = $assignedInvestigatorsController->getAvailableInvestigators();
 
         $data = array(
             'casecode' => $caseCode,
-            'investigators' => $viableUsers
+            'investigators' => $viableInvestigators
         );
         return view('casefiles.create')->with('data', $data);
     }
@@ -128,4 +127,42 @@ class CasefilesController extends Controller
     {
         //
     }
+
+    public function addLeadInvestigator(Request $request){
+
+        $input = $request->all();
+        $users = array();
+        if(isset($input['data'])) {
+            $users[] = User::where('id', $input['data'])->get();
+        }
+
+        return view('casefiles.elements.select-leadinvestigator')->with('users', $users);
+
+    }
+
+    public function addInvestigators(Request $request){
+
+        $input = $request->all();
+        $users = array();
+
+        if(isset($input['data'])) {
+            foreach ($input['data'] as $selected) {
+                $users[] = User::where('id', $selected)->get();
+            }
+        }
+        return view('casefiles.elements.select-investigators')->with('users', $users);
+
+    }
+
+    public function addClients(Request $request){
+
+        $input = $request->all();
+        $users = array();
+        foreach ($input['data'] as $selected) {
+            $users[] = Client::where('id', $selected)->get();
+        }
+        return view('casefiles.elements.select-clients')->with('users', $users);
+
+    }
+
 }

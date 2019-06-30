@@ -39,3 +39,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 //testing
 Route::get('/testpermissionsvalue', 'PermissionsController@testBitwiseValue');
 Route::get('/testrandom', 'Services\CasefileNumberGenerator@generateCasefileCode');
+
+
+//Ajax
+Route::get('/ajaxTestRequest', 'HomeController@ajaxRequest');
+Route::post('/ajaxTestRequest', 'HomeController@ajaxRequestPost');
+Route::get('/ajaxGetLeadInvestigatorSelectList', 'UserController@getSelectListLeader');
+Route::get('/ajaxGetInvestigatorSelectList', 'UserController@getSelectList');
+Route::get('/ajaxGetClientSelectList', 'ClientController@getSelectList');
+
+Route::post('/addLeadInvestigator', 'CasefilesController@addLeadInvestigator');
+Route::post('/addInvestigators', 'CasefilesController@addInvestigators');
+Route::post('/addClients', 'CasefilesController@addClients');
