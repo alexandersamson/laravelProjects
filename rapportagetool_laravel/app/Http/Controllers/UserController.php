@@ -61,7 +61,33 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        return view('users.profile')->with('user', $user);
+        $creator = User::find($user->created_by_id);
+        $createdAt = $user->created_at;
+
+        $data = array(
+            'user' => $user,
+            'creator' => $creator,
+            'createdAt' => $createdAt
+        );
+
+
+        return view('users.profile')->with('data', $data);
+    }
+
+    public function showModal($user_id)
+    {
+        $user = User::find($user_id);
+        $creator = User::find($user->created_by_id);
+        $createdAt = $user->created_at;
+
+        $data = array(
+            'user' => $user,
+            'creator' => $creator,
+            'createdAt' => $createdAt
+        );
+
+
+        return view('users.modals.profile-modal')->with('data', $data);
     }
 
     /**

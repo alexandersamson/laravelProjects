@@ -23,6 +23,7 @@ Route::resource('posts', 'PostsController');
 Route::resource('casefiles', 'CasefilesController');
 Route::resource('clients', 'ClientController');
 Route::resource('users', 'UserController');
+Route::get('users/profile-modal/{user_id}', 'UserController@showModal');
 
 //Route::get('/users', function () {
 //    return view('pages.users');
@@ -39,6 +40,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 //testing
 Route::get('/testpermissionsvalue', 'PermissionsController@testBitwiseValue');
 Route::get('/testrandom', 'Services\CasefileNumberGenerator@generateCasefileCode');
+
+//Media displaying
+Route::get('/images/users/profilepicture/{user_id}/{slug}', 'ImagesController@showUserProfilePicture')->name('UserProfilePicture');
+
 
 
 //Ajax

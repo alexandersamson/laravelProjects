@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Post;
@@ -96,7 +97,19 @@ class PostsController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
-        return view('posts.show')->with('post', $post);
+        $creator = User::find($post->user_id);
+        $modifier = User::find($post->user_id);
+        $createdAt = $post->created_at;
+        $modifiedAt = $post->updated_at;
+
+        $data = array(
+            'post' => $post,
+            'creator' => $creator,
+            'createdAt' => $createdAt,
+            'modifiedAt' => $modifiedAt,
+            'modifier' => $modifier
+        );
+        return view('posts.show')->with('data', $data);
     }
 
     /**
@@ -153,7 +166,9 @@ class PostsController extends Controller
         if($request->hasFile('cover_image')) {
             $post->cover_image = $filenameToStore;
         }
+        $post->touch();
         $post->save();
+
 
         return redirect('/posts')->with('success', 'Post updated');
     }

@@ -1,7 +1,15 @@
 // Some globals
 var selectedBtnOptions = {};
 var tempOptionStorage = {};
-
+var usertypes = {
+    "leader":"leader",
+    "investigator":"investigator",
+    "client":"client"};
+// private $containerId = array (
+//     'leader' => 'leader',
+//     'investigator' => 'investigator',
+//     'client' => 'client'
+// );
 
 //Specific global storage
 var globalStorage = {};
@@ -36,12 +44,12 @@ $('#testModal').on('show.bs.modal', function (event) {
 
     $.ajax({
         type: 'POST',
-        url: '/ajaxRequest',
+        url: '/ajaxTestRequest',
         data: {name: name, password: password, email: email},
         success: function (data) {
-            returnValue = data.success;
+            returnValue = JSON.stringify(data);
             modal.find('.modal-title').text(btnDataHeader);
-            modal.find('.modal-body').html(btnDataBody + '<br>' + returnValue);
+            modal.find('.modal-body').html('<small>' + returnValue + '</small>');
         }
     });
     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
@@ -97,8 +105,8 @@ $(document).on('click', '.selectBtnRadio', function () {
     if (dontSet === false){
         selectedBtnOptions[0] = this;
     }
-    tempOptionStorage = [];
-    tempOptionStorage.push($(this)[0].dataset.value);
+    tempOptionStorage = {};
+    tempOptionStorage[0]=$(this)[0].dataset.value;
     console.log(tempOptionStorage);
 });
 
@@ -138,6 +146,42 @@ $(document).on('click', '.modalSaveBtn', function () {
             $('#genericFormModal').modal('hide');
             selectedBtnOptions = {};
             tempOptionStorage = {};
+        }
+    });
+});
+
+$(document).on('click', '.modalCancelBtn', function () {
+    //Clear the temp variables
+    selectedBtnOptions = {};
+    tempOptionStorage = {};
+});
+
+$(document).on('click', '.btnDeleteItem', function () {
+    url = $(this)[0].dataset.url;
+    container = $(this)[0].dataset.container;
+    $(container).find(url).remove();
+});
+
+$(document).on('click', '.btnModalInfoUser', function () {
+    //$('#containter-lead-investigator').html($(this)[0].dataset.save);
+    $('#genericInfoModal').modal().find('.modal-body').html($loader + "<br><p style=\"text-align:center\">Loading...</p></center>");
+
+    preUrl = "";
+    console.log($(this)[0].dataset.usertype);
+    if($(this)[0].dataset.usertype === usertypes.investigator || $(this)[0].dataset.usertype === usertypes.leader){
+        preUrl = "users"
+    } else if($(this)[0].dataset.usertype === usertypes.client){
+        preUrl = "clients"
+    }
+    url = $(this)[0].dataset.url;
+
+    $.ajax({
+        type: 'GET',
+        url: '/'+preUrl+'/profile-modal/' + url,
+        data: {},
+        success: function (data) {
+            returnValue = data;
+            $('#genericInfoModal').modal().find('.modal-body').html(returnValue);
         }
     });
 });

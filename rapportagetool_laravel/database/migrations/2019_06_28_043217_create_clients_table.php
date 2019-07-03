@@ -24,6 +24,7 @@ class CreateClientsTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->rememberToken();
+            $table->bigInteger('created_by_id');
             $table->string('style')->default('default');
             $table->boolean('active')->default(1);
             $table->boolean('deleted')->default(0);

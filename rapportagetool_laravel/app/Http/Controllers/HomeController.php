@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use Illuminate\Database\Migrations\Migration;
 use Illuminate\Http\Request;
 use App\User;
 
@@ -44,6 +46,11 @@ class HomeController extends Controller
 
     {
         $input = $request->all();
-        return response()->json(['success'=>'AJAX TEST OK']);
+        $mysqlData = DB::table('migrations')->orderBy('batch', 'desc')->paginate(20);
+        $data = array(
+            'okMessage' => 'AJAX TEST OK',
+            'mysqlData' => $mysqlData,
+        );
+        return response()->json($data);
     }
 }

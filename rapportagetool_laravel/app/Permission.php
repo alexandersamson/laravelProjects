@@ -13,4 +13,8 @@ class Permission extends Model
     public function users(){
         return $this->hasMany('App\User');
     }
+
+    public function clients(){
+        return $this->hasMany('App\Client');
+    }
 }

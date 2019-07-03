@@ -91,6 +91,10 @@
       <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/justinrainbow/json-schema" />
       <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/laravelcollective/html" />
       <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/unisharp/laravel-ckeditor" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/intervention/image" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

@@ -18,7 +18,9 @@
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/fideloper/proxy" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/filp/whoops" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/fzaninotto/faker" />
+      <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/guzzlehttp/psr7" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/hamcrest/hamcrest-php" />
+      <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/intervention/image" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/jakub-onderka/php-console-color" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/jakub-onderka/php-console-highlighter" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/justinrainbow/json-schema" />
@@ -48,9 +50,11 @@
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/phpunit/php-token-stream" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/phpunit/phpunit" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/psr/container" />
+      <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/psr/http-message" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/psr/log" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/psr/simple-cache" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/psy/psysh" />
+      <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/ralouphie/getallheaders" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/ramsey/uuid" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/sebastian/code-unit-reverse-lookup" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/sebastian/comparator" />

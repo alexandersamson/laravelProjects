@@ -86,6 +86,36 @@ class PermissionsController extends Controller
     }
 
 
+    public function getPermissionsTextArray($userPermission){
+        $permissions = array();
+
+        //Check whether or not the userPermission parameter has been set. If it has been set manually, use that value.
+        //If it's not been set, then use Auth::id()->permission value (permission of current user logged in)
+        if(is_numeric ($userPermission)) {
+            $userStartPermission = $userPermission;
+        } else {
+            $userStartPermission = User::find(Auth::id())->permission;
+        }
+
+        //The actual checkPermission method:
+        $up = $userStartPermission;
+        //Get highest permission value
+        $startValueBitwise = Permission::orderBy('bitwise_value', 'desc')->get()[0]->bitwise_value * 2;
+        $sv = $startValueBitwise;
+        //Bitwise operations
+        $pCounter = 0;
+        while($sv >= 1){
+            if ($up >= $sv) {
+                $up -= $sv;
+                $permissions[] = Permission::where('bitwise_value', $sv)->get()[0]['name'];
+            }
+            $sv /= 2;
+        }
+
+        return $permissions;
+    }
+
+
     //Some test to test getBitwiseValue
     public function testBitwiseValue(){
         return $this->getBitwiseValue(['Guest', 'Investigator', 'Registered']); // should return 5

@@ -14,7 +14,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button"
-                        class="btn btn-secondary"
+                        class="btn btn-secondary modalCancelBtn"
                         data-dismiss="modal">Cancel</button>
                 <span class="pull-right">
           <button type="button" data-save="null" id="genericFormModalSaveBtn" class="btn btn-primary modalSaveBtn">
