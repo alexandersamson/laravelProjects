@@ -68,15 +68,22 @@ class CasefilesController extends Controller
         $caseCodeGenerator = new CasefileNumberGenerator();
         $caseCode = $caseCodeGenerator->generateCasefileCode();
 
-        //Instantiate assignedInvestigatorsController
-        $assignedInvestigatorsController = new AssignedInvestigatorController();
+        //get possible casestates
+        $caseStates = CaseState::all();
+
+        //Instantiate helpers
+        $assignedInvestigatorController = new AssignedInvestigatorController();
+        $assignedClientController = new AssignedClientController();
 
         //Get viable Investigators
-        $viableInvestigators = $assignedInvestigatorsController->getAvailableInvestigators();
+        $viableInvestigators = $assignedInvestigatorController->getAvailableInvestigators();
+        $viableClients = $assignedClientController->getAvailableClients();
 
         $data = array(
             'casecode' => $caseCode,
-            'investigators' => $viableInvestigators
+            'investigators' => $viableInvestigators,
+            'clients' => $viableClients,
+            'casestates' => $caseStates
         );
         return view('casefiles.create')->with('data', $data);
     }
@@ -95,7 +102,8 @@ class CasefilesController extends Controller
             'description' => 'required',
             $this->containerId['leader'] => 'required',
             'investigators.*.id' => 'nullable',
-            'clients.*.id' => 'nullable'
+            'clients.*.id' => 'nullable',
+            'case-state' => 'required'
         ]);
 
         //return $request->input($this->containerId['investigator']);
@@ -104,7 +112,7 @@ class CasefilesController extends Controller
         $casefile ->casecode = $request->input('casecode');
         $casefile ->description = $request->input('description');
         $casefile ->user_id = auth()->user()->id;
-        $casefile ->case_state_index = 1;
+        $casefile ->case_state_index = $request->input('case-state');
         $casefile ->lead_investigator_index = 0;
         $casefile ->client_index = 0;
         $casefile ->save();

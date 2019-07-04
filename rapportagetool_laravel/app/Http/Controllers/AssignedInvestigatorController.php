@@ -34,7 +34,7 @@ class AssignedInvestigatorController extends Controller
             $q->where('casefile_id', '=', $caseId);
             //$q->where('is_lead_investigator', '=', true);
             //$q->where('can_read_only', '=', false);
-        })->orderBy('is_lead_investigator', 'desc')->orderBy('can_read_only', 'asc')->take(4)->get();
+        })->orderBy('is_lead_investigator', 'desc')->orderBy('can_read_only', 'asc')->take(10)->get();
 
         return $assignedInvestigators;
     }

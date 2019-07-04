@@ -33,31 +33,14 @@
                     <div class="col-sm-2">
                         <div class="btn-group btn-group-sm">
                             <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="">{{$data['casestates'][$casefile->case_state_index]->name}}</span>
+                                <span class="">{{$data['casestates'][$casefile->case_state_index-1]->name}}</span>
                             </button>
                             <div class="dropdown-menu">
                                 <h6 class="dropdown-header text-center">Set {{$casefile->casecode}} status to</h6>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Created</a>
-                                <a class="dropdown-item" href="#">Reserved</a>
-                                <a class="dropdown-item" href="#">Assigned</a>
-                                <a class="dropdown-item" href="#">Intake</a>
-                                <a class="dropdown-item" href="#">Proposal</a>
-                                <a class="dropdown-item" href="#">Agreement</a>
-                                <a class="dropdown-item" href="#">Down Payment</a>
-                                <a class="dropdown-item" href="#">Active</a>
-                                <a class="dropdown-item" href="#">On Hold</a>
-                                <a class="dropdown-item" href="#">Report</a>
-                                <a class="dropdown-item" href="#">Legal/Court</a>
-                                <a class="dropdown-item" href="#">Invoice</a>
-                                <a class="dropdown-item" href="#">Completed</a>
-                                <a class="dropdown-item" href="#">Rejected</a>
-                                <a class="dropdown-item" href="#">Cold</a>
-                                <a class="dropdown-item" href="#">Payment Due</a>
-                                <a class="dropdown-item" href="#">Proposal Void</a>
-                                <a class="dropdown-item" href="#">Inactive</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-danger" href="#">Delete</a>
+                                @foreach($data['casestates'] as $caseState)
+                                    <a id="case-state-{{$caseState['id']}}" class="dropdown-item @if($casefile->case_state_index == $caseState['id']) active @endif " href="#">{{$caseState['name']}}</a>
+                                @endforeach
                             </div>
                         </div>
                         {{--                        <h5><span class="font-weight-normal badge badge-success">{{$data['casestates'][$casefile->case_state_index]->name}}</span></h5>--}}

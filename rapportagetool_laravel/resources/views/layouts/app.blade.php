@@ -28,9 +28,14 @@
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
-<script src="{{ asset('js/custom.js') }}"></script>
 <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+<script src="/vendor/clipboard/dist/clipboard.min.js"></script>
+<script src="/vendor/sortable/jquery-sortable-min.js"></script>
+
+
 <script>
-    CKEDITOR.replace( 'article-ckeditor' );
+    try{
+        CKEDITOR.replace( 'article-ckeditor' );
+    } catch (e) {console.log('ckeditor not loaded');}
 </script>
 </html>

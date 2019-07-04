@@ -7,7 +7,7 @@
     <h1>Create Casefile</h1>
     {!! Form::open(['action' => 'CasefilesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
         <div class="form-group">
-            {{Form::label('casecode', 'CaseCode: '.$data['casecode'].'')}}
+            {{Form::button('CaseCode: '.$data['casecode'].' <span id="caseCodeCopyBadge" class="text-light badge badge-primary font-weight-light">Click to copy</span>', ['data-clipboard-return-id-target'=> 'caseCodeCopyBadge', 'data-clipboard-text'=> $data['casecode'], 'type' => 'button', 'class' => 'btn btn-light btn-sm  btnClipboard'] ) }}
             {{Form::hidden('casecode', $data['casecode'])}}
 
         </div>
@@ -17,6 +17,10 @@
         <div class="form-group">
             {{Form::label('description', 'Description')}}
             {{Form::textarea('description', '', ['id' => 'article-ckeditor', 'class' => 'form-control', 'placeholder' => 'Body message'])}}
+        </div>
+        <div class="form-group">
+            {{Form::label('case-state', 'Status')}}
+            @include('casefiles.elements.select-case-state-dropdown')
         </div>
         <div class="form-group">
             {{Form::label('assignees', 'Assignees')}}

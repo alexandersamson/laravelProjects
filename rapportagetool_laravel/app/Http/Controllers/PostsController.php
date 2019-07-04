@@ -82,6 +82,7 @@ class PostsController extends Controller
         $post->title = $request->input('title');
         $post->body = $request->input('body');
         $post->user_id = auth()->user()->id;
+        $post->modifier_id = auth()->user()->id;
         $post->cover_image = $filenameToStore;
         $post->save();
 
@@ -98,7 +99,7 @@ class PostsController extends Controller
     {
         $post = Post::find($id);
         $creator = User::find($post->user_id);
-        $modifier = User::find($post->user_id);
+        $modifier = User::find($post->modifier_id);
         $createdAt = $post->created_at;
         $modifiedAt = $post->updated_at;
 
@@ -163,6 +164,7 @@ class PostsController extends Controller
         $post = Post::find($id);
         $post->title = $request->input('title');
         $post->body = $request->input('body');
+        $post->modifier_id = auth()->user()->id;
         if($request->hasFile('cover_image')) {
             $post->cover_image = $filenameToStore;
         }

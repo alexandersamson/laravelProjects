@@ -40,6 +40,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 //testing
 Route::get('/testpermissionsvalue', 'PermissionsController@testBitwiseValue');
 Route::get('/testrandom', 'Services\CasefileNumberGenerator@generateCasefileCode');
+Route::resource('/testarea', 'TestareaController');
 
 //Media displaying
 Route::get('/images/users/profilepicture/{user_id}/{slug}', 'ImagesController@showUserProfilePicture')->name('UserProfilePicture');

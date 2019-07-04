@@ -24,7 +24,7 @@ class AssignedClientController extends Controller
             $q->where('casefile_id', '=', $caseId);
             //$q->where('is_lead_investigator', '=', true);
             //$q->where('can_read_only', '=', false);
-        })->orderBy('is_first_contact', 'desc')->take(4)->get();
+        })->orderBy('is_first_contact', 'desc')->take(10)->get();
 
         return $assignedClients;
     }

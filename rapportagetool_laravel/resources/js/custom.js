@@ -5,20 +5,62 @@ var usertypes = {
     "leader":"leader",
     "investigator":"investigator",
     "client":"client"};
+//Specific global storage
+var globalStorage = {};
+
+
 // private $containerId = array (
 //     'leader' => 'leader',
 //     'investigator' => 'investigator',
 //     'client' => 'client'
 // );
 
-//Specific global storage
-var globalStorage = {};
+
+
 
 // Basic AJAX setup
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
+});
+
+//Sortable
+$(function  () {
+    var group = $("ul.sortableContainer").sortable({
+        group: 'serialize',
+        delay: 150,
+        handle: 'i.icon-move',
+        onDragStart: function ($item, container, _super) {
+            // Duplicate items of the no drop area
+            if(!container.options.drop)
+                $item.clone().insertAfter($item);
+            _super($item, container);
+        },
+        onDrop: function ($item, container, _super) {
+            var data = group.sortable("serialize").get();
+
+            var jsonString = JSON.stringify(data, null, ' ');
+
+            console.log(jsonString);
+            _super($item, container);
+        }
+    });
+});
+
+//Clipboard
+$( document ).ready(function() {
+    var btns = document.querySelectorAll('.btnClipboard');
+    var clipboardJs = new ClipboardJS(btns);
+    clipboardJs.on('success', function (e) {
+        $(document).find('#'+$(e.trigger)[0].dataset.clipboardReturnIdTarget).html("&nbsp;&nbsp;&nbsp;&nbsp;Copied&nbsp;&nbsp;&nbsp;&nbsp;");
+        $(document).find('#'+$(e.trigger)[0].dataset.clipboardReturnIdTarget).addClass("badge-success");
+    });
+    clipboardJs.on('error', function (e) {
+        console.log(e);
+        $(document).find('#'+$(e.trigger)[0].dataset.clipboardReturnIdTarget).html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+        $(document).find('#'+$(e.trigger)[0].dataset.clipboardReturnIdTarget).addClass("badge-danger");
+    });
 });
 
 //loader for modals etc
