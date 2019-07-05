@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-body">
                 <div align="center">
-                    <img alt="cover image" width="" src="/images/users/profilepicture/{{$data['user']->id}}/profilepicture">
+                    <img alt="cover image" width="" src="/images/profilepicture/users/{{$data['user']->id}}/profilepicture">
                     <h5 class="card-title">{{$data['user']->name}}</h5>
                     <h6 class="card-subtitle mb-2 text-muted"><a href="mailto:{{$data['user']->email}}">{{ $data['user']->email }}</a> | <a href="tel:{{$data['user']->phone}}">{{ $data['user']->phone }}</a></h6>
                     <small class="card-subtitle mb-2 text-muted">

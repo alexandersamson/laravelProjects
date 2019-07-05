@@ -11,7 +11,7 @@
                 </small>
             </div>
             <div class="pr-1">
-                <a class="btn text-sm-left align-self-sm-start btn-sm btn-primary font-weight-light selectBtnMulti" data-url="addClients" data-value="{{$client->id}}" id="btnRadio{{$client->id}}" href="#}">Select this user</a>
+                <a class="btn text-sm-left align-self-sm-start btn-sm btn-primary font-weight-light selectBtnMulti" data-url="addClients" data-value="{{$client->id}}" id="btnRadio{{$client->id}}" href="#">Select this user</a>
             </div>
         </div>
     @endforeach

@@ -22,7 +22,8 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->string('phone')->nullable();
             $table->string('profile_picture_path');
-            $table->bigInteger('created_by_id');
+            $table->bigInteger('user_id');
+            $table->bigInteger('modifier_id');
             $table->string('style')->default('default');
             $table->boolean('active')->default(1);
             $table->bigInteger('permission')->unsigned()->default(1);

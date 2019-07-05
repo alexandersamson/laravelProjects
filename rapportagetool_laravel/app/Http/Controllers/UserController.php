@@ -61,12 +61,16 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        $creator = User::find($user->created_by_id);
+        $creator = User::find($user->user_id);
+        $modifier = User::find($user->modifier_id);
         $createdAt = $user->created_at;
+        $modifiedAt = $user->updated_at;
 
         $data = array(
             'user' => $user,
             'creator' => $creator,
+            'modifier' => $modifier,
+            'modifiedAt' => $modifiedAt,
             'createdAt' => $createdAt
         );
 
@@ -77,12 +81,16 @@ class UserController extends Controller
     public function showModal($user_id)
     {
         $user = User::find($user_id);
-        $creator = User::find($user->created_by_id);
+        $creator = User::find($user->user_id);
+        $modifier = User::find($user->modifier_id);
         $createdAt = $user->created_at;
+        $modifiedAt = $user->updated_at;
 
         $data = array(
             'user' => $user,
             'creator' => $creator,
+            'modifier' => $modifier,
+            'modifiedAt' => $modifiedAt,
             'createdAt' => $createdAt
         );
 

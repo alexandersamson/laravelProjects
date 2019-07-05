@@ -1,7 +1,8 @@
-<?php
+<?php /** @noinspection PhpUnhandledExceptionInspection */
 
 namespace App\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Permission;
 use App\User;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PermissionsController extends Controller
 {
-    public function checkPermission($permissionRequired, $userPermission = NULL, $checkAny = false){
+    public function checkPermission($permissionRequired, $userPermission = NULL, $checkAny = false, $gatekeeping = false){
 
         //First check whether or not someone is logged in
         //If no one is logged is, check if resource is available for Guests (0 permission value)
@@ -18,10 +19,17 @@ class PermissionsController extends Controller
         //This extra failsafe is intended for unintended leaks and improper settings
         if(!Auth::id()){
             if($permissionRequired == 0){
+                if($gatekeeping == true){
+                    return true;
+                }
                 return ['permission' => true];
             }
             else {
-                return ['permission' => false];
+                if($gatekeeping == true){
+                    throw new AuthorizationException('No permission');
+                } else {
+                    return ['permission' => false];
+                }
             }
         }
 
@@ -48,6 +56,9 @@ class PermissionsController extends Controller
                 if($up >= $sv){
                     //if checkAny == true this method wil return true on the first match
                     if($checkAny == true){
+                        if($gatekeeping == true){
+                            return true;
+                        }
                         return ['permission' => true];
                     }
                     $up -= $sv;
@@ -63,10 +74,18 @@ class PermissionsController extends Controller
 
         //return true if all permissions matches
         if($pCounter == 0) {
-            return ['permission' => true];
+            if($gatekeeping == true){
+                return true;
+            }  else {
+                return ['permission' => true];
+            }
         }
         else{
-            return ['permission' => false];
+            if($gatekeeping == true){
+                throw new AuthorizationException('No permission');
+            } else {
+                return ['permission' => false];
+            }
         }
     }
 

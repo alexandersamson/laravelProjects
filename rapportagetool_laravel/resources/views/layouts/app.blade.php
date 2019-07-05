@@ -18,6 +18,9 @@
 </head>
 <body>
     <div id="app">
+        @include('modals.generic-info-modal')
+        @include('modals.generic-form-modal')
+        @include('modals.generic-delete-modal')
         @include('includes.navbar')
         <main class="container">
             @include('includes.messages')
@@ -30,7 +33,6 @@
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
 <script src="/vendor/clipboard/dist/clipboard.min.js"></script>
-<script src="/vendor/sortable/jquery-sortable-min.js"></script>
 
 
 <script>

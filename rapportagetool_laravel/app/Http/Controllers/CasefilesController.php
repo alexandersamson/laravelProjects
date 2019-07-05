@@ -83,7 +83,7 @@ class CasefilesController extends Controller
             'casecode' => $caseCode,
             'investigators' => $viableInvestigators,
             'clients' => $viableClients,
-            'casestates' => $caseStates
+            'casestates' => $caseStates,
         );
         return view('casefiles.create')->with('data', $data);
     }
@@ -112,6 +112,7 @@ class CasefilesController extends Controller
         $casefile ->casecode = $request->input('casecode');
         $casefile ->description = $request->input('description');
         $casefile ->user_id = auth()->user()->id;
+        $casefile ->modifier_id= auth()->user()->id;
         $casefile ->case_state_index = $request->input('case-state');
         $casefile ->lead_investigator_index = 0;
         $casefile ->client_index = 0;

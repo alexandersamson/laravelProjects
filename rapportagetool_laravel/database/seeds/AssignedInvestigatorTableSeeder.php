@@ -21,9 +21,10 @@ class AssignedInvestigatorTableSeeder extends Seeder
             ['user_id' => 4, 'casefile_id' => 3, 'is_lead_investigator' => false, 'can_read_only' => true],
             ['user_id' => 5, 'casefile_id' => 4, 'is_lead_investigator' => true, 'can_read_only' => false],
             ['user_id' => 4, 'casefile_id' => 4, 'is_lead_investigator' => false, 'can_read_only' => false],
-            ['user_id' => 1, 'casefile_id' => 5, 'is_lead_investigator' => true, 'can_read_only' => false],
-            ['user_id' => 1, 'casefile_id' => 6, 'is_lead_investigator' => true, 'can_read_only' => false],
-            ['user_id' => 4, 'casefile_id' => 6, 'is_lead_investigator' => false, 'can_read_only' => true]
+            ['user_id' => 2, 'casefile_id' => 5, 'is_lead_investigator' => true, 'can_read_only' => false],
+            ['user_id' => 2, 'casefile_id' => 6, 'is_lead_investigator' => true, 'can_read_only' => false],
+            ['user_id' => 4, 'casefile_id' => 6, 'is_lead_investigator' => false, 'can_read_only' => true],
+            ['user_id' => 3, 'casefile_id' => 6, 'is_lead_investigator' => false, 'can_read_only' => true]
 
         ];
         foreach($assignedInvestigators as $aI){

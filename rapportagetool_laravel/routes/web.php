@@ -24,6 +24,12 @@ Route::resource('casefiles', 'CasefilesController');
 Route::resource('clients', 'ClientController');
 Route::resource('users', 'UserController');
 Route::get('users/profile-modal/{user_id}', 'UserController@showModal');
+Route::get('clients/profile-modal/{user_id}', 'ClientController@showModal');
+Route::get('organizations/profile-modal/{user_id}', 'OrganizationsController@showModal');
+
+//CheckDelete and Delete routes
+Route::get('checkdelete/{category}/{id}', 'CheckDeleteController@checkDelete');
+Route::get('delete/{category}/{id}', 'CheckDeleteController@delete');
 
 //Route::get('/users', function () {
 //    return view('pages.users');
@@ -40,10 +46,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 //testing
 Route::get('/testpermissionsvalue', 'PermissionsController@testBitwiseValue');
 Route::get('/testrandom', 'Services\CasefileNumberGenerator@generateCasefileCode');
+Route::get('/testavedarray/{cat}/{id}', 'CavedButtonsController@getCavedBtnArray');
 Route::resource('/testarea', 'TestareaController');
 
 //Media displaying
-Route::get('/images/users/profilepicture/{user_id}/{slug}', 'ImagesController@showUserProfilePicture')->name('UserProfilePicture');
+Route::get('/images/profilepicture/{category}/{user_id}/{slug}', 'ImagesController@showUserProfilePicture')->name('UserProfilePicture');
 
 
 

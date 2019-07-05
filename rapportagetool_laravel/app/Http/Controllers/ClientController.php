@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
 use App\Client;
 use Illuminate\Http\Request;
 
@@ -104,5 +103,21 @@ class ClientController extends Controller
         );
 
         return view('modals.includes.client-selector')->with('data', $data);
+    }
+
+    public function showModal($client_id)
+    {
+        $client = Client::find($client_id);
+        $creator = Client::find($client->created_by_id);
+        $createdAt = $client->created_at;
+
+        $data = array(
+            'client' => $client,
+            'creator' => $creator,
+            'createdAt' => $createdAt
+        );
+
+
+        return view('clients.modals.profile-modal')->with('data', $data);
     }
 }

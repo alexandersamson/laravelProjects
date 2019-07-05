@@ -24,29 +24,21 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
-
-//Sortable
-$(function  () {
-    var group = $("ul.sortableContainer").sortable({
-        group: 'serialize',
-        delay: 150,
-        handle: 'i.icon-move',
-        onDragStart: function ($item, container, _super) {
-            // Duplicate items of the no drop area
-            if(!container.options.drop)
-                $item.clone().insertAfter($item);
-            _super($item, container);
-        },
-        onDrop: function ($item, container, _super) {
-            var data = group.sortable("serialize").get();
-
-            var jsonString = JSON.stringify(data, null, ' ');
-
-            console.log(jsonString);
-            _super($item, container);
-        }
+$( function() {
+    $( "ul.droptrue" ).sortable({
+        connectWith: "ul",
+        handle: ".icon-move",
+        placeholder: "ui-state-highlight",
     });
-});
+
+    $( "ul.dropfalse" ).sortable({
+        connectWith: "ul",
+        dropOnEmpty: false
+    });
+
+    $( "#sortable1, #sortable2, #sortable3" ).disableSelection();
+} );
+
 
 //Clipboard
 $( document ).ready(function() {
@@ -127,7 +119,6 @@ $('#genericFormModal').on('show.bs.modal', function (event) {
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 });
 
-
 $(document).on('click', '.selectBtnRadio', function () {
 
     dontSet = false;
@@ -172,8 +163,6 @@ $(document).on('click', '.selectBtnMulti', function () {
     console.log(tempOptionStorage);
 });
 
-
-
 $(document).on('click', '.modalSaveBtn', function () {
     //$('#containter-lead-investigator').html($(this)[0].dataset.save);
     $('#genericFormModal').modal().find('.modal-body').html($loader + "<br><p style=\"text-align:center\">Saving...</p></center>");
@@ -192,7 +181,58 @@ $(document).on('click', '.modalSaveBtn', function () {
     });
 });
 
+
+
+
+$('#genericDeleteModal').on('show.bs.modal', function (event) {
+    var modal = $(this);
+    modal.find('.modal-body').html($loader); // Clear all HTML and show the loading spinner
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var btnDataName = button.data('name');// Extract info from data-* attributes
+    var btnDataDeleteCategory = button.data('category'); //Extract info from data-* attributes
+    var btnDataDomId = button.data('domid'); //Extract info from data-* attributes
+    var btnDataDeleteId = button.data('id'); //Extract info from data-* attributes
+    var returnValue;
+
+    $.ajax({
+        type: 'GET',
+        url: '/checkdelete/'+btnDataDeleteCategory+'/'+btnDataDeleteId,
+        data: {},
+        success: function (data) {
+            returnValue = data;
+            modal.find('.modal-body').html(returnValue);
+            modal.find('#genericDeleteModalYesBtn').attr('data-category', btnDataDeleteCategory);
+            modal.find('#genericDeleteModalYesBtn').attr('data-id', btnDataDeleteId);
+            modal.find('#genericDeleteModalYesBtn').attr('data-domid', btnDataDomId);
+        }
+    });
+});
+
+
+$(document).on('click', '#genericDeleteModalYesBtn', function () {
+    btnDataDomId = $(this)[0].dataset.domid;
+    btnDataId = $(this)[0].dataset.id;
+    btnDataCategory = $(this)[0].dataset.category;
+    $.ajax({
+        type: 'GET',
+        url: '/delete/'+btnDataCategory+'/'+btnDataId,
+        data: {},
+        success: function (data) {
+            $('#'+btnDataDomId).remove();
+            $('#genericDeleteModal').modal('hide');
+        }
+    });
+
+});
+
+
 $(document).on('click', '.modalCancelBtn', function () {
+    //Clear the temp variables
+    selectedBtnOptions = {};
+    tempOptionStorage = {};
+});
+
+$(document).on('click', '.modalNoBtn', function () {
     //Clear the temp variables
     selectedBtnOptions = {};
     tempOptionStorage = {};
@@ -214,6 +254,8 @@ $(document).on('click', '.btnModalInfoUser', function () {
         preUrl = "users"
     } else if($(this)[0].dataset.usertype === usertypes.client){
         preUrl = "clients"
+    } else if($(this)[0].dataset.usertype === usertypes.organization){
+        preUrl = "organizations"
     }
     url = $(this)[0].dataset.url;
 

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Casefile;
+use App\Client;
+use App\Post;
 use DB;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Http\Request;
@@ -26,9 +29,36 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $limitPerPage = 10;
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
-        return view('home')->with('posts', $user->posts);
+        $recentPosts = Post::orderBy('created_at', 'desc')->take($limitPerPage)->get();
+        $recentClients = Client::orderBy('created_at', 'desc')->take($limitPerPage)->get();
+        $recentCasefiles = Casefile::orderBy('created_at', 'desc')->take($limitPerPage)->get();
+        //$userCasefiles = Casefile::where('user_id','=', $user_id)->orderBy('created_at', 'desc')->take(10)->get();
+        $userCasefiles = DB::table('casefiles')
+            ->join('assigned_investigators', 'casefiles.id', '=', 'assigned_investigators.casefile_id')
+            ->where('assigned_investigators.user_id','=',$user_id)
+            ->select('casefiles.*')
+            ->orderBy('assigned_investigators.is_lead_investigator', 'DESC')
+            ->orderBy('assigned_investigators.created_at', 'DESC')->take($limitPerPage)->get();
+        $cavedButtonsController = new CavedButtonsController;
+        $cavedBtn = array();
+        $cavedBtn['posts'] = $cavedButtonsController->getCavedBtnArray('posts',$recentPosts);
+        $cavedBtn['casefiles_recent'] = $cavedButtonsController->getCavedBtnArray('casefiles',$recentCasefiles);
+        $cavedBtn['casefiles_user'] = $cavedButtonsController->getCavedBtnArray('casefiles',$userCasefiles);
+        $cavedBtn['clients_recent'] = $cavedButtonsController->getCavedBtnArray('clients',$recentClients);
+
+        //return $recentPosts;
+        $data = array(
+            'posts' => $recentPosts,
+            'casefiles_recent' => $recentCasefiles,
+            'casefiles_user' => $userCasefiles,
+            'clients_recent' => $recentClients,
+            'permission' => $user->permission,
+            'cavedBtn' => $cavedBtn
+        );
+        return view('home')->with('data', $data);
     }
 
 

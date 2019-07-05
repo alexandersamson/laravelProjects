@@ -19,6 +19,7 @@ class CreateCasefilesTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->integer('user_id');
+            $table->integer('modifier_id');
             $table->integer('case_state_index');
             $table->integer('lead_investigator_index');
             $table->integer('second_investigator_index')->nullable();

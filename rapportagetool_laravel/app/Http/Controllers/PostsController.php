@@ -78,12 +78,16 @@ class PostsController extends Controller
             $filenameToStore = 'noimage.png';
         }
 
+        $postPermissions = new PermissionsController();
+        $permissionSeed = $postPermissions->getBitwiseValue(['Staff','Moderator']); //TODO: make post permissions selectable
+
         $post = new Post;
         $post->title = $request->input('title');
         $post->body = $request->input('body');
         $post->user_id = auth()->user()->id;
         $post->modifier_id = auth()->user()->id;
         $post->cover_image = $filenameToStore;
+        $post->permission = $permissionSeed;
         $post->save();
 
         return redirect('/posts')->with('success', 'Post created');
@@ -102,13 +106,16 @@ class PostsController extends Controller
         $modifier = User::find($post->modifier_id);
         $createdAt = $post->created_at;
         $modifiedAt = $post->updated_at;
+        $cavedButtonsController = new CavedButtonsController;
+        $cavedBtnArray = $cavedButtonsController->getAvedArray('posts',$post->id);
 
         $data = array(
             'post' => $post,
             'creator' => $creator,
             'createdAt' => $createdAt,
             'modifiedAt' => $modifiedAt,
-            'modifier' => $modifier
+            'modifier' => $modifier,
+            'cavedBtnArray' => $cavedBtnArray
         );
         return view('posts.show')->with('data', $data);
     }

@@ -37,6 +37,8 @@ class CreateOrganizationsTable extends Migration
             $table->string('postal_code')->nullable();
             $table->string('country')->nullable();
             $table->boolean('terminated')->default(false);
+            $table->integer('user_id');
+            $table->integer('modifier_id');
         });
     }
 

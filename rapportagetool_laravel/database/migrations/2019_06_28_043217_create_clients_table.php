@@ -20,11 +20,13 @@ class CreateClientsTable extends Migration
             $table->string('email_work')->nullable();
             $table->string('email')->unique();
             $table->string('phone_work')->nullable();
-            $table->string('phone')->unique()->nullable();
+            $table->string('phone')->nullable();
+            $table->string('profile_picture_path');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->rememberToken();
-            $table->bigInteger('created_by_id');
+            $table->integer('user_id');
+            $table->integer('modifier_id');
             $table->string('style')->default('default');
             $table->boolean('active')->default(1);
             $table->boolean('deleted')->default(0);

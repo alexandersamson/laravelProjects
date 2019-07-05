@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('modals.generic-info-modal')
-    @include('modals.generic-form-modal')
 
     <h1>Create Casefile</h1>
     {!! Form::open(['action' => 'CasefilesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}

@@ -14,7 +14,7 @@
             </div>
             <div class="modal-footer">
                 <span class="pull-right">
-                  <button type="button" data-save="null" data-dismiss="modal" id="genericFormModalOkBtn" class="btn btn-primary modalOkBtn">
+                  <button type="button" data-save="null" data-dismiss="modal" id="genericInfoModalOkBtn" class="btn btn-primary modalOkBtn">
                     OK
                   </button>
                 </span>
