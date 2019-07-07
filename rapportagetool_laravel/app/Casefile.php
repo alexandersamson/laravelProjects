@@ -6,17 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Casefile extends Model
 {
+    protected $table = 'casefiles';
     //
     public function caseState(){
         return $this->belongsTo('App\CaseState');
     }
 
     public function user(){
-        return $this->belongsTo('App\User');
-    }
-
-    public function client(){
-        return $this->belongsTo('App\Client');
+        return $this->belongsTo('App\User', 'creator_id');
     }
 
     public function assignedInvestigators(){
@@ -24,6 +21,10 @@ class Casefile extends Model
     }
 
     public function assignedClients(){
-        return $this->hasMany('App\AssignedClients');
+        return $this->hasMany('App\AssignedClient');
+    }
+
+    public function assignedSubjects(){
+        return $this->hasMany('App\AssignedSubject');
     }
 }

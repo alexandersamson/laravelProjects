@@ -34,6 +34,33 @@ i.icon-move:hover{
   top:-2px;
 }
 
+.btn-xs-div{
+  height: 18px;
+  line-height: 12px;
+  font-size: 1em !important;
+}
+
+.fixed-width-125{
+  width: 125px !important;
+  overflow: hidden;
+}
+
+.fixed-width-100{
+  width: 100px !important;
+  overflow: hidden;
+}
+
+.bg-succes-light{
+  background-color: rgba(225, 250, 230, 0.50);
+}
+
+.bg-warning-light{
+  background-color: rgba(250, 250, 200, 0.50);
+}
+
+
+
+
 
 #sortable1, #sortable2, #sortable3 {
   list-style-type: none;

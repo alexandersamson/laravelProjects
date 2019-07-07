@@ -14,7 +14,4 @@ class AssignedClient extends Model
         return $this->belongsTo('App\Client');
     }
 
-    public function organization(){
-        return $this->belongsTo('App\Organization');
-    }
 }

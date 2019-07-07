@@ -3,7 +3,7 @@
 use App\CaseState;
 use App\Post;
 use Illuminate\Database\Seeder;
-use App\Http\Controllers\PermissionsController;
+use App\Http\Controllers\Services\PermissionsService;
 
 class PostsTableSeeder extends Seeder
 {
@@ -14,10 +14,10 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        $postPermissions = new PermissionsController();
+        $postPermissions = new PermissionsService();
         $permissionSeed = $postPermissions->getBitwiseValue(['Staff','Moderator']);
         $posts = [
-            ['title' => 'First test post', 'body' => 'The fox jumps over the fence.', 'cover_image' => 'noimage.png', 'user_id' => 1,  'modifier_id' => 1,  'permission' => $permissionSeed],
+            ['title' => 'First test post', 'body' => 'The fox jumps over the fence.', 'cover_image' => 'noimage.png', 'creator_id' => 1,  'modifier_id' => 1,  'permission' => $permissionSeed],
         ];
         foreach($posts as $post){
             Post::create($post);

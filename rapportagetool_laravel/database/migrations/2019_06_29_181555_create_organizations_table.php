@@ -16,6 +16,8 @@ class CreateOrganizationsTable extends Migration
         Schema::create('organizations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->integer('creator_id');
+            $table->integer('modifier_id');
             $table->string('name')->unique();
             $table->string('vat')->nullable();
             $table->string('coc')->nullable();
@@ -32,13 +34,12 @@ class CreateOrganizationsTable extends Migration
             $table->integer('cto_id')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
-            $table->string('adress')->nullable();
-            $table->string('city')->nullable();
+            $table->string('address')->nullable();
             $table->string('postal_code')->nullable();
+            $table->string('city')->nullable();
             $table->string('country')->nullable();
             $table->boolean('terminated')->default(false);
-            $table->integer('user_id');
-            $table->integer('modifier_id');
+            $table->boolean('deleted')->default(false);
         });
     }
 

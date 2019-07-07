@@ -20,6 +20,7 @@ class CreateAssignedInvestigatorsTable extends Migration
             $table->integer('casefile_id');
             $table->boolean('is_lead_investigator')->default(false);
             $table->boolean('can_read_only')->default(false);
+            $table->integer('creator_id')->nullable();
         });
     }
 

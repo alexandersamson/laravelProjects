@@ -18,7 +18,7 @@ class CreateCasefilesTable extends Migration
             $table->string('casecode')->unique();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->integer('user_id');
+            $table->integer('creator_id');
             $table->integer('modifier_id');
             $table->integer('case_state_index');
             $table->integer('lead_investigator_index');
@@ -26,6 +26,7 @@ class CreateCasefilesTable extends Migration
             $table->integer('client_index');
             $table->string('style')->default('default');
             $table->boolean('active')->default(1);
+            $table->boolean('deleted')->default(false);
             $table->biginteger('permission')->unsigned()->default(0);
             $table->timestamps();
         });

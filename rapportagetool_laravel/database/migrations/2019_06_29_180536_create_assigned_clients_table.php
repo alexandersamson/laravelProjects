@@ -20,6 +20,7 @@ class CreateAssignedClientsTable extends Migration
             $table->integer('casefile_id');
             $table->boolean('is_first_contact')->default(false);
             $table->boolean('can_read_only')->default(false);
+            $table->integer('creator_id')->nullable();
         });
     }
 

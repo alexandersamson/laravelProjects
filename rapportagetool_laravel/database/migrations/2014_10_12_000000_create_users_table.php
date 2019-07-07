@@ -21,11 +21,16 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
             $table->string('profile_picture_path');
-            $table->bigInteger('user_id');
+            $table->integer('creator_id');
             $table->bigInteger('modifier_id');
             $table->string('style')->default('default');
             $table->boolean('active')->default(1);
+            $table->boolean('deleted')->default(false);
             $table->bigInteger('permission')->unsigned()->default(1);
             $table->timestamps();
         });

@@ -18,9 +18,10 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->mediumText('body');
             $table->string('cover_image');
-            $table->integer('user_id');
+            $table->integer('creator_id');
             $table->integer('modifier_id');
             $table->integer('permission');
+            $table->boolean('deleted')->default(false);
             $table->timestamps();
         });
     }

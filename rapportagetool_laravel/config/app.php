@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\PermissionsController;
 use Collective\Html\FormFacade;
 use Unisharp\Ckeditor\ServiceProvider;
 
@@ -165,6 +164,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        \App\Providers\Globals::class,
 
         /*
          * Package Service Providers...
@@ -219,6 +219,7 @@ return [
         'Event' => Illuminate\Support\Facades\Event::class,
         'File' => Illuminate\Support\Facades\File::class,
         'Gate' => Illuminate\Support\Facades\Gate::class,
+        'Globals' => \App\Providers\Globals::class,
         'Hash' => Illuminate\Support\Facades\Hash::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Lang' => Illuminate\Support\Facades\Lang::class,
@@ -241,7 +242,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\FormFacade::class,
-        'PermissionsController' => PermissionsController::class,
 
     ],
 

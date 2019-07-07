@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\User;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -58,7 +59,22 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        //
+        $client = Client::find($id);
+        $creator = User::find($client->creator_id);
+        $modifier = User::find($client->modifier_id);
+        $createdAt = $client->created_at;
+        $modifiedAt = $client->updated_at;
+
+        $data = array(
+            'client' => $client,
+            'creator' => $creator,
+            'modifier' => $modifier,
+            'modifiedAt' => $modifiedAt,
+            'createdAt' => $createdAt
+        );
+
+
+        return view('clients.profile')->with('data', $data);
     }
 
     /**
@@ -95,29 +111,4 @@ class ClientController extends Controller
         //
     }
 
-    public function getSelectList(){
-        $clients = Client::orderBy('created_at', 'desc')->paginate(10);
-
-        $data = array(
-            'clients' => $clients,
-        );
-
-        return view('modals.includes.client-selector')->with('data', $data);
-    }
-
-    public function showModal($client_id)
-    {
-        $client = Client::find($client_id);
-        $creator = Client::find($client->created_by_id);
-        $createdAt = $client->created_at;
-
-        $data = array(
-            'client' => $client,
-            'creator' => $creator,
-            'createdAt' => $createdAt
-        );
-
-
-        return view('clients.modals.profile-modal')->with('data', $data);
-    }
 }

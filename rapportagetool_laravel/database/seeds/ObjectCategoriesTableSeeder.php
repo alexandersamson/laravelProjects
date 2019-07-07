@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\PermissionsController;
+use App\Http\Controllers\Services\PermissionsService;
 use App\ObjectCategory;
 use App\Permission;
 use Illuminate\Database\Seeder;
@@ -14,7 +14,7 @@ class ObjectCategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        $postPermissions = new PermissionsController();
+        $postPermissions = new PermissionsService();
 
         $objectCategories = [
             [   'name' => 'casefiles',
@@ -62,7 +62,7 @@ class ObjectCategoriesTableSeeder extends Seeder
                 'd_by_creator' => false
             ],
             [   'name' => 'clients',
-                'c_permission' => $postPermissions->getBitwiseValue(['Relations']),
+                'c_permission' => $postPermissions->getBitwiseValue(['Casemanager']),
                 'r_permission' => $postPermissions->getBitwiseValue(['Casemanager','Relations']),
                 'u_permission' => $postPermissions->getBitwiseValue(['Relations']),
                 'u_adv_permission' => $postPermissions->getBitwiseValue(['Relations']),
@@ -75,7 +75,25 @@ class ObjectCategoriesTableSeeder extends Seeder
                 'r_by_creator' => false,
                 'u_by_creator' => false,
                 'u_adv_by_creator' => false,
-                'd_by_creator' => false
+                'd_by_creator' => false,
+                'r_by_assigned_user' => true // for subjects, clients, licenses and posts
+            ],
+            [   'name' => 'subjects',
+                'c_permission' => $postPermissions->getBitwiseValue(['Casemanager']),
+                'r_permission' => $postPermissions->getBitwiseValue(['Casemanager']),
+                'u_permission' => $postPermissions->getBitwiseValue(['Casemanager']),
+                'u_adv_permission' => $postPermissions->getBitwiseValue(['Casemanager']),
+                'd_permission' => $postPermissions->getBitwiseValue(['Casemanager']),
+                'c_match_all' => false,
+                'r_match_all' => false,
+                'u_match_all' => false,
+                'u_adv_match_all' => false,
+                'd_match_all' => false,
+                'r_by_creator' => false,
+                'u_by_creator' => false,
+                'u_adv_by_creator' => false,
+                'd_by_creator' => false,
+                'r_by_assigned_user' => true // for subjects, clients, licenses and posts
             ],
             [   'name' => 'organizations',
                 'c_permission' => $postPermissions->getBitwiseValue(['Relations']),
@@ -108,7 +126,7 @@ class ObjectCategoriesTableSeeder extends Seeder
                 'u_by_creator' => true,
                 'u_adv_by_creator' => false,
                 'd_by_creator' => true,
-                'r_by_assigned_user' => true
+                'r_by_assigned_user' => true // for subjects, clients, licenses and posts
             ],
             [   'name' => 'settings',
                 'c_permission' => $postPermissions->getBitwiseValue(['Administrator']),
@@ -124,7 +142,25 @@ class ObjectCategoriesTableSeeder extends Seeder
                 'r_by_creator' => false,
                 'u_by_creator' => false,
                 'u_adv_by_creator' => false,
-                'd_by_creator' => false],
+                'd_by_creator' => false
+            ],
+            [   'name' => 'licenses',
+                'c_permission' => $postPermissions->getBitwiseValue(['Manager','Owner']),
+                'r_permission' => $postPermissions->getBitwiseValue(['Manager','Owner']),
+                'u_permission' => $postPermissions->getBitwiseValue(['Manager','Owner']),
+                'u_adv_permission' => $postPermissions->getBitwiseValue(['Owner']),
+                'd_permission' => $postPermissions->getBitwiseValue(['Manager','Owner']),
+                'c_match_all' => false,
+                'r_match_all' => false,
+                'u_match_all' => false,
+                'u_adv_match_all' => false,
+                'd_match_all' => false,
+                'r_by_creator' => false,
+                'u_by_creator' => false,
+                'u_adv_by_creator' => false,
+                'd_by_creator' => false,
+                'r_by_assigned_user' => true // for subjects, clients, licenses and posts
+            ]
         ];
 
         foreach($objectCategories as $objectCategory){

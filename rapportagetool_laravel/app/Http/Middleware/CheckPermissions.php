@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Controllers\Services\PermissionsService;
 use Closure;
-use App\Http\Controllers\PermissionsController;
 use Illuminate\Auth\Access\AuthorizationException;
 
 class CheckPermissions
@@ -22,7 +22,7 @@ class CheckPermissions
         } else {
             $checkAnyCmd = false;
         }
-        $permissionCheck = new PermissionsController;
+        $permissionCheck = new PermissionsService;
         $result = $permissionCheck->checkPermission($permissionCheck->getBitwiseValue($permissions), NULL, $checkAnyCmd);
         if($result['permission'] == false){
             throw new AuthorizationException('No permission');

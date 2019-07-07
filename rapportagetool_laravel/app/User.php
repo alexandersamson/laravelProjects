@@ -42,8 +42,16 @@ class User extends Authenticatable
         return $this->hasMany('App\Post');
     }
 
+    public function userSettings(){
+        return $this->hasMany('App\UserSetting');
+    }
+
     public function casefiles(){
         return $this->hasMany('App\Casefile');
+    }
+
+    public function licenses(){
+        return $this->hasMany('App\Licenses');
     }
 
     public function assignedInvestigators(){

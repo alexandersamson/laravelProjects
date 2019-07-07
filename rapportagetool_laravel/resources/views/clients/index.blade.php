@@ -6,7 +6,7 @@
         @foreach($data['clients'] as $client)
             <div class="card">
                 <div class="row">
-                    <div class="col-md-4 col-sm-4">
+                    <div class="col-md-8 col-sm-8">
                         <p>
                             {{$client->name}} | {{$client->email}} | {{$client->phone_work}}
                         </p>

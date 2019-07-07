@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Http\Controllers\Services\PermissionsService;
 use App\ObjectCategory;
 use App\Post;
+use App\Providers\PermissionsProvider;
 use App\User;
 use DB;
 use Illuminate\Http\Request;
@@ -38,7 +40,7 @@ class CavedButtonsController extends Controller
             $category = 'users';
         }
 
-        $permission = new PermissionsController();
+        $permission = new PermissionsService();
 
         //make category alphanumeric
         $category = preg_replace('/[^a-zA-Z0-9]+/', '', $category);
@@ -73,15 +75,17 @@ class CavedButtonsController extends Controller
                 'id' => $i,
                 'category' => $category,
                 'name' => $name,
-                'c' => false,
-                'a' => false,
-                'v' => false,
-                'e' => false,
-                'd' => false];
+                'c' => false, //Create new (from copy)  (Create rights needed
+                'a' => false, //Approve     (Advanced update rights needed)
+                'a_show' => false, //Approve show button? (Advanced update rights needed)
+                'v' => false, //View        (Reading rights needed)
+                'e' => false, //Edit        (Update rights needed
+                'p' => false, //Append (add something to it)    (Editing rights needed)
+                'd' => false];//Delete      (Deletion rights needed
 
             $objCat = ObjectCategory::where('name', $category)->first();
 
-            if ($object->user_id == $current_user_id) {
+            if ($object->creator_id == $current_user_id) {
                 if ($objCat->c_by_creator) {
                     $data[$i]['c'] = true;
                 }
@@ -89,7 +93,11 @@ class CavedButtonsController extends Controller
                     $data[$i]['v'] = true;
                 }
                 if ($objCat->u_by_creator) {
+                    $data[$i]['p'] = true;
                     $data[$i]['e'] = true;
+                }
+                if ($objCat->u_adv_by_creator) {
+                    $data[$i]['a'] = true;
                 }
                 if ($objCat->d_by_creator) {
                     $data[$i]['d'] = true;
@@ -100,6 +108,11 @@ class CavedButtonsController extends Controller
                     $data[$i]['c'] = true;
                 }
             }
+            if ($data[$i]['a'] == false) {
+                if ($permission->checkPermission($objCat->u_permission, $current_user->permission, !$objCat->u_adv_match_all, false)['permission']) {
+                    $data[$i]['a'] = true;
+                }
+            }
             if ($data[$i]['v'] == false) {
                 if ($permission->checkPermission($objCat->r_permission, $current_user->permission, !$objCat->r_match_all, false)['permission']) {
                     $data[$i]['v'] = true;
@@ -108,6 +121,11 @@ class CavedButtonsController extends Controller
             if ($data[$i]['e'] == false) {
                 if ($permission->checkPermission($objCat->u_permission, $current_user->permission, !$objCat->u_match_all, false)['permission']) {
                     $data[$i]['e'] = true;
+                }
+            }
+            if ($data[$i]['p'] == false) {
+                if ($permission->checkPermission($objCat->u_permission, $current_user->permission, !$objCat->u_match_all, false)['permission']) {
+                    $data[$i]['p'] = true;
                 }
             }
             if ($data[$i]['d'] == false) {

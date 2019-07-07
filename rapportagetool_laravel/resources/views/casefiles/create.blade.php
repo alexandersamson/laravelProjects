@@ -26,30 +26,40 @@
                 <div class="row" id="assigneesContainerA">
                     <div class="col-sm-3">
                         <div class="p-1">
-                            <button type="button" class="btn btn-primary btn-block btn-md genericFormModalBtn" data-toggle="modal" data-save="addLeadInvestigator" data-cmd="getAjax" data-url="ajaxGetLeadInvestigatorSelectList" data-header="Add Lead Investigator" data-target="#genericFormModal">
+                            <button type="button" class="btn btn-primary btn-block btn-md genericFormModalBtn" data-toggle="modal" data-category="leaders" data-cmd="getAjax" data-url="ajaxgetselectlist" data-save-url="ajaxAddPersons" data-header="Add Lead Investigator" data-target="#genericFormModal">
                                 Select Lead Investigator
                             </button>
-                            <div class="mt-1" id="ajax-output-addLeadInvestigator">
+                            <div class="mt-1" id="ajax-output-leaders">
                                 {{--AJAX Output--}}
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="p-1">
-                            <button type="button" class="btn btn-primary btn-block btn-md genericFormModalBtn" data-toggle="modal" data-save="addInvestigators" data-cmd="getAjax" data-url="ajaxGetInvestigatorSelectList" data-header="Add Investigator" data-target="#genericFormModal">
+                            <button type="button" class="btn btn-primary btn-block btn-md genericFormModalBtn" data-toggle="modal" data-category="investigators" data-cmd="getAjax" data-url="ajaxgetselectlist" data-save-url="ajaxAddPersons" data-header="Add Investigator" data-target="#genericFormModal">
                                 Select Investigators
                             </button>
-                            <div class="mt-1" id="ajax-output-addInvestigators">
+                            <div class="mt-1" id="ajax-output-investigators">
                                 {{--AJAX Output--}}
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="p-1">
-                            <button type="button" class="btn btn-primary btn-block btn-md genericFormModalBtn" data-toggle="modal" data-save="addClients" data-cmd="getAjax" data-url="ajaxGetClientSelectList" data-header="Add Client"  data-target="#genericFormModal">
+                            <button type="button" class="btn btn-primary btn-block btn-md genericFormModalBtn" data-toggle="modal" data-category="clients" data-cmd="getAjax" data-url="ajaxgetselectlist" data-save-url="ajaxAddPersons" data-header="Add Client"  data-target="#genericFormModal">
                                  Select Clients
                             </button>
-                            <div class="mt-1" id="ajax-output-addClients">
+                            <div class="mt-1" id="ajax-output-clients">
+                                {{--AJAX Output--}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="p-1">
+                            <button type="button" class="btn btn-primary btn-block btn-md genericFormModalBtn" data-toggle="modal" data-category="subjects" data-cmd="getAjax" data-url="ajaxgetselectlist" data-save-url="ajaxAddPersons" data-header="Add Subject"  data-target="#genericFormModal">
+                                Select Subjects
+                            </button>
+                            <div class="mt-1" id="ajax-output-subjects">
                                 {{--AJAX Output--}}
                             </div>
                         </div>

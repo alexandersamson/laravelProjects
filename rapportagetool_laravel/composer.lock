@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "026f0df1666fbdc3ecbb5c69810f3fa0",
+    "content-hash": "3f38ae1e9fd6900d18dab2b1b0a85eab",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -3983,16 +3983,16 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.4.0",
+            "version": "2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "1a1a1044ad00e285bd2825fac4c3a0443d90ad33"
+                "reference": "6fb502c23885701a991b0bba974b1a8eb6673577"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/1a1a1044ad00e285bd2825fac4c3a0443d90ad33",
-                "reference": "1a1a1044ad00e285bd2825fac4c3a0443d90ad33",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/6fb502c23885701a991b0bba974b1a8eb6673577",
+                "reference": "6fb502c23885701a991b0bba974b1a8eb6673577",
                 "shasum": ""
             },
             "require": {
@@ -4040,7 +4040,7 @@
                 "throwable",
                 "whoops"
             ],
-            "time": "2019-06-23T09:00:00+00:00"
+            "time": "2019-07-04T09:00:00+00:00"
         },
         {
             "name": "fzaninotto/faker",
@@ -5634,7 +5634,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.3.6"
+        "php": "^7.3.6",
+        "ext-json": "*"
     },
     "platform-dev": []
 }

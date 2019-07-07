@@ -12,21 +12,26 @@
                     <a class="nav-link" href="/posts">Posts</a>
                 </li>
                 @auth
-                    @if((new \App\Http\Controllers\PermissionsController)->checkPermission((new \App\Http\Controllers\PermissionsController)->getBitwiseValue(['Casemanager','Investigator']), NULL, true)['permission'] == true)
+                    @hasanyrole('Investigator|Casemanager')
                         <li class="nav-item">
                             <a class="nav-link" href="/casefiles">Cases</a>
                         </li>
-                    @endif
-                    @if((new \App\Http\Controllers\PermissionsController)->checkPermission((new \App\Http\Controllers\PermissionsController)->getBitwiseValue(['Casemanager','Relations']), NULL, true)['permission'] == true)
+                    @endhasanyrole
+                    @hasanyrole('Relations|Casemanager')
                         <li class="nav-item">
                             <a class="nav-link" href="/clients">Clients</a>
                         </li>
-                    @endif
-                    @if((new \App\Http\Controllers\PermissionsController)->checkPermission((new \App\Http\Controllers\PermissionsController)->getBitwiseValue(['Staff','Manager','Owner']), NULL, true)['permission'] == true)
+                    @endhasanyrole
+                    @hasanyrole('Casemanager')
+                        <li class="nav-item">
+                            <a class="nav-link" href="/subjects">Subjects</a>
+                        </li>
+                    @endhasanyrole
+                    @hasanyrole('Staff|Manager|Owner')
                         <li class="nav-item">
                             <a class="nav-link" href="/users">Users</a>
                         </li>
-                    @endif
+                    @endhasanyrole
                 @endauth
             </ul>
 
@@ -43,25 +48,25 @@
                         </li>
                     @endif
                 @else
-                    @if((new \App\Http\Controllers\PermissionsController)->checkPermission((new \App\Http\Controllers\PermissionsController)->getBitwiseValue(['Staff','Moderator']), NULL, true)['permission'] == true)
-                        <li class="nav-item">
+                    @hasanyrole('Staff|Moderator')
+                    <li class="nav-item">
                             <a class="nav-link" href="/posts/create">New Post</a>
                         </li>
-                    @endif
-                    @if((new \App\Http\Controllers\PermissionsController)->checkPermission((new \App\Http\Controllers\PermissionsController)->getBitwiseValue('Casemanager'), NULL, false)['permission'] == true)
+                    @endhasanyrole
+                    @hasanyrole('Investigator|Casemanager')
                         <li class="nav-item"><a class="nav-link" href="/casefiles/create">New Case</a>
                         </li>
-                    @endif
-                    @if((new \App\Http\Controllers\PermissionsController)->checkPermission((new \App\Http\Controllers\PermissionsController)->getBitwiseValue('Relations'), NULL, true)['permission'] == true)
+                    @endhasanyrole
+                    @hasanyrole('Relations')
                         <li class="nav-item">
                             <a class="nav-link" href="/clients/create">New Client</a>
                         </li>
-                    @endif
-                    @if((new \App\Http\Controllers\PermissionsController)->checkPermission((new \App\Http\Controllers\PermissionsController)->getBitwiseValue(['Manager', 'Owner']), NULL, true)['permission'] == true)
+                    @endhasanyrole
+                    @hasanyrole('Manager|Owner')
                         <li class="nav-item">
                             <a class="nav-link" href="/users/create">New User</a>
                         </li>
-                    @endif
+                    @endhasanyrole
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }} <span class="caret"></span>

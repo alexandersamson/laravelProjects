@@ -55846,9 +55846,12 @@ __webpack_require__.r(__webpack_exports__);
 var selectedBtnOptions = {};
 var tempOptionStorage = {};
 var usertypes = {
-  "leader": "leader",
-  "investigator": "investigator",
-  "client": "client"
+  "users": "users",
+  "leaders": "leaders",
+  "investigators": "investigators",
+  "clients": "clients",
+  "subjects": "subjects",
+  "licenses": "licenses"
 }; //Specific global storage
 
 var globalStorage = {}; // private $containerId = array (
@@ -55900,8 +55903,6 @@ $('#testModal').on('show.bs.modal', function (event) {
   var btnDataBody = button.data('body'); // Extract info from data-* attributes
 
   var name = $("Test").val();
-  var password = $("********").val();
-  var email = $("testtesttest").val();
   var returnValue;
   var modal = $(this);
   modal.find('.modal-title').text('Loading...');
@@ -55909,11 +55910,7 @@ $('#testModal').on('show.bs.modal', function (event) {
   $.ajax({
     type: 'POST',
     url: '/ajaxTestRequest',
-    data: {
-      name: name,
-      password: password,
-      email: email
-    },
+    data: {},
     success: function success(data) {
       returnValue = JSON.stringify(data);
       modal.find('.modal-title').text(btnDataHeader);
@@ -55931,9 +55928,14 @@ $('#genericFormModal').on('show.bs.modal', function (event) {
 
   var btnDataUrl = button.data('url'); //Extract info from data-* attributes
 
-  var btnDataSave = button.data('save'); //Extract info from data-* attributes
+  var btnDataSaveUrl = button.data('save-url'); //Extract info from data-* attributes
 
-  $('#genericFormModalSaveBtn').attr('data-save', btnDataSave);
+  var btnDataCategory = button.data('category'); //Extract info from data-* attributes
+
+  $('#genericFormModalSaveBtn').attr({
+    'data-category': btnDataCategory,
+    'data-url': btnDataSaveUrl
+  });
   var returnValue;
   var modal = $(this);
   modal.find('.modal-title').text('Loading...');
@@ -55943,7 +55945,9 @@ $('#genericFormModal').on('show.bs.modal', function (event) {
     $.ajax({
       type: 'GET',
       url: '/' + btnDataUrl,
-      data: {},
+      data: {
+        "category": btnDataCategory
+      },
       success: function success(data) {
         returnValue = data;
         modal.find('.modal-title').text(btnDataHeader);
@@ -56003,16 +56007,18 @@ $(document).on('click', '.selectBtnMulti', function () {
 $(document).on('click', '.modalSaveBtn', function () {
   //$('#containter-lead-investigator').html($(this)[0].dataset.save);
   $('#genericFormModal').modal().find('.modal-body').html($loader + "<br><p style=\"text-align:center\">Saving...</p></center>");
-  $urlMethod = $(this)[0].dataset.save;
+  $url = $(this)[0].dataset.url;
+  $category = $(this)[0].dataset.category;
   $.ajax({
     type: 'POST',
-    url: '/' + $urlMethod,
+    url: '/' + $url,
     data: {
+      "category": $category,
       "data": tempOptionStorage
     },
     success: function success(data) {
       returnValue = data;
-      $('#ajax-output-' + $urlMethod).html(data);
+      $('#ajax-output-' + $category).html(data);
       $('#genericFormModal').modal('hide');
       selectedBtnOptions = {};
       tempOptionStorage = {};
@@ -56079,24 +56085,23 @@ $(document).on('click', '.btnDeleteItem', function () {
 $(document).on('click', '.btnModalInfoUser', function () {
   //$('#containter-lead-investigator').html($(this)[0].dataset.save);
   $('#genericInfoModal').modal().find('.modal-body').html($loader + "<br><p style=\"text-align:center\">Loading...</p></center>");
-  preUrl = "";
-  console.log($(this)[0].dataset.usertype);
+  title = $(this)[0].dataset.header;
+  category = "";
 
-  if ($(this)[0].dataset.usertype === usertypes.investigator || $(this)[0].dataset.usertype === usertypes.leader) {
-    preUrl = "users";
-  } else if ($(this)[0].dataset.usertype === usertypes.client) {
-    preUrl = "clients";
-  } else if ($(this)[0].dataset.usertype === usertypes.organization) {
-    preUrl = "organizations";
+  if ($(this)[0].dataset.category === usertypes.investigators || $(this)[0].dataset.category === usertypes.leaders) {
+    category = usertypes.users;
+  } else {
+    category = $(this)[0].dataset.category;
   }
 
-  url = $(this)[0].dataset.url;
+  personId = $(this)[0].dataset.url;
   $.ajax({
     type: 'GET',
-    url: '/' + preUrl + '/profile-modal/' + url,
+    url: '/profile-modal/' + category + '/' + personId,
     data: {},
     success: function success(data) {
       returnValue = data;
+      $('#genericInfoModal').modal().find('.modal-title').html(title);
       $('#genericInfoModal').modal().find('.modal-body').html(returnValue);
     }
   });

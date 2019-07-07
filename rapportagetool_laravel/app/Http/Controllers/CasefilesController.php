@@ -4,21 +4,21 @@ namespace App\Http\Controllers;
 
 use App\AssignedClient;
 use App\AssignedInvestigator;
+use App\AssignedSubject;
 use App\Casefile;
 use App\CaseState;
 use App\Client;
 use App\Http\Controllers\Services\CasefileNumberGenerator;
+use App\Http\Controllers\Services\ClassNameService;
+use App\Organization;
 use App\Post;
+use App\Subject;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 
 class CasefilesController extends Controller
 {
-    private $containerId = array (
-        'leader' => 'leader',
-        'investigator' => 'investigator',
-        'client' => 'client'
-    );
 
 
     public function __construct()
@@ -40,11 +40,14 @@ class CasefilesController extends Controller
 
         $assignedClientController = new AssignedClientController();
         $assignedInvestigatorController = new AssignedInvestigatorController();
+        $assignedSubjectsController = new AssignedSubjectController();
         $assignedClients = array();
         $assignedUsers = array();
+        $assignedSubjects = array();
         foreach ($casefiles as $casefile){
             $assignedClients[$casefile->id] = $assignedClientController->getAssignedClients($casefile->id);
             $assignedUsers[$casefile->id] = $assignedInvestigatorController->getAssignedInvestigators($casefile->id);
+            $assignedSubjects[$casefile->id] = $assignedSubjectsController->getAssignedSubjects($casefile->id);
         }
 
         $data = array(
@@ -52,8 +55,10 @@ class CasefilesController extends Controller
             'casestates' => $casestates,
             'assignedClients' => $assignedClients,
             'assignedUsers' => $assignedUsers,
+            'assignedSubjects' => $assignedSubjects,
         );
         //return $data;
+        //return $casefiles;
         return view('casefiles.dashboard')->with('data', $data);
     }
 
@@ -74,15 +79,18 @@ class CasefilesController extends Controller
         //Instantiate helpers
         $assignedInvestigatorController = new AssignedInvestigatorController();
         $assignedClientController = new AssignedClientController();
+        $assignedSubjectsController = new AssignedSubjectController();
 
-        //Get viable Investigators
+        //Get viable Investigators/clients/subjects
         $viableInvestigators = $assignedInvestigatorController->getAvailableInvestigators();
         $viableClients = $assignedClientController->getAvailableClients();
+        $viableSubjects = $assignedSubjectsController->getAvailableSubjects();
 
         $data = array(
             'casecode' => $caseCode,
             'investigators' => $viableInvestigators,
             'clients' => $viableClients,
+            'subjects' => $viableSubjects,
             'casestates' => $caseStates,
         );
         return view('casefiles.create')->with('data', $data);
@@ -96,11 +104,14 @@ class CasefilesController extends Controller
      */
     public function store(Request $request)
     {
+        $categories = Config::get('categoriesUnformatted');
+
+
         $this->validate($request, [
             'name' => 'required',
             'casecode' => 'required',
             'description' => 'required',
-            $this->containerId['leader'] => 'required',
+            $categories['leaders'] => 'required',
             'investigators.*.id' => 'nullable',
             'clients.*.id' => 'nullable',
             'case-state' => 'required'
@@ -111,7 +122,7 @@ class CasefilesController extends Controller
         $casefile ->name = $request->input('name');
         $casefile ->casecode = $request->input('casecode');
         $casefile ->description = $request->input('description');
-        $casefile ->user_id = auth()->user()->id;
+        $casefile ->creator_id = auth()->user()->id;
         $casefile ->modifier_id= auth()->user()->id;
         $casefile ->case_state_index = $request->input('case-state');
         $casefile ->lead_investigator_index = 0;
@@ -121,32 +132,45 @@ class CasefilesController extends Controller
 
         $thisCasefile = Casefile::where('casecode', $request->input('casecode'))->get();
 
+        //TODO: Dit opfrissen (Teveel herhalingen)
         //Get assigned lead investigator
-        if(isset($request->input($this->containerId['leader'])[0])) {
+        if(isset($request->input($categories['leaders'])[0])) {
             $assignedInvestigator = new AssignedInvestigator();
-            $assignedInvestigator->user_id = $request->input($this->containerId['leader'])[0];
+            $assignedInvestigator->user_id = $request->input($categories['leaders'])[0];
+            $assignedInvestigator->creator_id = auth()->user()->id;
             $assignedInvestigator->casefile_id = $thisCasefile[0]->id;
             $assignedInvestigator->is_lead_investigator = true;
             $assignedInvestigator->save();
         }
 
-        if(isset($request->input($this->containerId['investigator'])[0])) {
-            foreach($request->input($this->containerId['investigator']) as $investigator) {
+        if(isset($request->input($categories['investigators'])[0])) {
+            foreach($request->input($categories['investigators']) as $investigator) {
                 $assignedInvestigator = new AssignedInvestigator();
                 $assignedInvestigator->user_id = $investigator;
+                $assignedInvestigator->creator_id = auth()->user()->id;
                 $assignedInvestigator->casefile_id = $thisCasefile[0]->id;
                 $assignedInvestigator->is_lead_investigator = false;
                 $assignedInvestigator->save();
             }
         }
 
-        if(isset($request->input($this->containerId['client'])[0])) {
-            foreach($request->input($this->containerId['client']) as $client) {
+        if(isset($request->input($categories['clients'])[0])) {
+            foreach($request->input($categories['clients']) as $client) {
                 $assignedClient = new AssignedClient();
                 $assignedClient->client_id = $client;
+                $assignedClient->creator_id = auth()->user()->id;
                 $assignedClient->casefile_id = $thisCasefile[0]->id;
                 $assignedClient->is_first_contact = true;
                 $assignedClient->save();
+            }
+        }
+        if(isset($request->input($categories['subjects'])[0])) {
+            foreach($request->input($categories['subjects']) as $subject) {
+                $assignedSubject = new AssignedSubject();
+                $assignedSubject->subject_id = $subject;
+                $assignedSubject->creator_id = auth()->user()->id;
+                $assignedSubject->casefile_id = $thisCasefile[0]->id;
+                $assignedSubject->save();
             }
         }
 
@@ -199,69 +223,32 @@ class CasefilesController extends Controller
         //
     }
 
-    public function addLeadInvestigator(Request $request){
+
+    public function ajaxAddPersons(Request $request){
+
 
         $input = $request->all();
         $idPrefix = '#';
-        $containerName = $this->containerId['leader'];
-        $users = array();
+        $persons = array();
 
-        if(isset($input['data'])) {
-            $users[] = User::where('id', $input['data'])->get();
-        }
+        $classNameService = new ClassNameService();
+        $person = $classNameService->getClassByCategory($input['category']);
 
-        $data = array(
-            'users' => $users,
-            'idPrefix' => $idPrefix,
-            'containerName' => $containerName
-        );
 
-        return view('casefiles.elements.select-assignee')->with('data',$data);
-
-    }
-
-    public function addInvestigators(Request $request){
-
-        $input = $request->all();
-        $idPrefix = '#';
-        $containerName = $this->containerId['investigator'];
-        $users = array();
 
         if(isset($input['data'])) {
             foreach ($input['data'] as $selected) {
-                $users[] = User::where('id', $selected)->get();
+                $persons[] = $person::where('id', $selected)->get();
             }
         }
 
         $data = array(
-            'users' => $users,
+            'persons' => $persons,
             'idPrefix' => $idPrefix,
-            'containerName' => $containerName
+            'category' => $input['category']
         );
 
-        return view('casefiles.elements.select-assignee')->with('data',$data);
-
-    }
-
-    public function addClients(Request $request){
-
-        $input = $request->all();
-        $idPrefix = '#';
-        $containerName = $this->containerId['client'];
-        $users = array();
-
-        if(isset($input['data'])) {
-            foreach ($input['data'] as $selected) {
-                $users[] = Client::where('id', $selected)->get();
-            }
-        }
-
-        $data = array(
-            'users' => $users,
-            'idPrefix' => $idPrefix,
-            'containerName' => $containerName
-        );
-
+        //return print_r($data);
         return view('casefiles.elements.select-assignee')->with('data',$data);
 
     }

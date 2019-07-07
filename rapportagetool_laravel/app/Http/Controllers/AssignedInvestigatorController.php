@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\AssignedInvestigator;
 use App\Http\Controllers\Services\CasefileNumberGenerator;
+use App\Http\Controllers\Services\PermissionsService;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -12,15 +13,15 @@ class AssignedInvestigatorController extends Controller
     public function getAvailableInvestigators(){
 
 
-        //Instantiate PermissionsController in order to select the users with 'Investigator' permission
-        $permissionsController = new PermissionsController();
+        //Instantiate PermissionsProvider in order to select the users with 'Investigator' permission
+        $permissionsService = new PermissionsService();
 
 
         //Get the viable Investigators
         $viableInvestigators = array();
-        $users = User::where('permission', '>=', $permissionsController->getBitwiseValue('Investigator'))->get();
+        $users = User::where('permission', '>=', $permissionsService->getBitwiseValue('Investigator'))->get();
         foreach ($users as $user) {
-            if ($permissionsController->checkPermission($permissionsController->getBitwiseValue('Investigator'), $user->permission, false)['permission']) {
+            if ($permissionsService->checkPermission($permissionsService->getBitwiseValue('Investigator'), $user->permission, false)['permission']) {
                 $viableInvestigators[] = $user;
             }
         }

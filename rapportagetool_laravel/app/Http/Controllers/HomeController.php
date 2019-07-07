@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Casefile;
 use App\Client;
+use App\License;
 use App\Post;
+use App\Subject;
 use DB;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Http\Request;
@@ -32,9 +34,12 @@ class HomeController extends Controller
         $limitPerPage = 10;
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
-        $recentPosts = Post::orderBy('created_at', 'desc')->take($limitPerPage)->get();
-        $recentClients = Client::orderBy('created_at', 'desc')->take($limitPerPage)->get();
-        $recentCasefiles = Casefile::orderBy('created_at', 'desc')->take($limitPerPage)->get();
+        $recentPosts = Post::where('deleted', '=', false)->orderBy('created_at', 'desc')->take($limitPerPage)->get();
+        $recentClients = Client::where('deleted', '=', false)->orderBy('created_at', 'desc')->take($limitPerPage)->get();
+        $recentSubjects = Subject::where('deleted', '=', false)->orderBy('created_at', 'desc')->take($limitPerPage)->get();
+        $recentCasefiles = Casefile::where('deleted', '=', false)->orderBy('created_at', 'desc')->take($limitPerPage)->get();
+        $recentUpdatedCasefiles = Casefile::where('deleted', '=', false)->orderBy('updated_at', 'desc')->take($limitPerPage)->get();
+        $recentDueLicenses = License::where('deleted', '=', false)->orderBy('valid_to', 'asc')->take($limitPerPage)->get();
         //$userCasefiles = Casefile::where('user_id','=', $user_id)->orderBy('created_at', 'desc')->take(10)->get();
         $userCasefiles = DB::table('casefiles')
             ->join('assigned_investigators', 'casefiles.id', '=', 'assigned_investigators.casefile_id')
@@ -46,15 +51,20 @@ class HomeController extends Controller
         $cavedBtn = array();
         $cavedBtn['posts'] = $cavedButtonsController->getCavedBtnArray('posts',$recentPosts);
         $cavedBtn['casefiles_recent'] = $cavedButtonsController->getCavedBtnArray('casefiles',$recentCasefiles);
+        $cavedBtn['casefiles_updated'] = $cavedButtonsController->getCavedBtnArray('casefiles',$recentUpdatedCasefiles);
         $cavedBtn['casefiles_user'] = $cavedButtonsController->getCavedBtnArray('casefiles',$userCasefiles);
         $cavedBtn['clients_recent'] = $cavedButtonsController->getCavedBtnArray('clients',$recentClients);
-
+        $cavedBtn['subjects_recent'] = $cavedButtonsController->getCavedBtnArray('subjects',$recentSubjects);
+        $cavedBtn['licenses_due'] = $cavedButtonsController->getCavedBtnArray('licenses',$recentDueLicenses);
         //return $recentPosts;
         $data = array(
             'posts' => $recentPosts,
             'casefiles_recent' => $recentCasefiles,
+            'casefiles_updated' => $recentUpdatedCasefiles,
             'casefiles_user' => $userCasefiles,
             'clients_recent' => $recentClients,
+            'subjects_recent' => $recentSubjects,
+            'licenses_due' => $recentDueLicenses,
             'permission' => $user->permission,
             'cavedBtn' => $cavedBtn
         );

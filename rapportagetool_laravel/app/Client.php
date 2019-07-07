@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
-    public $table = 'clients';
+    protected $table = 'clients';
 
-    public function casefiles(){
-        return $this->hasMany('App\Casefile');
+    public function user(){
+        return $this->belongsTo('App\User', 'creator_id');
     }
 
     public function organization(){
@@ -21,6 +21,6 @@ class Client extends Model
     }
 
     public function permission(){
-        return $this->belongsTo('App\Permission');
+        return $this->belongsTo('App\Permission' );
     }
 }

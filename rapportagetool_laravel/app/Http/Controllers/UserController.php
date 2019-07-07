@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\License;
 use App\Post;
+use App\Providers\PermissionsProvider;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -61,42 +63,26 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        $creator = User::find($user->user_id);
+        $creator = User::find($user->creator_id);
         $modifier = User::find($user->modifier_id);
         $createdAt = $user->created_at;
         $modifiedAt = $user->updated_at;
+        $licenses = License::where('user_id','=',$id)->get();
+
 
         $data = array(
             'user' => $user,
             'creator' => $creator,
             'modifier' => $modifier,
             'modifiedAt' => $modifiedAt,
-            'createdAt' => $createdAt
+            'createdAt' => $createdAt,
+            'licenses' => $licenses
         );
 
 
         return view('users.profile')->with('data', $data);
     }
 
-    public function showModal($user_id)
-    {
-        $user = User::find($user_id);
-        $creator = User::find($user->user_id);
-        $modifier = User::find($user->modifier_id);
-        $createdAt = $user->created_at;
-        $modifiedAt = $user->updated_at;
-
-        $data = array(
-            'user' => $user,
-            'creator' => $creator,
-            'modifier' => $modifier,
-            'modifiedAt' => $modifiedAt,
-            'createdAt' => $createdAt
-        );
-
-
-        return view('users.modals.profile-modal')->with('data', $data);
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -130,31 +116,5 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function getSelectList(){
-
-        //Instantiate assignedInvestigatorsController
-        $assignedInvestigatorsController = new AssignedInvestigatorController();
-        //Get viable Investigators
-        $viableInvestigators = $assignedInvestigatorsController->getAvailableInvestigators();
-
-        $data = array(
-            'investigators' => $viableInvestigators
-        );
-        return view('modals.includes.investigator-selector')->with('data', $data);
-    }
-
-    public function getSelectListLeader(){
-
-        //Instantiate assignedInvestigatorsController
-        $assignedInvestigatorsController = new AssignedInvestigatorController();
-        //Get viable Investigators
-        $viableInvestigators = $assignedInvestigatorsController->getAvailableInvestigators();
-
-        $data = array(
-            'investigators' => $viableInvestigators
-        );
-        return view('modals.includes.leader-investigator-selector')->with('data', $data);
     }
 }

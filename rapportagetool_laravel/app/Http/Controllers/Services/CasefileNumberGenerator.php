@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Services;
 
+use App\Client;
+use App\Organization;
+use App\Subject;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

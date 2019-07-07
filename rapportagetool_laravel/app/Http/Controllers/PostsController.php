@@ -78,13 +78,13 @@ class PostsController extends Controller
             $filenameToStore = 'noimage.png';
         }
 
-        $postPermissions = new PermissionsController();
+        $postPermissions = new PermissionsProvider();
         $permissionSeed = $postPermissions->getBitwiseValue(['Staff','Moderator']); //TODO: make post permissions selectable
 
         $post = new Post;
         $post->title = $request->input('title');
         $post->body = $request->input('body');
-        $post->user_id = auth()->user()->id;
+        $post->creator_id = auth()->user()->id;
         $post->modifier_id = auth()->user()->id;
         $post->cover_image = $filenameToStore;
         $post->permission = $permissionSeed;
@@ -102,12 +102,11 @@ class PostsController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
-        $creator = User::find($post->user_id);
+        $creator = User::find($post->creator_id);
         $modifier = User::find($post->modifier_id);
         $createdAt = $post->created_at;
         $modifiedAt = $post->updated_at;
-        $cavedButtonsController = new CavedButtonsController;
-        $cavedBtnArray = $cavedButtonsController->getAvedArray('posts',$post->id);
+
 
         $data = array(
             'post' => $post,
@@ -115,7 +114,6 @@ class PostsController extends Controller
             'createdAt' => $createdAt,
             'modifiedAt' => $modifiedAt,
             'modifier' => $modifier,
-            'cavedBtnArray' => $cavedBtnArray
         );
         return view('posts.show')->with('data', $data);
     }
@@ -131,7 +129,7 @@ class PostsController extends Controller
         $post = Post::find($id);
 
         //Check User Id
-        if(auth()->user()->id !==$post->user_id){
+        if(auth()->user()->id !==$post->creator_id){
             return redirect('/posts')->with('error', 'No access');
         }
 
@@ -193,7 +191,7 @@ class PostsController extends Controller
         $post = Post::find($id);
 
         //Check User Id
-        if(auth()->user()->id !==$post->user_id){
+        if(auth()->user()->id !==$post->creator_id){
             return redirect('/posts')->with('error', 'No access');
         }
 

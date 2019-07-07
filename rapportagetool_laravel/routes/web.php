@@ -14,18 +14,20 @@
 Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
 
-Route::get('/permissions/{permissionRequired}', 'PermissionsController@getBitwiseValue');
-
-Route::get('/permissions/getvalue/{permissionName}', 'PermissionsController@getBitwiseValue');
+//Permissions
+Route::get('/permissions/{permissionRequired}', 'PermissionsProvider@getBitwiseValue');
+Route::get('/permissions/getvalue/{permissionName}', 'PermissionsProvider@getBitwiseValue');
 
 //Resource routes
 Route::resource('posts', 'PostsController');
 Route::resource('casefiles', 'CasefilesController');
-Route::resource('clients', 'ClientController');
 Route::resource('users', 'UserController');
-Route::get('users/profile-modal/{user_id}', 'UserController@showModal');
-Route::get('clients/profile-modal/{user_id}', 'ClientController@showModal');
-Route::get('organizations/profile-modal/{user_id}', 'OrganizationsController@showModal');
+Route::resource('clients', 'ClientController');
+Route::resource('subjects', 'SubjectController');
+Route::resource('licenses', 'LicensesController');
+
+//Person info modal calls
+Route::get('profile-modal/{category}/{user_id}', 'ModalController@showPersonInfo');
 
 //CheckDelete and Delete routes
 Route::get('checkdelete/{category}/{id}', 'CheckDeleteController@checkDelete');
@@ -44,7 +46,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 //testing
-Route::get('/testpermissionsvalue', 'PermissionsController@testBitwiseValue');
+Route::get('/testpermissionsvalue', 'PermissionsProvider@testBitwiseValue');
 Route::get('/testrandom', 'Services\CasefileNumberGenerator@generateCasefileCode');
 Route::get('/testavedarray/{cat}/{id}', 'CavedButtonsController@getCavedBtnArray');
 Route::resource('/testarea', 'TestareaController');
@@ -57,10 +59,7 @@ Route::get('/images/profilepicture/{category}/{user_id}/{slug}', 'ImagesControll
 //Ajax
 Route::get('/ajaxTestRequest', 'HomeController@ajaxRequest');
 Route::post('/ajaxTestRequest', 'HomeController@ajaxRequestPost');
-Route::get('/ajaxGetLeadInvestigatorSelectList', 'UserController@getSelectListLeader');
-Route::get('/ajaxGetInvestigatorSelectList', 'UserController@getSelectList');
-Route::get('/ajaxGetClientSelectList', 'ClientController@getSelectList');
+Route::get('/ajaxgetselectlist', 'ModalController@ajaxGetPersonSelectList');
 
-Route::post('/addLeadInvestigator', 'CasefilesController@addLeadInvestigator');
-Route::post('/addInvestigators', 'CasefilesController@addInvestigators');
-Route::post('/addClients', 'CasefilesController@addClients');
+
+Route::post('/ajaxAddPersons/', 'CasefilesController@ajaxAddPersons');
