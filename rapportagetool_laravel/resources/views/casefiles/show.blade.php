@@ -1,13 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.obj-show', ['category' => 'casefiles','id' => $data['obj']->id,'name' => $data['obj']->name,'deleted' => $data['obj']->deleted])
 
-@section('content')
-    <a href="/casefiles" class="btn btn-outline-dark">Go back</a>
-    <h1>{{$casefile->title}}</h1>
-{{--    <img alt="cover image" width="100%" src="/storage/cover_images/{{$post->cover_image}}">--}}
+@section('obj-show')
     <div>
-        {!!$casefile->description!!}
+        {{$data['obj']->description}}
     </div>
     <hr>
-    <small>Written on {{$casefile->created_at}}@if($casefile->created_at != $casefile->updated_at) | Last modified on {{$casefile->updated_at}}@endif | By: {{$casefile->user_id}}</small>
+    @if($data['obj']->deleted)
+        <h5><span class="badge badge-danger">This casefile has been deleted</span></h5>
+    @endif
+    @include('includes.created-by-footer')
     <hr>
 @endsection

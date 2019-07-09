@@ -20,7 +20,9 @@
     <div id="app">
         @include('modals.generic-info-modal')
         @include('modals.generic-form-modal')
+        @include('modals.generic-append-modal')
         @include('modals.generic-delete-modal')
+        @include('modals.generic-recover-modal')
         @include('includes.navbar')
         <main class="container">
             @include('includes.messages')

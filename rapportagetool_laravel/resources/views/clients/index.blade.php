@@ -1,9 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.obj-index', ['category' => 'clients'])
 
-@section('content')
-    <h1>Clients</h1>
-    @if(count($data['clients']) > 0)
-        @foreach($data['clients'] as $client)
+@section('obj-index')
+    @if(count($data['objs']) > 0)
+        @foreach($data['objs'] as $client)
             <div class="card">
                 <div class="row">
                     <div class="col-md-8 col-sm-8">
@@ -14,7 +13,7 @@
                 </div>
             </div>
         @endforeach
-        {{$data['clients']->links()}}
+        {{$data['objs']->links()}}
     @else
         <p>No clients found</p>
     @endif

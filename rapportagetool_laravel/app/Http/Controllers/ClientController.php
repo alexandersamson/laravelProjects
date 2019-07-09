@@ -8,11 +8,15 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
+
+    protected $category;
+
     public function __construct()
     {
+        $this->category = 'clients';
         $this->middleware('auth');
-        $this->middleware('permission:matchOne,Relations,Casemanager', ['only' => ['index', 'show']]);
-        $this->middleware('permission:matchAll,Relations',             ['only' => ['create', 'store', 'destroy', 'edit', 'update']]);
+        $this->middleware('permission:matchOne,Investigator,Relations,Casemanager', ['only' => ['create', 'store', 'index', 'show', 'edit', 'update']]);
+        $this->middleware('permission:matchAll,Relations', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.
@@ -21,10 +25,10 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::orderBy('created_at', 'desc')->paginate(10);
+        $objs = Client::orderBy('created_at', 'desc')->where('deleted','=',false)->paginate(10);
 
         $data = array(
-            'clients' => $clients,
+            'objs' => $objs,
         );
 
         return view('clients.index')->with('data', $data);
@@ -66,7 +70,7 @@ class ClientController extends Controller
         $modifiedAt = $client->updated_at;
 
         $data = array(
-            'client' => $client,
+            'obj' => $client,
             'creator' => $creator,
             'modifier' => $modifier,
             'modifiedAt' => $modifiedAt,
@@ -74,7 +78,7 @@ class ClientController extends Controller
         );
 
 
-        return view('clients.profile')->with('data', $data);
+        return view('clients.show')->with('data', $data);
     }
 
     /**

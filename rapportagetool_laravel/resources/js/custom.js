@@ -48,12 +48,10 @@ $( document ).ready(function() {
     var btns = document.querySelectorAll('.btnClipboard');
     var clipboardJs = new ClipboardJS(btns);
     clipboardJs.on('success', function (e) {
-        $(document).find('#'+$(e.trigger)[0].dataset.clipboardReturnIdTarget).html("&nbsp;&nbsp;&nbsp;&nbsp;Copied&nbsp;&nbsp;&nbsp;&nbsp;");
-        $(document).find('#'+$(e.trigger)[0].dataset.clipboardReturnIdTarget).addClass("badge-success");
+        $(document).find('#'+$(e.trigger)[0].dataset.clipboardReturnIdTarget).addClass("badge-success btn-outline-success");
     });
     clipboardJs.on('error', function (e) {
         console.log(e);
-        $(document).find('#'+$(e.trigger)[0].dataset.clipboardReturnIdTarget).html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
         $(document).find('#'+$(e.trigger)[0].dataset.clipboardReturnIdTarget).addClass("badge-danger");
     });
 });
@@ -211,7 +209,6 @@ $('#genericDeleteModal').on('show.bs.modal', function (event) {
     });
 });
 
-
 $(document).on('click', '#genericDeleteModalYesBtn', function () {
     btnDataDomId = $(this)[0].dataset.domid;
     btnDataId = $(this)[0].dataset.id;
@@ -223,9 +220,50 @@ $(document).on('click', '#genericDeleteModalYesBtn', function () {
         success: function (data) {
             $('#'+btnDataDomId).remove();
             $('#genericDeleteModal').modal('hide');
+            window.location.replace('/' + btnDataCategory + '/' + btnDataId);
         }
     });
+});
 
+
+$('#genericRecoverModal').on('show.bs.modal', function (event) {
+    var modal = $(this);
+    modal.find('.modal-body').html($loader); // Clear all HTML and show the loading spinner
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var btnDataName = button.data('name');// Extract info from data-* attributes
+    var btnDataDeleteCategory = button.data('category'); //Extract info from data-* attributes
+    var btnDataDomId = button.data('domid'); //Extract info from data-* attributes
+    var btnDataDeleteId = button.data('id'); //Extract info from data-* attributes
+    var returnValue;
+
+    $.ajax({
+        type: 'GET',
+        url: '/checkrecover/'+btnDataDeleteCategory+'/'+btnDataDeleteId,
+        data: {},
+        success: function (data) {
+            returnValue = data;
+            modal.find('.modal-body').html(returnValue);
+            modal.find('#genericRecoverModalYesBtn').attr('data-category', btnDataDeleteCategory);
+            modal.find('#genericRecoverModalYesBtn').attr('data-id', btnDataDeleteId);
+            modal.find('#genericRecoverModalYesBtn').attr('data-domid', btnDataDomId);
+        }
+    });
+});
+
+$(document).on('click', '#genericRecoverModalYesBtn', function () {
+    btnDataDomId = $(this)[0].dataset.domid;
+    btnDataId = $(this)[0].dataset.id;
+    btnDataCategory = $(this)[0].dataset.category;
+    $.ajax({
+        type: 'GET',
+        url: '/recover/'+btnDataCategory+'/'+btnDataId,
+        data: {},
+        success: function (data) {
+            $('#'+btnDataDomId).remove();
+            $('#genericRecoverModal').modal('hide');
+            window.location.replace('/' + btnDataCategory + '/' + btnDataId);
+        }
+    });
 });
 
 

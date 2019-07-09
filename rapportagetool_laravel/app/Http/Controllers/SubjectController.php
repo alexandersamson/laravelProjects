@@ -9,6 +9,16 @@ use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
+
+    protected $category;
+
+    public function __construct()
+    {
+        $this->category = 'subjects';
+        $this->middleware('auth'); //Anyone can Show, Edit and Update their own profile TODO: handle user profile permissions
+        $this->middleware('permission:matchOne,Investigator,Casemanager', ['only' => ['create', 'store', 'index', 'show', 'edit', 'update']]);
+        $this->middleware('permission:matchAll,Casemanager',              ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,10 +26,10 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        $subjects = Subject::orderBy('created_at', 'desc')->paginate(10);
+        $subjects = Subject::where('deleted', false)->orderBy('created_at', 'desc')->paginate(10);
 
         $data = array(
-            'subjects' => $subjects,
+            'objs' => $subjects,
         );
 
         return view('subjects.index')->with('data', $data);
@@ -61,7 +71,7 @@ class SubjectController extends Controller
         $modifiedAt = $subject->updated_at;
 
         $data = array(
-            'subject' => $subject,
+            'obj' => $subject,
             'creator' => $creator,
             'modifier' => $modifier,
             'modifiedAt' => $modifiedAt,
@@ -69,7 +79,7 @@ class SubjectController extends Controller
         );
 
 
-        return view('subjects.profile')->with('data', $data);
+        return view('subjects.show')->with('data', $data);
     }
 
     /**

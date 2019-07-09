@@ -16,11 +16,11 @@ class CreateUserSettingsTable extends Migration
         Schema::create('user_settings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->integer('creator_id');
+            $table->integer('modifier_id');
             $table->integer('user_id');
             $table->string('setting');
             $table->string('value');
-            $table->integer('creator_id');
-            $table->integer('modifier_id')->nullable();
         });
     }
 

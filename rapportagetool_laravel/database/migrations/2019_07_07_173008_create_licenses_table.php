@@ -19,6 +19,9 @@ class CreateLicensesTable extends Migration
             $table->timestamps();
             $table->integer('creator_id');
             $table->integer('modifier_id');
+            $table->boolean('approved')->default(true);
+            $table->dateTime('approved_at')->nullable();
+            $table->integer('approved_by_id')->nullable();;
             $table->integer('user_id');
             $table->string('organization_id')->nullable();
             $table->string('belongs_to')->default('user_id');

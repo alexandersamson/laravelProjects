@@ -11,10 +11,13 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
+    protected $category;
+
     public function __construct()
     {
+        $this->category = 'users';
         $this->middleware('auth'); //Anyone can Show, Edit and Update their own profile TODO: handle user profile permissions
-        $this->middleware('permission:matchOne,Staff,Manager,Owner', ['only' => ['index']]);
+        $this->middleware('permission:matchOne,Staff', ['only' => ['edit', 'update']]);
         $this->middleware('permission:matchOne,Manager,Owner', ['only' => ['create', 'store', 'destroy']]);
     }
     /**
@@ -24,10 +27,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('name', 'asc')->paginate(10);
+        $users = User::where('deleted', false)->orderBy('name', 'asc')->paginate(10);
 
         $data = array(
-            'users' => $users
+            'objs' => $users
         );
 
         return view('users.index')->with('data', $data);
@@ -71,7 +74,7 @@ class UserController extends Controller
 
 
         $data = array(
-            'user' => $user,
+            'obj' => $user,
             'creator' => $creator,
             'modifier' => $modifier,
             'modifiedAt' => $modifiedAt,
@@ -80,7 +83,7 @@ class UserController extends Controller
         );
 
 
-        return view('users.profile')->with('data', $data);
+        return view('users.show')->with('data', $data);
     }
 
 

@@ -15,11 +15,15 @@ class CreateCasefilesTable extends Migration
     {
         Schema::create('casefiles', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->timestamps();
+            $table->integer('creator_id');
+            $table->integer('modifier_id');
+            $table->boolean('approved')->default(true);
+            $table->dateTime('approved_at')->nullable();
+            $table->integer('approval_by_id')->nullable();
             $table->string('casecode')->unique();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->integer('creator_id');
-            $table->integer('modifier_id');
             $table->integer('case_state_index');
             $table->integer('lead_investigator_index');
             $table->integer('second_investigator_index')->nullable();
@@ -28,7 +32,6 @@ class CreateCasefilesTable extends Migration
             $table->boolean('active')->default(1);
             $table->boolean('deleted')->default(false);
             $table->biginteger('permission')->unsigned()->default(0);
-            $table->timestamps();
         });
     }
 

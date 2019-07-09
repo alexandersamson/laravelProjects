@@ -42,23 +42,6 @@ class AppServiceProvider extends ServiceProvider
             $permRequired = explode('|', $expression);
             return $this->pp->checkPermission($this->pp->getBitwiseValue($permRequired),NULL,false,false)['permission'];
         });
-        Blade::directive('getuserroles', function ($permissionValue) {
-            $roles = $this->pp->getPermissionsTextArray($permissionValue);
-            if(count($roles) > 0){
-                $counter = 0;
-                $returnString = "<?php echo (\"";
-                foreach($roles as $role){
-                    if($counter > 0){
-                        $returnString .= " |&nbsp;";
-                    }
-                    $returnString .= "<span class='text-dark'>$role</span>";
-                    $counter++;
-                }
-                $returnString .= "\"); ?>";
-                return $returnString;
-            }
-                return false;
-        });
     }
 }
 

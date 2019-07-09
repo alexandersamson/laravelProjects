@@ -20,6 +20,8 @@ class CreateAssignedSubjectsTable extends Migration
             $table->integer('casefile_id');
             $table->boolean('can_read_only')->default(false);
             $table->integer('creator_id')->nullable();
+            $table->integer('modifier_id')->nullable();
+            $table->boolean('deleted')->default(false);
         });
     }
 

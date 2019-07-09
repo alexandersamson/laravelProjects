@@ -2,13 +2,13 @@
     <small><table class="table table-sm">
         @foreach($data['subjects_recent'] as $subject)
             <tr id="posts{{$subject->id}}">
-                <td class="overflow-hidden">
-                    {{\Illuminate\Support\Str::limit($subject->name,27)}}
+                <td class="line-clamp">
+                    {{$subject->name}}
                 </td>
                 <td class="text-right">
 
                     @if(isset($data['cavedBtn']['subjects_recent'][$subject->id]))
-                        @include('includes.caved-buttons', ['cavedBtnArray' => $data['cavedBtn']['subjects_recent'][$subject->id],'c'=>'blocked'])
+                        @include('includes.caved-buttons', ['cavedBtnArray' => $data['cavedBtn']['subjects_recent'][$subject->id],'c'=>'blocked','p'=>'blocked'])
                     @endif
             </tr>
         @endforeach

@@ -1,6 +1,13 @@
+@media screen and (min-width: 1024px) {
+  html {
+    overflow: overlay;
+  }
+}
+
 body{
 
 }
+
 i.icon-move{
   display: inline-block;
   box-sizing: border-box;
@@ -50,12 +57,32 @@ i.icon-move:hover{
   overflow: hidden;
 }
 
+.fixed-width-75{
+  width: 75px !important;
+  overflow: hidden;
+}
+
+
+.line-clamp {
+  overflow: hidden !important;
+}
+
+
+
 .bg-succes-light{
   background-color: rgba(225, 250, 230, 0.50);
 }
 
+.bg-danger-light{
+  background-color: rgba(250, 225, 225, 0.50);
+}
+
 .bg-warning-light{
   background-color: rgba(250, 250, 200, 0.50);
+}
+
+.bg-warning-light:hover, .bg-succes-light:hover {
+   box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .15) !important;
 }
 
 

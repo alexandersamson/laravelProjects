@@ -48,5 +48,16 @@ class Globals extends ServiceProvider
             'subjects' => 'subjects',
             'licenses' => 'licenses']
         ]);
+        Config::set(['categoriesSingular' => [
+            'posts' => 'Post',
+            'casefiles' => 'Casefile',
+            'users' => 'User',
+            'investigators' => 'Investigator',
+            'leaders' => 'Leader',
+            'clients' => 'Client',
+            'organizations' => 'Organization',
+            'subjects' => 'Subject',
+            'licenses' => 'License']
+        ]);
     }
 }

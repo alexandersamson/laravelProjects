@@ -30,7 +30,7 @@ class CavedButtonsController extends Controller
 //              ['name' => 'posts',         'permission' => $postPermissions->getBitwiseValue(['Staff','Moderator']),                     'match_all_permissions' => false]
 
         if($category == 'test'){
-            $objs  = Client::orderBy('created_at', 'desc')->take(10)->get();
+            $objs  = Client::orderBy('created_at', 'desc')->where('deleted','=',false)->take(10)->get();
             $category = 'clients';
         }
         if($category == 'test2'){
@@ -77,13 +77,18 @@ class CavedButtonsController extends Controller
                 'name' => $name,
                 'c' => false, //Create new (from copy)  (Create rights needed
                 'a' => false, //Approve     (Advanced update rights needed)
-                'a_show' => false, //Approve show button? (Advanced update rights needed)
+                'a_show' => false, //Approve show button? (Advanced Update rights needed)
                 'v' => false, //View        (Reading rights needed)
                 'e' => false, //Edit        (Update rights needed
                 'p' => false, //Append (add something to it)    (Editing rights needed)
-                'd' => false];//Delete      (Deletion rights needed
+                'd' => false,//Delete      (Deletion rights needed)
+                'd_adv' => false];//Delete Advance (Advanced Deletion rights needed)
 
             $objCat = ObjectCategory::where('name', $category)->first();
+
+            if($object->approved == false && $object->deleted == false){
+                $data[$i]['a_show'] = true;
+            }
 
             if ($object->creator_id == $current_user_id) {
                 if ($objCat->c_by_creator) {
@@ -131,6 +136,11 @@ class CavedButtonsController extends Controller
             if ($data[$i]['d'] == false) {
                 if ($permission->checkPermission($objCat->d_permission, $current_user->permission, !$objCat->d_match_all, false)['permission']) {
                     $data[$i]['d'] = true;
+                }
+            }
+            if ($data[$i]['d_adv'] == false) {
+                if ($permission->checkPermission($objCat->d_adv_permission, $current_user->permission, !$objCat->d_adv_match_all, false)['permission']) {
+                    $data[$i]['d_adv'] = true;
                 }
             }
         }

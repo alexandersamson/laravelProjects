@@ -18,6 +18,9 @@ class CreateOrganizationsTable extends Migration
             $table->timestamps();
             $table->integer('creator_id');
             $table->integer('modifier_id');
+            $table->boolean('approved')->default(true);
+            $table->dateTime('approved_at')->nullable();
+            $table->integer('approved_by_id')->nullable();
             $table->string('name')->unique();
             $table->string('vat')->nullable();
             $table->string('coc')->nullable();

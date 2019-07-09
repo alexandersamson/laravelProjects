@@ -17,7 +17,7 @@ class PostsTableSeeder extends Seeder
         $postPermissions = new PermissionsService();
         $permissionSeed = $postPermissions->getBitwiseValue(['Staff','Moderator']);
         $posts = [
-            ['title' => 'First test post', 'body' => 'The fox jumps over the fence.', 'cover_image' => 'noimage.png', 'creator_id' => 1,  'modifier_id' => 1,  'permission' => $permissionSeed],
+            ['name' => 'The first test post', 'body' => 'The fox jumps over the fence.', 'cover_image' => 'noimage.png', 'creator_id' => 1,  'modifier_id' => 1,  'permission' => $permissionSeed],
         ];
         foreach($posts as $post){
             Post::create($post);

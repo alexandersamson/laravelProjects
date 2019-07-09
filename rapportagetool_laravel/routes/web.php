@@ -14,9 +14,6 @@
 Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
 
-//Permissions
-Route::get('/permissions/{permissionRequired}', 'PermissionsProvider@getBitwiseValue');
-Route::get('/permissions/getvalue/{permissionName}', 'PermissionsProvider@getBitwiseValue');
 
 //Resource routes
 Route::resource('posts', 'PostsController');
@@ -32,6 +29,8 @@ Route::get('profile-modal/{category}/{user_id}', 'ModalController@showPersonInfo
 //CheckDelete and Delete routes
 Route::get('checkdelete/{category}/{id}', 'CheckDeleteController@checkDelete');
 Route::get('delete/{category}/{id}', 'CheckDeleteController@delete');
+Route::get('checkrecover/{category}/{id}', 'CheckDeleteController@checkRecover');
+Route::get('recover/{category}/{id}', 'CheckDeleteController@recover');
 
 //Route::get('/users', function () {
 //    return view('pages.users');
@@ -46,7 +45,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 //testing
-Route::get('/testpermissionsvalue', 'PermissionsProvider@testBitwiseValue');
 Route::get('/testrandom', 'Services\CasefileNumberGenerator@generateCasefileCode');
 Route::get('/testavedarray/{cat}/{id}', 'CavedButtonsController@getCavedBtnArray');
 Route::resource('/testarea', 'TestareaController');
@@ -55,11 +53,12 @@ Route::resource('/testarea', 'TestareaController');
 Route::get('/images/profilepicture/{category}/{user_id}/{slug}', 'ImagesController@showUserProfilePicture')->name('UserProfilePicture');
 
 
-
 //Ajax
 Route::get('/ajaxTestRequest', 'HomeController@ajaxRequest');
 Route::post('/ajaxTestRequest', 'HomeController@ajaxRequestPost');
 Route::get('/ajaxgetselectlist', 'ModalController@ajaxGetPersonSelectList');
 
+//Approval
+Route::get('/approval/{cat}/{id}/{action}', 'ApprovalsController@approval');
 
 Route::post('/ajaxAddPersons/', 'CasefilesController@ajaxAddPersons');

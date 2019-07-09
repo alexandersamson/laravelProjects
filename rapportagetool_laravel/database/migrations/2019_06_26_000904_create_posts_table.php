@@ -15,11 +15,14 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title');
-            $table->mediumText('body');
-            $table->string('cover_image');
             $table->integer('creator_id');
             $table->integer('modifier_id');
+            $table->boolean('approved')->default(true);
+            $table->dateTime('approved_at')->nullable();
+            $table->integer('approved_by_id')->nullable();
+            $table->string('name'); //is title
+            $table->mediumText('body');
+            $table->string('cover_image');
             $table->integer('permission');
             $table->boolean('deleted')->default(false);
             $table->timestamps();

@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'permission'
+        'name', 'email', 'password'
     ];
 
     /**
@@ -34,9 +34,23 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime'
+        'email_verified_at' => 'datetime',
+        'permission' => 'integer',
+        'deleted' => 'boolean',
+        'approved' => 'boolean',
+        'approved_at' => 'datetime',
     ];
 
+    public function getPermissionAttribute($value)
+    {
+        return $value;
+    }
+
+
+
+    public function actionLogs(){
+        return $this->hasMany('App\ActionLog');
+    }
 
     public function posts(){
         return $this->hasMany('App\Post');

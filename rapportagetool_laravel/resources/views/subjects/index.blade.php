@@ -1,9 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.obj-index', ['category' => 'subjects'])
 
-@section('content')
-    <h1>Subjects</h1>
-    @if(count($data['subjects']) > 0)
-        @foreach($data['subjects'] as $subject)
+@section('obj-index')
+    @if(count($data['objs']) > 0)
+        @foreach($data['objs'] as $subject)
             <div class="card">
                 <div class="row">
                     <div class="col-md-8 col-sm-8">
@@ -14,7 +13,7 @@
                 </div>
             </div>
         @endforeach
-        {{$data['subjects']->links()}}
+        {{$data['objs']->links()}}
     @else
         <p>No subjects found</p>
     @endif

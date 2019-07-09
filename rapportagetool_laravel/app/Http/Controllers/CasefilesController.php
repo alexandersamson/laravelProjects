@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ActionLog;
 use App\AssignedClient;
 use App\AssignedInvestigator;
 use App\AssignedSubject;
@@ -20,12 +21,14 @@ use Illuminate\Support\Facades\Config;
 class CasefilesController extends Controller
 {
 
+    protected $category;
 
     public function __construct()
     {
+        $this->category = 'casefiles';
         $this->middleware('auth');
-        $this->middleware('permission:matchOne,Investigator,Casemanager', ['only' => ['index', 'show', 'edit', 'update']]);
-        $this->middleware('permission:matchAll,Casemanager',              ['only' => ['create', 'store', 'destroy']]);
+        $this->middleware('permission:matchOne,Investigator,Casemanager', ['only' => ['create', 'store', 'index', 'show', 'edit', 'update']]);
+        $this->middleware('permission:matchAll,Casemanager',              ['only' => ['destroy']]);
 
     }
     /**
@@ -35,7 +38,7 @@ class CasefilesController extends Controller
      */
     public function index()
     {
-        $casefiles = Casefile::orderBy('created_at', 'desc')->paginate(10);
+        $casefiles = Casefile::orderBy('created_at', 'desc')->where('deleted','=',false)->paginate(10);
         $casestates = CaseState::all();
 
         $assignedClientController = new AssignedClientController();
@@ -51,7 +54,7 @@ class CasefilesController extends Controller
         }
 
         $data = array(
-            'casefiles' => $casefiles,
+            'objs' => $casefiles,
             'casestates' => $casestates,
             'assignedClients' => $assignedClients,
             'assignedUsers' => $assignedUsers,
@@ -59,7 +62,7 @@ class CasefilesController extends Controller
         );
         //return $data;
         //return $casefiles;
-        return view('casefiles.dashboard')->with('data', $data);
+        return view('casefiles.index')->with('data', $data);
     }
 
     /**
@@ -129,6 +132,10 @@ class CasefilesController extends Controller
         $casefile ->client_index = 0;
         $casefile ->save();
 
+        //ActionLog
+        $actionLog = new ActionLogsController;
+        $actionLog->insertAction($casefile, 'create');
+
 
         $thisCasefile = Casefile::where('casecode', $request->input('casecode'))->get();
 
@@ -186,7 +193,20 @@ class CasefilesController extends Controller
     public function show($id)
     {
         $casefile = Casefile::find($id);
-        return view('casefiles.show')->with('casefile', $casefile);
+        $creator = User::find($casefile->creator_id);
+        $modifier = User::find($casefile->modifier_id);
+        $createdAt = $casefile->created_at;
+        $modifiedAt = $casefile->updated_at;
+
+
+        $data = array(
+            'obj' => $casefile,
+            'creator' => $creator,
+            'createdAt' => $createdAt,
+            'modifiedAt' => $modifiedAt,
+            'modifier' => $modifier,
+        );
+        return view('casefiles.show')->with('data', $data);
     }
 
     /**
@@ -210,6 +230,12 @@ class CasefilesController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $casefile = new Casefile;
+
+
+        //ActionLog
+        $actionLog = new ActionLogsController;
+        $actionLog->insertAction($casefile, 'update');
     }
 
     /**

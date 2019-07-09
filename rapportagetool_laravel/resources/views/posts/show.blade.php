@@ -1,21 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.obj-show', ['category' => 'posts','id' => $data['obj']->id,'name' => $data['obj']->name,'deleted' => $data['obj']->deleted])
 
-@section('content')
-    <a href="/posts" class="btn btn-outline-dark">Go back</a>
-    <h1>{{$data['post']->title}}</h1>
-    <img alt="cover image" width="100%" src="/storage/cover_images/{{$data['post']->cover_image}}">
+@section('obj-show')
+    <img alt="cover image" width="100%" src="/storage/cover_images/{{$data['obj']->cover_image}}">
     <div>
-        {!!$data['post']->body!!}
+        {!!$data['obj']->body!!}
     </div>
     <hr>
+    @if($data['obj']->deleted)
+        <h5><span class="badge badge-danger">This post has been deleted</span></h5>
+    @endif
     @include('includes.created-by-footer')
-    <hr>
-    @guest
-    @else
-    <a href="/posts/{{$data['post']->id}}/edit" class="btn btn-outline-dark">Edit</a>
-    {!!Form::open(['action' => ['PostsController@destroy', $data['post']->id], 'method' => 'POST', 'class' => 'float-right'])!!}
-        {{Form::hidden('_method', 'DELETE')}}
-        {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
-    {!!Form::close()!!}
-    @endguest
 @endsection

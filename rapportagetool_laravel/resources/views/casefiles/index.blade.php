@@ -1,10 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.obj-index', ['category' => 'casefiles'])
 
-@section('content')
-    <h1>Casefiles</h1>
+@section('obj-index')
     @include('includes.casefile-card-title')
-    @if(count($data['casefiles']) > 0)
-        @foreach($data['casefiles'] as $casefile)
+    @if(count($data['objs']) > 0)
+        @foreach($data['objs'] as $casefile)
             <div class="card mb-0 shadow-sm small">
                 <div class="row">
                     <div class="col-sm-3">
@@ -27,7 +26,7 @@
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Hide Casefile</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item text-danger" href="#">Delete Casefile</a>
+                                    <a title="Delete" href="#" data-toggle="modal" data-category="casefiles" data-domid="casefiles{{$casefile->id}}" data-id="{{$casefile->id}}" data-name="{{$casefile->name}}" data-target="#genericDeleteModal" class="dropdown-item text-danger">Delete Casefile</a>
                                 </div>
                             </div>
                             <div class="dropdown dropdown-btn">
@@ -84,7 +83,7 @@
                 </div>
             </div>
         @endforeach
-        {{$data['casefiles']->links()}}
+        {{$data['objs']->links()}}
     @else
         <p>No casefiles found</p>
     @endif

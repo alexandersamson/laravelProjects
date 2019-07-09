@@ -19,18 +19,18 @@ class ModalController extends Controller
     public function showPersonInfo($category, $user_id)
     {
         $classNameService = new ClassNameService();
-        $personClass = $classNameService->getClassByCategory($category);
+        $personClass = $classNameService->getClassByCategory($category, false, $user_id);
 
 
 
-        $person = $personClass->find($user_id);
-        $creator = User::find($person->creator_id);
-        $modifier = User::find($person->modifier_id);
-        $createdAt = $person->created_at;
-        $modifiedAt = $person->updated_at;
+        $obj = $personClass->find($user_id);
+        $creator = User::find($obj->creator_id);
+        $modifier = User::find($obj->modifier_id);
+        $createdAt = $obj->created_at;
+        $modifiedAt = $obj->updated_at;
 
         $data = array(
-            'person' => $person,
+            'obj' => $obj,
             'category' => $category,
             'creator' => $creator,
             'modifier' => $modifier,

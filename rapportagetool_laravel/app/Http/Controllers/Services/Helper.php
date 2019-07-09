@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Services;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Carbon;
 
-class Helper
+class Helper extends Controller
 {
     //
 
-    public function getDaysLeft($startDate)
+    public static function getDaysLeft($startDate)
     {
         $returnStringAppend = '';
         $s = 's';
@@ -33,6 +34,22 @@ class Helper
             $returnStringAppend = 'expired';
         }
         return $diff.$returnStringAppend;
+    }
+
+    public static function needsApproval($category, $id){
+        $classNameService = new ClassNameService();
+        $obj = $classNameService->getClassByCategory($category, false, $id);
+        if(!$obj->deleted) {
+            return !$obj->approved;
+        } else {
+            return false;
+        }
+    }
+
+    public static function isDeleted($category, $id){
+        $classNameService = new ClassNameService();
+        $obj = $classNameService->getClassByCategory($category, false, $id);
+        return $obj->deleted;
     }
 
 }

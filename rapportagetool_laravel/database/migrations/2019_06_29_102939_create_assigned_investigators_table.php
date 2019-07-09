@@ -21,6 +21,8 @@ class CreateAssignedInvestigatorsTable extends Migration
             $table->boolean('is_lead_investigator')->default(false);
             $table->boolean('can_read_only')->default(false);
             $table->integer('creator_id')->nullable();
+            $table->integer('modifier_id')->nullable();
+            $table->boolean('deleted')->default(false);
         });
     }
 

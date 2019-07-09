@@ -122,7 +122,7 @@
                         <h5 class="card-title">Recent User Logins</h5>
                         <p class="card-text">This feature is under construction. It will be soon available to you.</p>
                         @hasanyrole('Manager|Owner')
-                            <a href="/Users/create" class="btn btn-sm btn-primary">New User</a>
+                            <a href="/users/create" class="btn btn-sm btn-primary">New User</a>
                         @endhasanyrole
                         <a href="#" class="btn btn-sm btn-primary">Go to Users</a>
                     </div>
@@ -136,6 +136,7 @@
                     <div class="card-body pt-2">
                         <h5 class="card-title">Statistics</h5>
                         <p class="card-text">This feature is under construction. It will be soon available to you.</p>
+                        <img src="{{url('/images/smalldiagram.jpg')}}" class="img-fluid" alt="">
                         <a href="#" class="btn btn-sm btn-primary">Go to Statistics</a>
                     </div>
                 </div>
@@ -147,9 +148,9 @@
                     <i class="icon-move">&#8596;</i>
                     <div class="card-body pt-2">
                         <h5 class="card-title">Recent User Actions</h5>
-                        <p class="card-text">This feature is under construction. It will be soon available to you.</p>
+                        @include('dashboard.cards.action-logs-card')
                         @hasanyrole('Manager|Owner')
-                            <a href="/Users/create" class="btn btn-sm btn-primary">New User</a>
+                            <a href="/users/create" class="btn btn-sm btn-primary">New User</a>
                         @endhasanyrole
                         <a href="#" class="btn btn-sm btn-primary">Go to Action Log</a>
                     </div>

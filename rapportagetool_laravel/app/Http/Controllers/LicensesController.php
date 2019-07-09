@@ -8,8 +8,12 @@ use Illuminate\Http\Request;
 
 class LicensesController extends Controller
 {
+
+    protected $category;
+
     public function __construct()
     {
+        $this->category = 'licenses';
         $this->middleware('auth'); //Anyone can Show, Edit and Update their own profile TODO: handle user profile permissions
         $this->middleware('permission:matchOne,Staff,Investigator,Manager,Casemanager,Owner', ['only' => ['index', 'show']]);
         $this->middleware('permission:matchOne,Manager,Owner', ['only' => ['create', 'edit', 'update', 'store', 'destroy']]);
@@ -18,10 +22,10 @@ class LicensesController extends Controller
 
     public function index()
     {
-        $licenses = License::orderBy('name', 'asc')->paginate(10);
+        $licenses = License::orderBy('name', 'asc')->where('deleted','=',false)->paginate(10);
 
         $data = array(
-            'licenses' => $licenses
+            'objs' => $licenses
         );
 
         return view('licenses.index')->with('data', $data);
@@ -64,7 +68,7 @@ class LicensesController extends Controller
 
 
         $data = array(
-            'license' => $license,
+            'obj' => $license,
             'creator' => $creator,
             'modifier' => $modifier,
             'modifiedAt' => $modifiedAt,
@@ -72,7 +76,7 @@ class LicensesController extends Controller
         );
 
 
-        return view('licenses.profile')->with('data', $data);
+        return view('licenses.show')->with('data', $data);
     }
 
     /**

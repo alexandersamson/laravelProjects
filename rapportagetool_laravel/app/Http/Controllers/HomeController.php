@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ActionLog;
 use App\Casefile;
 use App\Client;
 use App\License;
@@ -40,9 +41,12 @@ class HomeController extends Controller
         $recentCasefiles = Casefile::where('deleted', '=', false)->orderBy('created_at', 'desc')->take($limitPerPage)->get();
         $recentUpdatedCasefiles = Casefile::where('deleted', '=', false)->orderBy('updated_at', 'desc')->take($limitPerPage)->get();
         $recentDueLicenses = License::where('deleted', '=', false)->orderBy('valid_to', 'asc')->take($limitPerPage)->get();
+        $actionLogs = ActionLog::where('hidden', '=', false)->where('deleted','=',false)->orderBy('id', 'desc')->take($limitPerPage)->get();
         //$userCasefiles = Casefile::where('user_id','=', $user_id)->orderBy('created_at', 'desc')->take(10)->get();
         $userCasefiles = DB::table('casefiles')
             ->join('assigned_investigators', 'casefiles.id', '=', 'assigned_investigators.casefile_id')
+            ->where('assigned_investigators.deleted','=',false)
+            ->where('casefiles.deleted','=',false)
             ->where('assigned_investigators.user_id','=',$user_id)
             ->select('casefiles.*')
             ->orderBy('assigned_investigators.is_lead_investigator', 'DESC')
@@ -65,6 +69,7 @@ class HomeController extends Controller
             'clients_recent' => $recentClients,
             'subjects_recent' => $recentSubjects,
             'licenses_due' => $recentDueLicenses,
+            'action_logs' => $actionLogs,
             'permission' => $user->permission,
             'cavedBtn' => $cavedBtn
         );

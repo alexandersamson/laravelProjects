@@ -16,6 +16,11 @@ class CreateSubjectsTable extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->integer('creator_id');
+            $table->integer('modifier_id');
+            $table->boolean('approved')->default(true);
+            $table->dateTime('approved_at')->nullable();
+            $table->integer('approved_by_id')->nullable();
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('behaviour')->nullable();
@@ -42,11 +47,8 @@ class CreateSubjectsTable extends Migration
             $table->string('phone_work')->nullable();
             $table->string('phone')->nullable();
             $table->string('profile_picture_path');
-            $table->integer('creator_id');
-            $table->integer('modifier_id');
             $table->string('style')->default('default');
             $table->boolean('active')->default(1);
-            $table->boolean('approved')->default(1);
             $table->boolean('deleted')->default(0);
             $table->biginteger('permission')->unsigned()->default(0);
         });

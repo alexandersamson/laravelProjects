@@ -9,15 +9,19 @@
         @endif
     @endif
     @if((isset($data['createdAt']) || isset($data['creator'])) && (isset($data['modifiedAt']) || isset($data['modifier'])))
-        &nbsp;|&nbsp;
+        @if($data['modifiedAt'] != $data['createdAt'])
+            &nbsp;|&nbsp;
+        @endif
     @endif
     @if(isset($data['modifiedAt']) || isset($data['modifier']))
-        Last edit
-        @if(isset($data['modifiedAt']))
-            at {{$data['modifiedAt']->format('d/m/Y H:i')}}
-        @endif
-        @if(isset($data['modifier']))
-                <span class="text-nowrap"> by <a href="/users/{{$data['modifier']->id}}">{{$data['modifier']->name}}</a></span>
+        @if($data['modifiedAt'] != $data['createdAt'])
+            Last edit
+            @if(isset($data['modifiedAt']))
+                at {{$data['modifiedAt']->format('d/m/Y H:i')}}
+            @endif
+            @if(isset($data['modifier']))
+                    <span class="text-nowrap"> by <a href="/users/{{$data['modifier']->id}}">{{$data['modifier']->name}}</a></span>
+            @endif
         @endif
     @endif
 </small>

@@ -13,7 +13,6 @@ class imagesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('permission:matchOne,Moderator,Staff', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
     }
 
     public function showUserProfilePicture($userCategory, $user_id, $slug)

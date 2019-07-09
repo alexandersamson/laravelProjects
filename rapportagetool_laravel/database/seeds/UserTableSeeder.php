@@ -24,7 +24,7 @@ class UserTableSeeder extends Seeder
                 'modifier_id' => 1,
                 'permission' => 511
             ],
-            ['name' => 'User NoPermission',
+            ['name' => 'No Permission Testuser',
                 'email' => 'alexander@gm6.nl',
                 'password' => '$2y$10$DRThKGB77vKlZiTCrDG4TOoxTFS5REjcQfmQd13WKoIyY3S4vmfwi',
                 'phone' => '+31612345567',
@@ -34,7 +34,7 @@ class UserTableSeeder extends Seeder
                 'modifier_id' => 1,
                 'permission' => 0
             ],
-            ['name' => 'User Staff',
+            ['name' => 'Staff Testuser',
                 'email' => 'alexander@gm5.nl',
                 'password' => '$2y$10$DRThKGB77vKlZiTCrDG4TOoxTFS5REjcQfmQd13WKoIyY3S4vmfwi',
                 'phone' => '+31612345567',
@@ -44,10 +44,51 @@ class UserTableSeeder extends Seeder
                 'modifier_id' => 1,
                 'permission' => 1
             ],
-            ['name' => 'User Investigator', 'email' => 'alexander@gm4.nl', 'password' => '$2y$10$DRThKGB77vKlZiTCrDG4TOoxTFS5REjcQfmQd13WKoIyY3S4vmfwi', 'phone' => '+31612345567', 'profile_picture_path' => 'profilepicture/profilepicture', 'creator_id' => 1,  'modifier_id' => 1, 'permission' => 2],
-            ['name' => 'User StaffInvestigator', 'email' => 'alexander@gm3.nl', 'password' => '$2y$10$DRThKGB77vKlZiTCrDG4TOoxTFS5REjcQfmQd13WKoIyY3S4vmfwi', 'phone' => '+31612345567', 'profile_picture_path' => 'profilepicture/profilepicture', 'creator_id' => 1,  'modifier_id' => 1, 'permission' => 3],
-            ['name' => 'User Manag.Invest.', 'email' => 'alexander@gm2.nl', 'password' => '$2y$10$DRThKGB77vKlZiTCrDG4TOoxTFS5REjcQfmQd13WKoIyY3S4vmfwi', 'phone' => '+31612345567', 'profile_picture_path' => 'profilepicture/profilepicture', 'creator_id' => 1,  'modifier_id' => 1, 'permission' => 7],
-            ['name' => 'User 511', 'email' => 'alexander@gm1.nl', 'password' => '$2y$10$DRThKGB77vKlZiTCrDG4TOoxTFS5REjcQfmQd13WKoIyY3S4vmfwi', 'phone' => '+31612345567', 'profile_picture_path' => 'profilepicture/profilepicture', 'creator_id' => 1,  'modifier_id' => 1, 'permission' => 511]
+            ['name' => 'Investigator Testuser',
+                'email' => 'alexander@gm4.nl',
+                'password' => '$2y$10$DRThKGB77vKlZiTCrDG4TOoxTFS5REjcQfmQd13WKoIyY3S4vmfwi',
+                'phone' => '+31612345567',
+                'profile_picture_path' => 'profilepicture/profilepicture',
+                'creator_id' => 1,
+                'modifier_id' => 1,
+                'permission' => 2
+            ],
+            ['name' => 'Staff/Investigator Testuser',
+                'email' => 'alexander@gm3.nl',
+                'password' => '$2y$10$DRThKGB77vKlZiTCrDG4TOoxTFS5REjcQfmQd13WKoIyY3S4vmfwi',
+                'phone' => '+31612345567',
+                'profile_picture_path' => 'profilepicture/profilepicture',
+                'creator_id' => 1,
+                'modifier_id' => 1,
+                'permission' => 3
+            ],
+            ['name' => 'Casemanager Testuser',
+                'email' => 'alexander@gm2.nl',
+                'password' => '$2y$10$DRThKGB77vKlZiTCrDG4TOoxTFS5REjcQfmQd13WKoIyY3S4vmfwi',
+                'phone' => '+31612345567',
+                'profile_picture_path' => 'profilepicture/profilepicture',
+                'creator_id' => 1,
+                'modifier_id' => 1,
+                'permission' => 5
+            ],
+            ['name' => 'Manager Testuser',
+                'email' => 'alexander@gm1.nl',
+                'password' => '$2y$10$DRThKGB77vKlZiTCrDG4TOoxTFS5REjcQfmQd13WKoIyY3S4vmfwi',
+                'phone' => '+31612345567',
+                'profile_picture_path' => 'profilepicture/profilepicture',
+                'creator_id' => 1,
+                'modifier_id' => 1,
+                'permission' => 65
+            ],
+            ['name' => 'Manager/Casemanager Testuser',
+                'email' => 'alexander@gm0.nl',
+                'password' => '$2y$10$DRThKGB77vKlZiTCrDG4TOoxTFS5REjcQfmQd13WKoIyY3S4vmfwi',
+                'phone' => '+31612345567',
+                'profile_picture_path' => 'profilepicture/profilepicture',
+                'creator_id' => 1,
+                'modifier_id' => 1,
+                'permission' => 69
+            ]
 
         ];
         foreach($users as $user){

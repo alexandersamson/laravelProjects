@@ -3,16 +3,17 @@
 
 namespace App\Http\Controllers\Services;
 
-
+use App\Http\Controllers\Controller;
+use App\ObjectCategory;
 use App\Permission;
 use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Auth;
 
-class PermissionsService
+class PermissionsService extends Controller
 {
 
-    public function checkPermission($permissionRequired, $userPermission = NULL, $checkAny = false, $gatekeeping = false){
+    public static function checkPermission($permissionRequired, $userPermission = NULL, $checkAny = false, $gatekeeping = false){
 
         //First check whether or not someone is logged in
         //If no one is logged is, check if resource is available for Guests (0 permission value)
@@ -40,7 +41,7 @@ class PermissionsService
         if(is_numeric ($userPermission)) {
             $userStartPermission = $userPermission;
         } else {
-            $userStartPermission = User::find(Auth::id())->permission;
+            $userStartPermission = \auth()->user()->permission;
         }
 
 
@@ -94,7 +95,7 @@ class PermissionsService
 
 
     //This method returns the bitwise value of a single or multiple permission name(s) passed to it
-    public function getBitwiseValue($permissions){
+    public static function getBitwiseValue($permissions){
         $pValue = 0;
         if (is_array($permissions) || is_object($permissions)) {
             foreach ($permissions as $permission) {
@@ -107,15 +108,14 @@ class PermissionsService
     }
 
 
-    public function getPermissionsTextArray($userPermission){
+    public static function getPermissionsTextArray($userPermission){
         $permissions = array();
-
         //Check whether or not the userPermission parameter has been set. If it has been set manually, use that value.
         //If it's not been set, then use Auth::id()->permission value (permission of current user logged in)
-        if(is_numeric ($userPermission)) {
-            $userStartPermission = $userPermission;
+        if($userPermission != null) {
+            $userStartPermission = (integer)$userPermission;
         } else {
-            $userStartPermission = User::find(Auth::id())->permission;
+            $userStartPermission = \auth()->user()->permission;
         }
 
         //The actual checkPermission method:
@@ -132,7 +132,6 @@ class PermissionsService
             }
             $sv /= 2;
         }
-
         return $permissions;
     }
 
@@ -140,5 +139,113 @@ class PermissionsService
     //Some test to test getBitwiseValue
     public function testBitwiseValue(){
         return $this->getBitwiseValue(['Guest', 'Investigator', 'Registered']); // should return 5
+    }
+
+
+    protected static function canCrudPowerUser($targetuser){
+        if(self::checkPermission(self::getBitwiseValue(['Owner','Administrator','Manager']), $targetuser->permission, true)['permission']){
+            if(self::checkPermission(self::getBitwiseValue(['Owner']), \auth()->user()->permission, true)['permission']){
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    private static function getSelectors($crud){
+        //Check the permissions
+        if( $crud == 'c' ||
+            $crud == 'r' ||
+            $crud == 'u' ||
+            $crud == 'd' ||
+            $crud == 'c_adv' ||
+            $crud == 'r_adv' ||
+            $crud == 'u_adv' ||
+            $crud == 'd_adv'
+        ){
+            $selectors = array(
+                'permCreator' => $crud.'_by_creator',
+                'permByRole' =>  $crud.'_permission',
+                'matches' =>     $crud.'_match_all');
+            return $selectors;
+        } else {
+            return ([]);
+        }
+    }
+
+
+    //uses permissions rights
+    //from ObjectCategory model
+    public static function canDoWithObj($category, $id, $crud = 'r', $checkDeletion = true, $checkCrudPowerUser = true){
+
+        //Check if object has been deleted
+        if($checkDeletion == true){
+            if(Helper::isDeleted($category, $id) == true){
+                return false;
+            }
+        }
+
+        //Check if object is a user and this user is one's self
+        //Users cannot delete themselves
+        if($category == 'users' && $crud == 'd'){
+            if($id == auth()->user()->id){
+                return false;
+            }
+            //Allow to edit own profiles however
+        } else if($id == auth()->user()->id && $crud == 'u'){
+            return true;
+        }
+
+        //Check if $crud has a valid CRUD-command and if so, pupulate the db column selectors
+        $selector = self::getSelectors($crud);
+        if($selector ==  null){
+            return false;
+        }
+
+        $classNameService = new ClassNameService;
+        $obj = $classNameService->getClassByCategory($category, false, $id);
+        $objCat = ObjectCategory::where('name', $category)->first();
+        $curUsrPerm = \auth()->user()->permission;
+
+        //check if user is trying to crud an higher tier user profile
+        //for other reasons than just a read request
+        if($category == 'users' && $crud != 'r')
+        {
+            if(!self::canCrudPowerUser($obj)){
+                return false;
+            }
+        }
+
+        if ($obj->creator_id == auth()->user()->id && $crud != 'c') {
+            if ($objCat->{$selector["permCreator"]}) {
+                return true;
+            }
+        }
+
+        if (self::checkPermission($objCat->{$selector['permByRole']}, $curUsrPerm, !$objCat->{$selector['matches']}, false)['permission']) {
+                return true;
+        }
+        return false;
+    }
+
+
+    public static function canDoWithCat($category, $crud){
+
+        //Check if $crud has a valid CRUD-command and if so, pupulate the db column selectors
+        $selector = self::getSelectors($crud);
+        if($selector ==  null){
+            return false;
+        }
+
+        $objCat = ObjectCategory::where('name', $category)->first();
+        $curUsrPerm = \auth()->user()->permission;
+
+        if (self::checkPermission($objCat->{$selector['permByRole']}, $curUsrPerm, !$objCat->{$selector['matches']}, false)['permission']) {
+            return true;
+        }
+        return false;
+
     }
 }
