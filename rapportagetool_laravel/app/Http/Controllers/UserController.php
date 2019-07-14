@@ -30,10 +30,11 @@ class UserController extends Controller
         $users = User::where('deleted', false)->orderBy('name', 'asc')->paginate(10);
 
         $data = array(
-            'objs' => $users
+            'category' => $this->category,
+            'objs' => $users,
         );
 
-        return view('users.index')->with('data', $data);
+        return view('layouts.obj-index')->with('data', $data);
     }
 
     /**
@@ -66,6 +67,9 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
+        if(!$user){
+            return redirect('home')->with('error', 'User does not exist');
+        }
         $creator = User::find($user->creator_id);
         $modifier = User::find($user->modifier_id);
         $createdAt = $user->created_at;

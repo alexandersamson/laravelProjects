@@ -68,6 +68,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Licenses');
     }
 
+    public function messages(){
+        return $this->belongsToMany('App\Message', 'link_message_users');
+    }
+
+
     public function assignedInvestigators(){
         return $this->hasMany('App\AssignedInvestigator');
     }

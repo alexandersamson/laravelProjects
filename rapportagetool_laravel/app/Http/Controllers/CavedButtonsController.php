@@ -52,7 +52,7 @@ class CavedButtonsController extends Controller
             if(isset(auth()->user()->id)) {
                 $current_user_id = auth()->user()->id;
             } else {
-                abort(403, 'Unauthorized Action');
+                abort(403, 'No permission');
             }
         }
         $current_user = User::find($current_user_id);

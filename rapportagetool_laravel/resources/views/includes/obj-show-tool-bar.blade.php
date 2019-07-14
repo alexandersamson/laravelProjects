@@ -48,8 +48,19 @@
                    data-id="{{$id}}"
                    data-name="{{$name}}"
                    data-target="#genericRecoverModal"
-                   class="btn btn-sm btn-outline-success oi oi-arrow-circle-bottom">
+                   class="btn btn-sm btn-success oi oi-arrow-circle-bottom">
                 </a>
+                @if(\App\Http\Controllers\Services\PermissionsService::canEraseObj($category, $id, 'd_adv'))
+                       <a title="Permanently erase {{$name}}" href="#"
+                       data-toggle="modal"
+                       data-category="{{$category}}"
+                       data-domid="{{$category.$id}}"
+                       data-id="{{$id}}"
+                       data-name="{{$name}}"
+                       data-target="#genericEraseModal"
+                       class="btn btn-sm btn-danger oi oi-delete">
+                       </a>
+                @endif
             @endif
         @endif
     </div>

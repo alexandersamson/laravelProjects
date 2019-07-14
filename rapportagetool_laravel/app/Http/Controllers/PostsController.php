@@ -39,7 +39,13 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::where('deleted', false)->orderBy('created_at', 'desc')->paginate(10);
-        return view('posts.index')->with('objs', $posts);
+
+        $data = array(
+            'category' => $this->category,
+            'objs' => $posts,
+        );
+
+        return view('layouts.obj-index')->with('data', $data);
     }
 
     /**
@@ -113,6 +119,9 @@ class PostsController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
+        if(!$post){
+            return redirect('home')->with('error', 'Post does not exist');
+        }
         if (!PermissionsService::canDoWithObj($this->category, $id, 'r', false, true)) {
             return redirect('home')->with('error', 'No permission');
         }

@@ -3,7 +3,7 @@
 @section('obj-show')
     <img alt="cover image" width="100%" src="/storage/cover_images/{{$data['obj']->cover_image}}">
     <div>
-        {!!$data['obj']->body!!}
+        {!!\App\Http\Controllers\Services\Helper::parseBB($data['obj']->body)!!}
     </div>
     <hr>
     @if($data['obj']->deleted)

@@ -29,10 +29,11 @@ class SubjectController extends Controller
         $subjects = Subject::where('deleted', false)->orderBy('created_at', 'desc')->paginate(10);
 
         $data = array(
+            'category' => $this->category,
             'objs' => $subjects,
         );
 
-        return view('subjects.index')->with('data', $data);
+        return view('layouts.obj-index')->with('data', $data);
     }
 
     /**
@@ -65,6 +66,11 @@ class SubjectController extends Controller
     public function show($id)
     {
         $subject = Subject::find($id);
+
+        if(!$subject){
+            return redirect('home')->with('error', 'Subject does not exist');
+        }
+
         $creator = User::find($subject->creator_id);
         $modifier = User::find($subject->modifier_id);
         $createdAt = $subject->created_at;

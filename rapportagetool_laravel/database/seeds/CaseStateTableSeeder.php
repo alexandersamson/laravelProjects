@@ -32,7 +32,8 @@ class CaseStateTableSeeder extends Seeder
             ['name' => 'Payment Due',     'description' => '', 'style' => 'default','position' => 16,  'permission' => 0],
             ['name' => 'Inactive',        'description' => '', 'style' => 'default','position' => 17,  'permission' => 0],
             ['name' => 'Proposal Void',   'description' => '', 'style' => 'default','position' => 18,  'permission' => 0],
-            ['name' => 'Deleted',         'description' => '', 'style' => 'default','position' => 19,  'permission' => 64]
+            ['name' => 'Deleted',         'description' => '', 'style' => 'default','position' => 19,  'permission' => 64],
+            ['name' => 'Draft',           'description' => '', 'style' => 'text-muted','position' => 20,  'permission' => 0]
         ];
         foreach($caseStates as $caseState){
             CaseState::create($caseState);

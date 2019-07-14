@@ -43,10 +43,13 @@
                                 </div>
                                 <hr>
                                 <div class="p-1">
-                                    {!! Form::open(['action' => 'PostsController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+                                    {!! Form::open(['action' => 'MessagesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
                                     <div class="form-group">
-                                        {{Form::textarea('body', '', ['rows' => 6, 'maxlength' => 500, 'id' => 'message-box', 'class' => 'form-control', 'placeholder' => 'Your message (max 500 characters)'])}}
+                                        {{Form::text('title', '', ['class' => 'form-control mb-2', 'placeholder' => 'Title (optional)'])}}
+                                        {{Form::textarea('body', '', ['rows' => 6, 'maxlength' => 1001, 'id' => 'message-box', 'class' => 'form-control', 'placeholder' => 'Your message (max 1000 characters)'])}}
                                     </div>
+                                    {{Form::hidden('targetUser', $data['obj']->id)}}
+                                    {{Form::hidden('quickSend', true)}}
                                     {{Form::submit('Send', ['class' => 'btn btn-primary'])}}
                                     {!! Form::close() !!}
                                 </div>

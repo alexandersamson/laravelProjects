@@ -6,6 +6,7 @@
             {{ session('status') }}
         </div>
     @endif
+
     
     @include('dashboard.index-include')
 {{--    TODO: Add some more html to bottom of cards dashboard containers--}}

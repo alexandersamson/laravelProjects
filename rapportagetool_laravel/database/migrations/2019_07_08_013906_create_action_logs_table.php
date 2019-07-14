@@ -18,13 +18,20 @@ class CreateActionLogsTable extends Migration
             $table->timestamps();
             $table->integer('creator_id');
             $table->integer('modifier_id');
+            $table->boolean('approved')->default(true);
+            $table->dateTime('approved_at')->nullable();
+            $table->integer('approved_by_id')->nullable();
+            $table->boolean('active')->default(true);
+            $table->boolean('hidden')->default(false);
+            $table->boolean('draft')->default(false);
+            $table->boolean('deleted')->default(false);
+            $table->integer('permission')->default(0);
+            $table->string('style')->default('default');
             $table->integer('user_id');
             $table->string('object');
             $table->integer('object_id');
             $table->string('action');
             $table->string('comment')->default('');
-            $table->boolean('hidden')->default(false);
-            $table->string('deleted')->default(false);
         });
     }
 

@@ -19,7 +19,7 @@ class AssignedSubjectTableSeeder extends Seeder
             ['subject_id' => 1, 'casefile_id' => 4, 'can_read_only' => false, 'creator_id' => 1],
             ['subject_id' => 2, 'casefile_id' => 5, 'can_read_only' => false, 'creator_id' => 1],
             ['subject_id' => 3, 'casefile_id' => 6, 'can_read_only' => false, 'creator_id' => 1],
-            ['subject_id' => 3, 'casefile_id' => 7, 'can_read_only' => false, 'creator_id' => 1]
+            ['subject_id' => 3, 'casefile_id' => 6, 'can_read_only' => false, 'creator_id' => 1]
         ];
         foreach($assignedSubjects as $aI){
             AssignedSubject::create($aI);

@@ -22,6 +22,7 @@
         @include('modals.generic-form-modal')
         @include('modals.generic-append-modal')
         @include('modals.generic-delete-modal')
+        @include('modals.generic-erase-modal')
         @include('modals.generic-recover-modal')
         @include('includes.navbar')
         <main class="container">
@@ -33,13 +34,13 @@
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
-<script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+{{--<script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>--}}
 <script src="/vendor/clipboard/dist/clipboard.min.js"></script>
 
 
-<script>
-    try{
-        CKEDITOR.replace( 'article-ckeditor' );
-    } catch (e) {console.log('ckeditor not loaded');}
-</script>
+{{--<script>--}}
+{{--    try{--}}
+{{--        CKEDITOR.replace( 'article-ckeditor' );--}}
+{{--    } catch (e) {console.log('ckeditor not loaded');}--}}
+{{--</script>--}}
 </html>

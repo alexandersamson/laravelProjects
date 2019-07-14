@@ -11,12 +11,16 @@ use App\CaseState;
 use App\Client;
 use App\Http\Controllers\Services\CasefileNumberGenerator;
 use App\Http\Controllers\Services\ClassNameService;
+use App\Http\Controllers\Services\PermissionsService;
 use App\Organization;
 use App\Post;
 use App\Subject;
 use App\User;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class CasefilesController extends Controller
 {
@@ -39,30 +43,13 @@ class CasefilesController extends Controller
     public function index()
     {
         $casefiles = Casefile::orderBy('created_at', 'desc')->where('deleted','=',false)->paginate(10);
-        $casestates = CaseState::all();
-
-        $assignedClientController = new AssignedClientController();
-        $assignedInvestigatorController = new AssignedInvestigatorController();
-        $assignedSubjectsController = new AssignedSubjectController();
-        $assignedClients = array();
-        $assignedUsers = array();
-        $assignedSubjects = array();
-        foreach ($casefiles as $casefile){
-            $assignedClients[$casefile->id] = $assignedClientController->getAssignedClients($casefile->id);
-            $assignedUsers[$casefile->id] = $assignedInvestigatorController->getAssignedInvestigators($casefile->id);
-            $assignedSubjects[$casefile->id] = $assignedSubjectsController->getAssignedSubjects($casefile->id);
-        }
 
         $data = array(
+            'category' => $this->category,
             'objs' => $casefiles,
-            'casestates' => $casestates,
-            'assignedClients' => $assignedClients,
-            'assignedUsers' => $assignedUsers,
-            'assignedSubjects' => $assignedSubjects,
         );
-        //return $data;
-        //return $casefiles;
-        return view('casefiles.index')->with('data', $data);
+
+        return view('layouts.obj-index')->with('data', $data);
     }
 
     /**
@@ -72,12 +59,45 @@ class CasefilesController extends Controller
      */
     public function create()
     {
+        if (!PermissionsService::canDoWithCat($this->category, 'c')) {
+
+            return redirect('home')->with('error', 'No permission');
+        }
+
         //Generate casecode
         $caseCodeGenerator = new CasefileNumberGenerator();
         $caseCode = $caseCodeGenerator->generateCasefileCode();
+        while (Casefile::where('casecode', '=', $caseCode)->first()){
+            $caseCode = $caseCodeGenerator->generateCasefileCode();
+            dd($caseCode);
+        }
 
         //get possible casestates
         $caseStates = CaseState::all();
+
+        $casefile = new Casefile();
+        $casefile ->name = '[draft by '.auth()->user()->name.']';
+        $casefile ->casecode = $caseCode;
+        $casefile ->description = '';
+        $casefile ->creator_id = auth()->user()->id;
+        $casefile ->modifier_id= auth()->user()->id;
+        $casefile ->case_state_index = 1;
+        $casefile ->lead_investigator_index = 0;
+        $casefile ->client_index = 0;
+        $casefile ->draft = true;
+        $casefile ->save();
+
+        $assignedleader = new AssignedInvestigator();
+        $assignedleader ->user_id = auth()->user()->id;
+        $assignedleader ->is_lead_investigator = true;
+        $assignedleader ->casefile_id = $casefile->id;
+        $assignedleader ->creator_id = auth()->user()->id;
+        $assignedleader ->modifier_id= auth()->user()->id;
+        $assignedleader ->save();
+
+        //ActionLog
+        $actionLog = new ActionLogsController;
+        $actionLog->insertAction($casefile, 'new draft');
 
         //Instantiate helpers
         $assignedInvestigatorController = new AssignedInvestigatorController();
@@ -91,10 +111,11 @@ class CasefilesController extends Controller
 
         $data = array(
             'casecode' => $caseCode,
+            'id' => $casefile->id,
             'investigators' => $viableInvestigators,
             'clients' => $viableClients,
             'subjects' => $viableSubjects,
-            'casestates' => $caseStates,
+            'casestatus' => $caseStates,
         );
         return view('casefiles.create')->with('data', $data);
     }
@@ -107,79 +128,46 @@ class CasefilesController extends Controller
      */
     public function store(Request $request)
     {
+        if (!PermissionsService::canDoWithCat($this->category, 'c')) {
+            return redirect('home')->with('error', 'No permission');
+        }
+
         $categories = Config::get('categoriesUnformatted');
 
 
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
+            'id' => 'required',
             'casecode' => 'required',
-            'description' => 'required',
-            $categories['leaders'] => 'required',
-            'investigators.*.id' => 'nullable',
-            'clients.*.id' => 'nullable',
             'case-state' => 'required'
         ]);
 
+        if ($validator->fails()) {
+            return redirect('casefiles/'.$request->input('id').'/edit')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         //return $request->input($this->containerId['investigator']);
-        $casefile = new Casefile();
-        $casefile ->name = $request->input('name');
-        $casefile ->casecode = $request->input('casecode');
-        $casefile ->description = $request->input('description');
-        $casefile ->creator_id = auth()->user()->id;
-        $casefile ->modifier_id= auth()->user()->id;
-        $casefile ->case_state_index = $request->input('case-state');
-        $casefile ->lead_investigator_index = 0;
-        $casefile ->client_index = 0;
-        $casefile ->save();
+        $casefile = Casefile::where('casecode',$request->input('casecode'))->where('id',$request->input('id'))->first();
+        if(!$casefile) {
+            return redirect('/home')->with('error', 'CaseCode/ID combination not found');
+        }
+
+        $casefile->name = $request->input('name');
+        $casefile->casecode = $request->input('casecode');
+        $casefile->description = $request->input('description');
+        $casefile->modifier_id = auth()->user()->id;
+        $casefile->case_state_index = $request->input('case-state');
+        $casefile->lead_investigator_index = 0;
+        $casefile->client_index = 0;
+        $casefile->draft = false;
+        $casefile->save();
 
         //ActionLog
         $actionLog = new ActionLogsController;
         $actionLog->insertAction($casefile, 'create');
 
-
-        $thisCasefile = Casefile::where('casecode', $request->input('casecode'))->get();
-
-        //TODO: Dit opfrissen (Teveel herhalingen)
-        //Get assigned lead investigator
-        if(isset($request->input($categories['leaders'])[0])) {
-            $assignedInvestigator = new AssignedInvestigator();
-            $assignedInvestigator->user_id = $request->input($categories['leaders'])[0];
-            $assignedInvestigator->creator_id = auth()->user()->id;
-            $assignedInvestigator->casefile_id = $thisCasefile[0]->id;
-            $assignedInvestigator->is_lead_investigator = true;
-            $assignedInvestigator->save();
-        }
-
-        if(isset($request->input($categories['investigators'])[0])) {
-            foreach($request->input($categories['investigators']) as $investigator) {
-                $assignedInvestigator = new AssignedInvestigator();
-                $assignedInvestigator->user_id = $investigator;
-                $assignedInvestigator->creator_id = auth()->user()->id;
-                $assignedInvestigator->casefile_id = $thisCasefile[0]->id;
-                $assignedInvestigator->is_lead_investigator = false;
-                $assignedInvestigator->save();
-            }
-        }
-
-        if(isset($request->input($categories['clients'])[0])) {
-            foreach($request->input($categories['clients']) as $client) {
-                $assignedClient = new AssignedClient();
-                $assignedClient->client_id = $client;
-                $assignedClient->creator_id = auth()->user()->id;
-                $assignedClient->casefile_id = $thisCasefile[0]->id;
-                $assignedClient->is_first_contact = true;
-                $assignedClient->save();
-            }
-        }
-        if(isset($request->input($categories['subjects'])[0])) {
-            foreach($request->input($categories['subjects']) as $subject) {
-                $assignedSubject = new AssignedSubject();
-                $assignedSubject->subject_id = $subject;
-                $assignedSubject->creator_id = auth()->user()->id;
-                $assignedSubject->casefile_id = $thisCasefile[0]->id;
-                $assignedSubject->save();
-            }
-        }
 
         return redirect('/casefiles')->with('success', 'Casefile '.$request->input('casecode').' created');
     }
@@ -193,10 +181,35 @@ class CasefilesController extends Controller
     public function show($id)
     {
         $casefile = Casefile::find($id);
+        if(!$casefile){
+            return redirect('home')->with('error', 'Casefile does not exist');
+        }
+        if (!PermissionsService::canDoWithObj($this->category, $id, 'r', false, true)) {
+            return redirect('home')->with('error', 'No permission');
+        }
+        if($casefile->draft) {
+            if (!PermissionsService::canDoWithObj($this->category, $id, 'r_adv', false, true)) {
+                return redirect('home')->with('info', 'This casefile is still a draft.');
+            }
+        }
+        if($casefile->deleted) {
+            if (!PermissionsService::canDoWithObj($this->category, $id, 'd_adv', false, true)) {
+                return redirect('home')->with('info', 'This casefile has been deleted.');
+            }
+        }
+        if(!$casefile->approved) {
+            if (!PermissionsService::canDoWithObj($this->category, $id, 'u_adv', false, true)) {
+                return redirect('home')->with('info', 'This casefile has not been approved yet');
+            }
+        }
+
         $creator = User::find($casefile->creator_id);
         $modifier = User::find($casefile->modifier_id);
         $createdAt = $casefile->created_at;
         $modifiedAt = $casefile->updated_at;
+
+        //get possible casestates
+        $casestatus = CaseState::all();
 
 
         $data = array(
@@ -205,9 +218,25 @@ class CasefilesController extends Controller
             'createdAt' => $createdAt,
             'modifiedAt' => $modifiedAt,
             'modifier' => $modifier,
+            'casestatus' => $casestatus
         );
         return view('casefiles.show')->with('data', $data);
     }
+
+    public function showByCasecode($casecode)
+    {
+        $casefile = Casefile::where('casecode', $casecode)->first();
+        if ($casefile){
+            if (!PermissionsService::canDoWithObj('casefiles', $casefile->id, 'r', false, true)) {
+                return redirect('home')->with('error', 'No permission');
+            }
+            return redirect()->route('casefiles.show',[$casefile->id]);
+        } else {
+            return redirect('home')->with('error', 'Not found');
+        }
+
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -217,7 +246,30 @@ class CasefilesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $casefile = Casefile::find($id);
+
+        if (!PermissionsService::canDoWithObj($this->category, $id, 'u', false, true)) {
+            return redirect('home')->with('error', 'No permission');
+        }
+
+        $creator = User::find($casefile->creator_id);
+        $modifier = User::find($casefile->modifier_id);
+        $createdAt = $casefile->created_at;
+        $modifiedAt = $casefile->updated_at;
+
+        //get possible casestates
+        $casestatus = CaseState::all();
+
+
+        $data = array(
+            'obj' => $casefile,
+            'creator' => $creator,
+            'createdAt' => $createdAt,
+            'modifiedAt' => $modifiedAt,
+            'modifier' => $modifier,
+            'casestatus' => $casestatus,
+        );
+        return view('casefiles.edit')->with('data', $data);
     }
 
     /**
@@ -250,29 +302,13 @@ class CasefilesController extends Controller
     }
 
 
-    public function ajaxAddPersons(Request $request){
+    public function addAssignee($own_id, $category, $item_id){
 
 
-        $input = $request->all();
-        $idPrefix = '#';
-        $persons = array();
-
-        $classNameService = new ClassNameService();
-        $person = $classNameService->getClassByCategory($input['category']);
-
-
-
-        if(isset($input['data'])) {
-            foreach ($input['data'] as $selected) {
-                $persons[] = $person::where('id', $selected)->get();
-            }
+        if($category == 'leaders'){
+            $result = AssignedInvestigator::where('is_lead_investigator', true)->where('case_id',$own_id)->where('user_id',$item_id)->take(1)->get();
+            dd($result);
         }
-
-        $data = array(
-            'persons' => $persons,
-            'idPrefix' => $idPrefix,
-            'category' => $input['category']
-        );
 
         //return print_r($data);
         return view('casefiles.elements.select-assignee')->with('data',$data);

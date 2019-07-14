@@ -21,6 +21,12 @@ class CreateSubjectsTable extends Migration
             $table->boolean('approved')->default(true);
             $table->dateTime('approved_at')->nullable();
             $table->integer('approved_by_id')->nullable();
+            $table->boolean('active')->default(true);
+            $table->boolean('hidden')->default(false);
+            $table->boolean('draft')->default(false);
+            $table->boolean('deleted')->default(false);
+            $table->integer('permission')->default(0);
+            $table->string('style')->default('default');
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('behaviour')->nullable();
@@ -47,10 +53,6 @@ class CreateSubjectsTable extends Migration
             $table->string('phone_work')->nullable();
             $table->string('phone')->nullable();
             $table->string('profile_picture_path');
-            $table->string('style')->default('default');
-            $table->boolean('active')->default(1);
-            $table->boolean('deleted')->default(0);
-            $table->biginteger('permission')->unsigned()->default(0);
         });
     }
 

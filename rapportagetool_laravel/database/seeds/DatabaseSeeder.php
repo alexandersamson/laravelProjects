@@ -24,5 +24,7 @@ class DatabaseSeeder extends Seeder
          $this->call(OrganizationTableSeeder::class);
          $this->call(LicensesTableSeeder::class);
          $this->call(PostsTableSeeder::class);
+         $this->call(MessagesTableSeeder::class);
+         $this->call(LinkMessageUsersTableSeeder::class);
     }
 }

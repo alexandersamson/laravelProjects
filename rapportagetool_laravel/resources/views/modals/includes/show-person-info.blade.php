@@ -3,7 +3,11 @@
         <div class="card">
             <div class="card-body">
                 <div align="center">
-                    <img alt="cover image" width="" src="{{$profilepicturesBasePath}}{{$data['category']}}/{{$data['obj']->id}}/profilepicture">
+                    @if($data['category'] == 'casefiles')
+                        @include('includes.snippets.qrCode',['casecode'=>$data['obj']->casecode])
+                    @else
+                        <img alt="cover image" width="" src="{{$profilepicturesBasePath}}{{$data['category']}}/{{$data['obj']->id}}/profilepicture">
+                    @endif
                     <h5 class="card-title">{{$data['obj']->name}}</h5>
                     @if($data['category'] == 'users' || $data['category'] == 'investigators' || $data['category'] == 'leaders')
                         <h6 class="card-subtitle mb-2 text-muted"><a href="mailto:{{$data['obj']->email}}">{{ $data['obj']->email }}</a> | <a href="tel:{{$data['obj']->phone}}">{{ $data['obj']->phone }}</a></h6>
@@ -21,6 +25,9 @@
                         @if($data['category'] == 'casefiles')
                             {{$data['obj']->description}}<br>
                         @endif
+                         @if($data['category'] == 'posts')
+                                {!!\App\Http\Controllers\Services\Helper::parseBB($data['obj']->body)!!}<br>
+                         @endif
                     </small>
                 </div>
                 <p class="card-text">

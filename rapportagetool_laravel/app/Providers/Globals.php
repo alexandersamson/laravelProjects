@@ -35,7 +35,8 @@ class Globals extends ServiceProvider
             'clients' => 'clients',
             'organizations' => 'organizations',
             'subjects' => 'subjects',
-            'licenses' => 'licenses']
+            'licenses' => 'licenses',
+            'messages' => 'messages']
         ]);
         Config::set(['categoriesUnformatted' => [
             'posts' => 'posts',
@@ -46,7 +47,8 @@ class Globals extends ServiceProvider
             'clients' => 'clients',
             'organizations' => 'organizations',
             'subjects' => 'subjects',
-            'licenses' => 'licenses']
+            'licenses' => 'licenses',
+            'messages' => 'messages']
         ]);
         Config::set(['categoriesSingular' => [
             'posts' => 'Post',
@@ -57,7 +59,8 @@ class Globals extends ServiceProvider
             'clients' => 'Client',
             'organizations' => 'Organization',
             'subjects' => 'Subject',
-            'licenses' => 'License']
+            'licenses' => 'License',
+            'messages' => 'Message']
         ]);
     }
 }

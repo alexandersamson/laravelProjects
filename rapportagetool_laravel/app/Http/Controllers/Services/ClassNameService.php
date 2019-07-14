@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Services;
 use App\Casefile;
 use App\Client;
 use App\License;
+use App\Message;
 use App\Organization;
 use App\Post;
 use App\Subject;
@@ -67,8 +68,15 @@ class ClassNameService extends Controller
                     $class = License::find($id);
                 }
             }
+            if($categories[$category] == 'messages'){
+                if ($createNew){
+                    $class = new Message();
+                } else {
+                    $class = Message::find($id);
+                }
+            }
         } else {
-            abort(403);
+            return redirect('home')->with('error', 'No permission');
         }
         return $class;
     }

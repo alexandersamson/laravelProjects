@@ -5,8 +5,8 @@
                 <i class="icon-move">&#8596;</i>
                 <div class="card-body pt-2">
                     <h5 class="card-title">Your Message Inbox</h5>
-                    <p class="card-text">This feature is under construction. It will be soon available to you.</p>
-                    <a href="#" class="btn btn-sm btn-primary">Go to Messages</a>
+                    @include('dashboard.cards.recent-messages-card')
+                    <a href="/messages" class="btn btn-sm btn-primary">Go to Messages</a>
                 </div>
             </div>
         </li>

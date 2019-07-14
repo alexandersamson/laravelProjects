@@ -13,8 +13,21 @@
         <a title="Sort Descending" href="/{{$category}}" class="btn btn-sm btn-outline-secondary oi oi-sort-descending"></a>
     </div>
     <form class="form-inline">
-        <input class="form-control-sm mr-sm-1" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-sm btn-outline-secondary oi oi-magnifying-glass" type="submit"></button>
+        <div class="dynamicSearchBoxHolder" id="dsbh{{$category}}">
+            <div class="autocomplete">
+                <input id="dynamicSearchBox{{$category}}"
+                       type="search"
+                       name="dynamicSearchBox{{$category}}"
+                       placeholder="Search"
+                       data-position="0"
+                       data-category="{{$category}}"
+                       data-id="dynamicSearchBox{{$category}}"
+                       data-targetid="dynamicSearchBoxTarget{{$category}}"
+                       class="form-control-sm mr-sm-1 dynamicSearchBox"
+                       aria-label="Search">
+                <input name="{{$category}}[]" id="dynamicSearchBoxTarget{{$category}}" type="hidden" value="" required>
+            </div>
+        </div>
     </form>
 </div>
 

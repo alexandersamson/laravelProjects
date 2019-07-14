@@ -23284,7 +23284,7 @@ return jQuery;
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
  * @license
  * Lodash <https://lodash.com/>
- * Copyright JS Foundation and other contributors <https://js.foundation/>
+ * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
  * Released under MIT license <https://lodash.com/license>
  * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
  * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -23295,7 +23295,7 @@ return jQuery;
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '4.17.11';
+  var VERSION = '4.17.14';
 
   /** Used as the size to enable large array optimizations. */
   var LARGE_ARRAY_SIZE = 200;
@@ -25954,16 +25954,10 @@ return jQuery;
         value.forEach(function(subValue) {
           result.add(baseClone(subValue, bitmask, customizer, subValue, value, stack));
         });
-
-        return result;
-      }
-
-      if (isMap(value)) {
+      } else if (isMap(value)) {
         value.forEach(function(subValue, key) {
           result.set(key, baseClone(subValue, bitmask, customizer, key, value, stack));
         });
-
-        return result;
       }
 
       var keysFunc = isFull
@@ -26887,8 +26881,8 @@ return jQuery;
         return;
       }
       baseFor(source, function(srcValue, key) {
+        stack || (stack = new Stack);
         if (isObject(srcValue)) {
-          stack || (stack = new Stack);
           baseMergeDeep(object, source, key, srcIndex, baseMerge, customizer, stack);
         }
         else {
@@ -28705,7 +28699,7 @@ return jQuery;
       return function(number, precision) {
         number = toNumber(number);
         precision = precision == null ? 0 : nativeMin(toInteger(precision), 292);
-        if (precision) {
+        if (precision && nativeIsFinite(number)) {
           // Shift with exponential notation to avoid floating-point issues.
           // See [MDN](https://mdn.io/round#Examples) for more details.
           var pair = (toString(number) + 'e').split('e'),
@@ -29888,7 +29882,7 @@ return jQuery;
     }
 
     /**
-     * Gets the value at `key`, unless `key` is "__proto__".
+     * Gets the value at `key`, unless `key` is "__proto__" or "constructor".
      *
      * @private
      * @param {Object} object The object to query.
@@ -29896,6 +29890,10 @@ return jQuery;
      * @returns {*} Returns the property value.
      */
     function safeGet(object, key) {
+      if (key === 'constructor' && typeof object[key] === 'function') {
+        return;
+      }
+
       if (key == '__proto__') {
         return;
       }
@@ -33696,6 +33694,7 @@ return jQuery;
           }
           if (maxing) {
             // Handle invocations in a tight loop.
+            clearTimeout(timerId);
             timerId = setTimeout(timerExpired, wait);
             return invokeFunc(lastCallTime);
           }
@@ -38082,9 +38081,12 @@ return jQuery;
       , 'g');
 
       // Use a sourceURL for easier debugging.
+      // The sourceURL gets injected into the source that's eval-ed, so be careful
+      // with lookup (in case of e.g. prototype pollution), and strip newlines if any.
+      // A newline wouldn't be a valid sourceURL anyway, and it'd enable code injection.
       var sourceURL = '//# sourceURL=' +
-        ('sourceURL' in options
-          ? options.sourceURL
+        (hasOwnProperty.call(options, 'sourceURL')
+          ? (options.sourceURL + '').replace(/[\r\n]/g, ' ')
           : ('lodash.templateSources[' + (++templateCounter) + ']')
         ) + '\n';
 
@@ -38117,7 +38119,9 @@ return jQuery;
 
       // If `variable` is not specified wrap a with-statement around the generated
       // code to add the data object to the top of the scope chain.
-      var variable = options.variable;
+      // Like with sourceURL, we take care to not check the option's prototype,
+      // as this configuration is a code injection vector.
+      var variable = hasOwnProperty.call(options, 'variable') && options.variable;
       if (!variable) {
         source = 'with (obj) {\n' + source + '\n}\n';
       }
@@ -40322,10 +40326,11 @@ return jQuery;
     baseForOwn(LazyWrapper.prototype, function(func, methodName) {
       var lodashFunc = lodash[methodName];
       if (lodashFunc) {
-        var key = (lodashFunc.name + ''),
-            names = realNames[key] || (realNames[key] = []);
-
-        names.push({ 'name': methodName, 'func': lodashFunc });
+        var key = lodashFunc.name + '';
+        if (!hasOwnProperty.call(realNames, key)) {
+          realNames[key] = [];
+        }
+        realNames[key].push({ 'name': methodName, 'func': lodashFunc });
       }
     });
 
@@ -55843,6 +55848,11 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 // Some globals
+var timers = {
+  "title": null,
+  "body": null,
+  "footer": null
+};
 var selectedBtnOptions = {};
 var tempOptionStorage = {};
 var usertypes = {
@@ -55851,10 +55861,12 @@ var usertypes = {
   "investigators": "investigators",
   "clients": "clients",
   "subjects": "subjects",
-  "licenses": "licenses"
+  "licenses": "licenses",
+  "messages": "messages"
 }; //Specific global storage
 
-var globalStorage = {}; // private $containerId = array (
+var globalStorage = {};
+var $floodProtect = true; // private $containerId = array (
 //     'leader' => 'leader',
 //     'investigator' => 'investigator',
 //     'client' => 'client'
@@ -55877,7 +55889,7 @@ $(function () {
     dropOnEmpty: false
   });
   $("#sortable1, #sortable2, #sortable3").disableSelection();
-}); //Clipboard
+}); //Clipboard and other onready preloads
 
 $(document).ready(function () {
   var btns = document.querySelectorAll('.btnClipboard');
@@ -55888,7 +55900,14 @@ $(document).ready(function () {
   clipboardJs.on('error', function (e) {
     console.log(e);
     $(document).find('#' + $(e.trigger)[0].dataset.clipboardReturnIdTarget).addClass("badge-danger");
-  });
+  }); //init some timers
+
+  startTimer('title');
+  clearTimeout(timers['title']);
+  startTimer('body');
+  clearTimeout(timers['body']);
+  startTimer('footer');
+  clearTimeout(timers['footer']);
 }); //loader for modals etc
 
 $loader = '<div class="d-flex justify-content-center">\n' + '  <div class="spinner-border text-primary" role="status">\n' + '    <span class="sr-only">Loading...</span>\n' + '  </div>\n' + '</div>'; // functions
@@ -55918,6 +55937,8 @@ $('#testModal').on('show.bs.modal', function (event) {
   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 });
 $('#genericFormModal').on('show.bs.modal', function (event) {
+  selectedBtnOptions = {};
+  tempOptionStorage = {};
   var button = $(event.relatedTarget); // Button that triggered the modal
 
   var btnDataHeader = button.data('header'); // Extract info from data-* attributes
@@ -56120,9 +56141,79 @@ $(document).on('click', '.modalNoBtn', function () {
   tempOptionStorage = {};
 });
 $(document).on('click', '.btnDeleteItem', function () {
-  url = $(this)[0].dataset.url;
-  container = $(this)[0].dataset.container;
-  $(container).find(url).remove();
+  var category = $(this)[0].dataset.category;
+  var objId = $(this)[0].dataset.objid;
+  var sourceCat = $(this)[0].dataset.sourcecat;
+  var sourceId = $(this)[0].dataset.sourceid;
+  $.ajax({
+    type: 'POST',
+    url: '/ajaxdynamicsearch/remove',
+    data: {
+      "sourceCat": sourceCat,
+      "sourceId": sourceId,
+      "category": category,
+      "id": objId
+    },
+    beforeSend: function beforeSend() {
+      $('#sbic' + category).html($loader);
+    },
+    success: function success(data) {
+      returnValue = data;
+      $('#sbic' + category).html(data);
+    }
+  });
+});
+$('#genericEraseModal').on('show.bs.modal', function (event) {
+  var modal = $(this);
+  modal.find('.modal-body').html($loader); // Clear all HTML and show the loading spinner
+
+  var button = $(event.relatedTarget); // Button that triggered the modal
+
+  var btnDataName = button.data('name'); // Extract info from data-* attributes
+
+  var btnDataDeleteCategory = button.data('category'); //Extract info from data-* attributes
+
+  var btnDataDomId = button.data('domid'); //Extract info from data-* attributes
+
+  var btnDataDeleteId = button.data('id'); //Extract info from data-* attributes
+
+  var returnValue;
+  $.ajax({
+    type: 'GET',
+    url: '/checkerase/' + btnDataDeleteCategory + '/' + btnDataDeleteId,
+    data: {},
+    success: function success(data) {
+      returnValue = data;
+      modal.find('.modal-body').html(returnValue);
+      modal.find('#genericEraseModalYesBtn').attr('data-category', btnDataDeleteCategory);
+      modal.find('#genericEraseModalYesBtn').attr('data-id', btnDataDeleteId);
+      modal.find('#genericEraseModalYesBtn').attr('data-domid', btnDataDomId);
+    }
+  });
+});
+$(document).on('click', '#genericEraseModalYesBtn', function () {
+  btnDataDomId = $(this)[0].dataset.domid;
+  btnDataId = $(this)[0].dataset.id;
+  btnDataCategory = $(this)[0].dataset.category;
+  $.ajax({
+    type: 'GET',
+    method: 'DELETE',
+    url: '/' + btnDataCategory + '/' + btnDataId,
+    data: {
+      _method: 'delete'
+    },
+    success: function success(data) {
+      $('#' + btnDataDomId).remove();
+      $('#genericRecoverModal').modal('hide');
+      window.location.replace('/' + btnDataCategory, {
+        'success': 'Permanently erased'
+      });
+    } // error: function(xhr) {
+    //     console.log(xhr.responseText); // this line will save you tons of hours while debugging
+    //     // do something here because of error
+    // }
+
+  });
 });
 $(document).on('click', '.btnModalInfoUser', function () {
   //$('#containter-lead-investigator').html($(this)[0].dataset.save);
@@ -56147,6 +56238,222 @@ $(document).on('click', '.btnModalInfoUser', function () {
       $('#genericInfoModal').modal().find('.modal-body').html(returnValue);
     }
   });
+});
+$(document).on('click', '.dynamicSearchBox', function () {
+  this.select();
+});
+$(document).on('input', '.dynamicSearchBox', function () {
+  //DynamicSearchController@getSearchItems needs data:
+  //categories
+  //returnCols
+  //searchCols
+  //searchString
+  category = $(this)[0].dataset.category;
+  variant = $(this)[0].dataset.variant;
+  sourceCat = $(this)[0].dataset.source;
+  sourceId = $(this)[0].dataset.sourceid;
+  permissionFilter = $(this)[0].dataset.permissionfilter;
+  objId = $(this)[0].dataset.id;
+  objTargetId = $(this)[0].dataset.targetid;
+  console.log($(this)[0].dataset.targetid);
+  var myanchor = this;
+  var a,
+      b,
+      i,
+      n = $(this).value;
+  var results;
+  var categories,
+      searchCols,
+      returnCols = [];
+
+  if (category === 'casefiles') {
+    categories = ['casefiles'];
+    searchCols = ['name', 'casecode'];
+    returnCols = [['id', 'name', 'casecode']];
+  }
+
+  if (category === 'posts') {
+    categories = ['posts'];
+    searchCols = ['name'];
+    returnCols = [['id', 'name']];
+  }
+
+  if (category === 'leaders') {
+    categories = ['leaders'];
+    searchCols = ['name'];
+    returnCols = [['id', 'name', 'permission']];
+  }
+
+  if (category === 'investigators') {
+    categories = ['investigators'];
+    searchCols = ['name'];
+    returnCols = [['id', 'name', 'permission']];
+  }
+
+  if (category === 'clients') {
+    categories = ['clients'];
+    searchCols = ['name', 'city', 'email', 'phone'];
+    returnCols = [['id', 'name', 'permission']];
+  }
+
+  if (category === 'subjects') {
+    categories = ['subjects'];
+    searchCols = ['name', 'city', 'email', 'phone'];
+    returnCols = [['id', 'name']];
+  }
+
+  if (category === 'users') {
+    categories = ['users'];
+    searchCols = ['name', 'email', 'city', 'phone'];
+    returnCols = [['id', 'name', 'permission']];
+  }
+
+  $(myanchor).removeClass("bg-success-light");
+  $(myanchor).removeClass("border-success");
+  document.getElementById(objTargetId).value = '';
+
+  if ($(this).val().length > 2 && $floodProtect === true) {
+    $.ajax({
+      type: 'POST',
+      url: '/ajaxdynamicsearch',
+      context: $(this),
+      data: {
+        "searchString": $(this).val(),
+        "categories": categories,
+        "searchCols": searchCols,
+        "returnCols": returnCols,
+        "permissionfilter": permissionFilter
+      },
+      success: function success(data) {
+        killAll();
+        results = Array.prototype.concat.apply([], JSON.parse(data));
+
+        if (results.length > 0) {
+          console.log(results.length);
+          a = document.createElement("DIV");
+          a.setAttribute("id", +"autocomplete-list");
+          a.setAttribute("class", "autocomplete-items");
+          a.innerHTML += "<input type='hidden' value=''>";
+          myanchor.parentNode.appendChild(a);
+
+          for (var i = 0; i < results.length; i++) {
+            b = document.createElement("DIV");
+
+            if (category === 'casefiles') {
+              b.innerHTML = "" + results[i]['name'] + " <small class='text-muted'>(" + results[i]['casecode'] + ")</small>";
+            } else {
+              b.innerHTML = "" + results[i]['name'] + " <small class='text-muted'>(#" + results[i]['id'] + ")</small>";
+            }
+
+            b.innerHTML += "<input type='hidden' value='" + results[i]['id'] + "'>";
+            b.innerHTML += "<input type='hidden' value='" + results[i]['name'] + "'>";
+            b.addEventListener("click", function (e) {
+              if (variant === 'addToList') {
+                console.log("value:" + $(this).find('input')[0].value);
+                console.log(category);
+                $.ajax({
+                  type: 'POST',
+                  context: $(this),
+                  url: '/ajaxdynamicsearch/addtolist',
+                  data: {
+                    "category": category,
+                    "sourceCat": sourceCat,
+                    "sourceId": sourceId,
+                    "id": $(this).find('input')[0].value
+                  },
+                  beforeSend: function beforeSend() {
+                    $('#' + objTargetId).html($loader);
+                  },
+                  success: function success(data) {
+                    returnValue = data;
+                    $('#' + objTargetId).html(data);
+                  }
+                });
+              } else {
+                document.getElementById(objTargetId).value = this.getElementsByTagName('input')[0].value;
+                myanchor.value = this.getElementsByTagName('input')[1].value;
+                $(myanchor).addClass("border-success");
+                $(myanchor).addClass("bg-success-light");
+              }
+
+              killAll();
+            });
+            a.appendChild(b);
+          }
+        } else {
+          console.log("empty");
+          killAll();
+        }
+      }
+    });
+    $floodProtect = false;
+    setTimeout(function () {
+      $floodProtect = true;
+    }, 100);
+  } else {
+    killAll();
+  }
+
+  function killAll() {
+    var x = document.getElementsByClassName("autocomplete-items");
+
+    for (var i = 0; i < x.length; i++) {
+      x[i].parentNode.removeChild(x[i]);
+    }
+  }
+});
+$(document).ready(function () {
+  //if the container is visible on the page
+  $('.searchBoxItemsContainer').each(function (i, obj) {
+    var sourceCat = $(this)[0].dataset.sourcecat;
+    var targetCat = $(this)[0].dataset.targetcat;
+    var sourceId = $(this)[0].dataset.sourceid;
+    var objTargetId = $(this)[0].dataset.targetid;
+    $.ajax({
+      type: 'GET',
+      url: '/ajaxdynamicsearch/receivelist',
+      data: {
+        "sourceCat": sourceCat,
+        "sourceId": sourceId,
+        "targetCat": targetCat
+      },
+      beforeSend: function beforeSend() {
+        $('#' + objTargetId).html($loader);
+      },
+      success: function success(data) {
+        returnValue = data;
+        $('#' + objTargetId).html(data);
+      }
+    });
+  });
+}); /////////////////////
+//////AUTOSAVE///////
+/////////////////////
+
+function startTimer($timer, $category, $id, $inputId, $inputName) {
+  timers[$timer] = window.setTimeout(function () {
+    // console.log(document.getElementById($inputId).value);
+    $.ajax({
+      type: 'POST',
+      url: '/ajaxautosave/' + $category + '/' + $id,
+      data: {
+        "input": $inputName,
+        "data": document.getElementById($inputId).value
+      },
+      success: function success(data) {// console.log(data);
+      }
+    });
+  }, 5000);
+}
+
+$(document).on('input', '.autosave-input', function () {
+  var cooldownGroup = $(this)[0].dataset.cooldowngroup;
+  var sourceCat = $(this)[0].dataset.sourcecat;
+  var sourceId = $(this)[0].dataset.sourceid;
+  var sourceInputName = $(this)[0].dataset.sourceinput;
+  var inputId = $(this)[0].dataset.inputid;
+  clearTimeout(timers[cooldownGroup]);
+  startTimer(cooldownGroup, sourceCat, sourceId, inputId, sourceInputName);
 });
 
 /***/ }),

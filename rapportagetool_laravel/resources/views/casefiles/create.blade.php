@@ -5,16 +5,32 @@
     <h1>Create Casefile</h1>
     {!! Form::open(['action' => 'CasefilesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
         <div class="form-group">
-            {{Form::button('CaseCode: '.$data['casecode'].' <span id="caseCodeCopyBadge" class="text-light badge badge-primary font-weight-light">Click to copy</span>', ['data-clipboard-return-id-target'=> 'caseCodeCopyBadge', 'data-clipboard-text'=> $data['casecode'], 'type' => 'button', 'class' => 'btn btn-light btn-sm  btnClipboard'] ) }}
+            <span class="">{{$data['casecode']}}</span>
+            @include('includes.snippets.copy-buttons',['obj' => $data['casecode']])
             {{Form::hidden('casecode', $data['casecode'])}}
+            {{Form::hidden('id', $data['id'])}}
 
         </div>
         <div class="form-group">
-            {{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Title (max 32 characters)'])}}
+            {{Form::text('name', '', ['id' => 'main-casefile-name',
+                                      'class' => 'form-control autosave-input',
+                                      'placeholder' => 'Title (max 32 characters)',
+                                      'data-cooldowngroup' => 'title',
+                                      'data-sourcecat' => 'casefiles',
+                                      'data-sourceinput' => 'name',
+                                      'data-inputid' => 'main-casefile-name',
+                                      'data-sourceid' => $data['id']])}}
         </div>
         <div class="form-group">
             {{Form::label('description', 'Description')}}
-            {{Form::textarea('description', '', ['id' => 'article-ckeditor', 'class' => 'form-control', 'placeholder' => 'Body message'])}}
+            {{Form::textarea('description', '', ['id' => 'main-casefile-description',
+                                                 'class' => 'form-control autosave-input',
+                                                 'placeholder' => 'Description',
+                                                 'data-cooldowngroup' => 'body',
+                                                 'data-sourcecat' => 'casefiles',
+                                                 'data-sourceinput' => 'description',
+                                                 'data-inputid' => 'main-casefile-description',
+                                                 'data-sourceid' => $data['id']])}}
         </div>
         <div class="form-group">
             {{Form::label('case-state', 'Status')}}
@@ -24,44 +40,9 @@
             {{Form::label('assignees', 'Assignees')}}
             <div class="card mb-0 shadow-sm">
                 <div class="row" id="assigneesContainerA">
-                    <div class="col-sm-3">
-                        <div class="p-1">
-                            <button type="button" class="btn btn-primary btn-block btn-md genericFormModalBtn" data-toggle="modal" data-category="leaders" data-cmd="getAjax" data-url="ajaxgetselectlist" data-save-url="ajaxAddPersons" data-header="Add Lead Investigator" data-target="#genericFormModal">
-                                Select Lead Investigator
-                            </button>
-                            <div class="mt-1" id="ajax-output-leaders">
-                                {{--AJAX Output--}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="p-1">
-                            <button type="button" class="btn btn-primary btn-block btn-md genericFormModalBtn" data-toggle="modal" data-category="investigators" data-cmd="getAjax" data-url="ajaxgetselectlist" data-save-url="ajaxAddPersons" data-header="Add Investigator" data-target="#genericFormModal">
-                                Select Investigators
-                            </button>
-                            <div class="mt-1" id="ajax-output-investigators">
-                                {{--AJAX Output--}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="p-1">
-                            <button type="button" class="btn btn-primary btn-block btn-md genericFormModalBtn" data-toggle="modal" data-category="clients" data-cmd="getAjax" data-url="ajaxgetselectlist" data-save-url="ajaxAddPersons" data-header="Add Client"  data-target="#genericFormModal">
-                                 Select Clients
-                            </button>
-                            <div class="mt-1" id="ajax-output-clients">
-                                {{--AJAX Output--}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="p-1">
-                            <button type="button" class="btn btn-primary btn-block btn-md genericFormModalBtn" data-toggle="modal" data-category="subjects" data-cmd="getAjax" data-url="ajaxgetselectlist" data-save-url="ajaxAddPersons" data-header="Add Subject"  data-target="#genericFormModal">
-                                Select Subjects
-                            </button>
-                            <div class="mt-1" id="ajax-output-subjects">
-                                {{--AJAX Output--}}
-                            </div>
+                    <div class="col-sm-12">
+                        <div class="form-row m-2">
+                            @include('includes.components.searchbox-add-to-list', ['sourceCat' => "casefiles", 'sourceId' => $data["id"], 'searchCategories' => ["leaders","investigators","clients","subjects"], 'searchTitles' => ["Lead Investigator","Investigators","Clients","Subjects"], 'searchPermissionFilters' => ["Investigator","Investigator",null,null]])
                         </div>
                     </div>
                 </div>

@@ -4,11 +4,15 @@
 namespace App\Http\Controllers\Services;
 
 use App\Http\Controllers\Controller;
+use App\LinkMessageUser;
+use App\Message;
 use App\ObjectCategory;
 use App\Permission;
+use App\Providers\Globals;
 use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 
 class PermissionsService extends Controller
 {
@@ -113,16 +117,14 @@ class PermissionsService extends Controller
         //Check whether or not the userPermission parameter has been set. If it has been set manually, use that value.
         //If it's not been set, then use Auth::id()->permission value (permission of current user logged in)
         if($userPermission != null) {
-            $userStartPermission = (integer)$userPermission;
+            $up = (integer)$userPermission;
         } else {
-            $userStartPermission = \auth()->user()->permission;
+            $up = \auth()->user()->permission;
         }
 
-        //The actual checkPermission method:
-        $up = $userStartPermission;
+        $permissions = array();
         //Get highest permission value
-        $startValueBitwise = Permission::orderBy('bitwise_value', 'desc')->get()[0]->bitwise_value * 2;
-        $sv = $startValueBitwise;
+        $sv = Permission::orderBy('bitwise_value', 'desc')->get()[0]->bitwise_value * 2;
         //Bitwise operations
         $pCounter = 0;
         while($sv >= 1){
@@ -218,9 +220,11 @@ class PermissionsService extends Controller
             }
         }
 
-        if ($obj->creator_id == auth()->user()->id && $crud != 'c') {
-            if ($objCat->{$selector["permCreator"]}) {
-                return true;
+        if(isset($obj->creator_id)) {
+            if ($obj->creator_id == auth()->user()->id && $crud != 'c') {
+                if ($objCat->{$selector["permCreator"]}) {
+                    return true;
+                }
             }
         }
 
@@ -239,6 +243,9 @@ class PermissionsService extends Controller
             return false;
         }
 
+        $categories = Config::get('categories');
+        $category = $categories[$category];
+
         $objCat = ObjectCategory::where('name', $category)->first();
         $curUsrPerm = \auth()->user()->permission;
 
@@ -247,5 +254,33 @@ class PermissionsService extends Controller
         }
         return false;
 
+    }
+
+    public static function canReadMessage($messageId, $markAsRead = false){
+        $link = new LinkMessageUser();
+        $user = User::find(auth()->user()->id);
+        $result = $link::where('user_id',$user->id)->where('message_id',$messageId)->first();
+        if($result){
+            if($markAsRead == true){
+                $result->marked_as_read = true;
+                $result->save();
+            }
+            return true;
+        }
+        if(self::canDoWithObj('messages', $messageId, 'r_adv', true, true)){
+            return true;
+        }
+        return false;
+    }
+
+    public static function canEraseObj($cat, $id, $crud){
+        if(self::canDoWithObj($cat, $id, $crud, false, true)){
+            if(Helper::isDeleted($cat, $id) == true){
+                if($cat == "messages"){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

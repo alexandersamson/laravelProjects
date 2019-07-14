@@ -42,8 +42,8 @@ i.icon-move:hover{
 }
 
 .btn-xs-div{
-  height: 18px;
-  line-height: 12px;
+  height: 18px !important;
+  line-height: 16px !important;
   font-size: 1em !important;
 }
 
@@ -69,8 +69,8 @@ i.icon-move:hover{
 
 
 
-.bg-succes-light{
-  background-color: rgba(225, 250, 230, 0.50);
+.bg-success-light{
+  background-color: rgba(225, 250, 230, 0.50) !important;
 }
 
 .bg-danger-light{
@@ -81,10 +81,20 @@ i.icon-move:hover{
   background-color: rgba(250, 250, 200, 0.50);
 }
 
-.bg-warning-light:hover, .bg-succes-light:hover {
+.bg-warning-light:hover, .bg-success-light:hover {
    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .15) !important;
 }
 
+
+.table-hover tbody tr:hover{
+  background-color: rgba(128, 128, 128, .15);
+}
+
+.dynamicSearchBox{
+  height:22px;
+  font-size: 0.9em;
+  padding: 5px;
+}
 
 
 

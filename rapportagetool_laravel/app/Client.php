@@ -30,6 +30,7 @@ class Client extends Model
         return $this->hasMany('App\AssignedClient');
     }
 
+
     public function permission(){
         return $this->belongsTo('App\Permission' );
     }

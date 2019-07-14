@@ -16,18 +16,29 @@
                 <td class="line-clamp">
                     {{\Illuminate\Support\Str::limit($actionLog->user->name,18)}}
                 </td>
-                <td class="line-clamp @if($actionLog->action == 'delete') text-danger @endif ">
+                <td class="line-clamp @if($actionLog->action == 'delete' || $actionLog->action == 'erase') text-danger @endif ">
                     {{$actionLog->action}}
                 </td>
                 <td class="line-clamp text-right">
-                    <a href="{{$actionLog->object}}/{{$actionLog->object_id}}">
-                        @foreach (\Illuminate\Support\Facades\Config::get('categoriesSingular') as $cat => $category)
-                            @if($actionLog->object == $cat)
-                                {{$category}}
-                                @break
-                            @endif
-                        @endforeach
-                    </a>
+                    <span @if(!\App\Http\Controllers\Services\Helper::exists($actionLog->object, $actionLog->object_id))class="text-black-50" @endif>
+                        @if((\App\Http\Controllers\Services\PermissionsService::canDoWithObj($actionLog->object, $actionLog->object_id, 'd_adv', false, true) || \App\Http\Controllers\Services\PermissionsService::canDoWithObj($actionLog->object, $actionLog->object_id, 'r', true, true)) &&  \App\Http\Controllers\Services\Helper::exists($actionLog->object, $actionLog->object_id))
+                            <a href="{{$actionLog->object}}/{{$actionLog->object_id}}">
+                                @foreach (\Illuminate\Support\Facades\Config::get('categoriesSingular') as $cat => $category)
+                                    @if($actionLog->object == $cat)
+                                        {{$category}}
+                                        @break
+                                    @endif
+                                @endforeach
+                            </a>
+                        @else
+                            @foreach (\Illuminate\Support\Facades\Config::get('categoriesSingular') as $cat => $category)
+                                @if($actionLog->object == $cat)
+                                    {{$category}}
+                                    @break
+                                @endif
+                            @endforeach
+                        @endif
+                    </span>
                 </td>
             </tr>
         @endforeach

@@ -31,11 +31,22 @@ class AssignedInvestigatorController extends Controller
 
     public function getAssignedInvestigators($caseId){
 
-        $assignedInvestigators = AssignedInvestigator::where(function($q) use ($caseId){
-            $q->where('casefile_id', '=', $caseId);
-            //$q->where('is_lead_investigator', '=', true);
-            //$q->where('can_read_only', '=', false);
-        })->orderBy('is_lead_investigator', 'desc')->orderBy('can_read_only', 'asc')->take(10)->get();
+        $assignedInvestigators = AssignedInvestigator::where('casefile_id', $caseId)->where('is_lead_investigator', false)->orderBy('can_read_only', 'asc')->get();
+
+
+        return $assignedInvestigators;
+    }
+
+    public function getAssignedLeaders($caseId){
+
+        $assignedInvestigators = AssignedInvestigator::where('casefile_id', $caseId)->where('is_lead_investigator', true)->orderBy('can_read_only', 'asc')->get();
+
+        return $assignedInvestigators;
+    }
+
+    public function getAssignedStaff($caseId){
+
+        $assignedInvestigators = AssignedInvestigator::where('casefile_id', $caseId)->orderBy('is_lead_investigator', 'asc')->orderBy('can_read_only', 'asc')->get();
 
         return $assignedInvestigators;
     }

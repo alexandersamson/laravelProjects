@@ -13568,6 +13568,42 @@ a.text-dark:focus {
   content: "\E0DE";
 }
 
+.autocomplete {
+  /*the container must be positioned relative:*/
+  position: relative;
+  display: inline-block;
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.autocomplete-items div {
+  padding: 5px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9;
+}
+
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+}
+
 @media screen and (min-width: 1024px) {
   html {
     overflow: overlay;
@@ -13612,8 +13648,8 @@ i.icon-move:hover {
 }
 
 .btn-xs-div {
-  height: 18px;
-  line-height: 12px;
+  height: 18px !important;
+  line-height: 16px !important;
   font-size: 1em !important;
 }
 
@@ -13636,8 +13672,8 @@ i.icon-move:hover {
   overflow: hidden !important;
 }
 
-.bg-succes-light {
-  background-color: rgba(225, 250, 230, 0.5);
+.bg-success-light {
+  background-color: rgba(225, 250, 230, 0.5) !important;
 }
 
 .bg-danger-light {
@@ -13649,8 +13685,18 @@ i.icon-move:hover {
 }
 
 .bg-warning-light:hover,
-.bg-succes-light:hover {
+.bg-success-light:hover {
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(128, 128, 128, 0.15);
+}
+
+.dynamicSearchBox {
+  height: 22px;
+  font-size: 0.9em;
+  padding: 5px;
 }
 
 #sortable1,

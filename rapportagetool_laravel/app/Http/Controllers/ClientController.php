@@ -25,13 +25,14 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $objs = Client::orderBy('created_at', 'desc')->where('deleted','=',false)->paginate(10);
+        $clients = Client::orderBy('created_at', 'desc')->where('deleted','=',false)->paginate(10);
 
         $data = array(
-            'objs' => $objs,
+            'category' => $this->category,
+            'objs' => $clients,
         );
 
-        return view('clients.index')->with('data', $data);
+        return view('layouts.obj-index')->with('data', $data);
     }
 
     /**
@@ -64,6 +65,10 @@ class ClientController extends Controller
     public function show($id)
     {
         $client = Client::find($id);
+        if(!$client){
+            return redirect('home')->with('error', 'Client does not exist');
+        }
+
         $creator = User::find($client->creator_id);
         $modifier = User::find($client->modifier_id);
         $createdAt = $client->created_at;

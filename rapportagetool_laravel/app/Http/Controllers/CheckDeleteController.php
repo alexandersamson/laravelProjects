@@ -37,6 +37,37 @@ class CheckDeleteController extends Controller
         }
     }
 
+    public function checkErase($category, $id)
+    {
+        if (!PermissionsService::canDoWithObj($category, $id, 'd_adv', false, true)) {
+            return redirect()->back()->with('error', 'FAILED: No permission');
+        }
+
+        $confirmDeleteHtmlPre = 'Do you really want to permanently erase <strong>';
+        $confirmDeleteHtmlPost = '</strong>?<br><br><h4><span class="text-danger"><b>WARNING:</b> This action cannot be undone!</span></h4><small>
+        The Dutch privacy authority requires you to store case-related data for at least 1 year and at most 5 years after the last modification of this data. 
+        Be aware of this and do not proceed if you are unsure.
+        </small>';
+        $errorDeleteHtml = 'This item cannot be erased or has been erased already.';
+
+
+        $classNameService = new ClassNameService();
+        $obj = $classNameService->getClassByCategory($category, false, $id);
+
+        $sqlReturn = $obj::find($id);
+
+        if (isset($sqlReturn->id)) {
+            if (isset($sqlReturn->name)) {
+                return $confirmDeleteHtmlPre . $sqlReturn->name . $confirmDeleteHtmlPost;
+            } else {
+                return $confirmDeleteHtmlPre . $sqlReturn->id . $confirmDeleteHtmlPost;
+            }
+        } else {
+            return $errorDeleteHtml;
+
+        }
+    }
+
     public function checkRecover($category, $id)
     {
         if(!PermissionsService::canDoWithObj($category, $id, 'd_adv', false, true)){

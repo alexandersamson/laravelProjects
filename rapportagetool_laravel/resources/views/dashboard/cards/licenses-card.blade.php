@@ -17,7 +17,7 @@
                     {{$license->type}}
                 </td>
                 <td class="line-clamp">
-                    {{ (new \App\Http\Controllers\Services\Helper)->getDaysLeft($license->valid_to)}}
+                    {!! html_entity_decode((new \App\Http\Controllers\Services\Helper)->getDaysLeft($license->valid_to))!!}
                 </td>
                 <td class="text-right">
 

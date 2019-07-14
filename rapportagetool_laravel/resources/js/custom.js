@@ -1,4 +1,10 @@
 // Some globals
+var timers = {
+    "title": null ,
+    "body": null,
+    "footer": null,
+};
+
 var selectedBtnOptions = {};
 var tempOptionStorage = {};
 var usertypes = {
@@ -7,9 +13,11 @@ var usertypes = {
     "investigators":"investigators",
     "clients":"clients",
     "subjects":"subjects",
-    "licenses":"licenses"};
+    "licenses":"licenses",
+    "messages":"messages"};
 //Specific global storage
 var globalStorage = {};
+var $floodProtect = true;
 
 
 // private $containerId = array (
@@ -43,7 +51,7 @@ $( function() {
 } );
 
 
-//Clipboard
+//Clipboard and other onready preloads
 $( document ).ready(function() {
     var btns = document.querySelectorAll('.btnClipboard');
     var clipboardJs = new ClipboardJS(btns);
@@ -54,6 +62,14 @@ $( document ).ready(function() {
         console.log(e);
         $(document).find('#'+$(e.trigger)[0].dataset.clipboardReturnIdTarget).addClass("badge-danger");
     });
+
+    //init some timers
+    startTimer('title');
+    clearTimeout(timers['title']);
+    startTimer('body');
+    clearTimeout(timers['body']);
+    startTimer('footer');
+    clearTimeout(timers['footer']);
 });
 
 //loader for modals etc
@@ -91,6 +107,8 @@ $('#testModal').on('show.bs.modal', function (event) {
 
 
 $('#genericFormModal').on('show.bs.modal', function (event) {
+    selectedBtnOptions = {};
+    tempOptionStorage = {};
     var button = $(event.relatedTarget); // Button that triggered the modal
     var btnDataHeader = button.data('header');// Extract info from data-* attributes
     var btnDataCmd = button.data('cmd'); //Extract info from data-* attributes
@@ -279,11 +297,78 @@ $(document).on('click', '.modalNoBtn', function () {
     tempOptionStorage = {};
 });
 
+
 $(document).on('click', '.btnDeleteItem', function () {
-    url = $(this)[0].dataset.url;
-    container = $(this)[0].dataset.container;
-    $(container).find(url).remove();
+    var category = $(this)[0].dataset.category;
+    var objId = $(this)[0].dataset.objid;
+    var sourceCat = $(this)[0].dataset.sourcecat;
+    var sourceId = $(this)[0].dataset.sourceid;
+
+    $.ajax({
+        type: 'POST',
+        url: '/ajaxdynamicsearch/remove',
+        data: {
+            "sourceCat":sourceCat,
+            "sourceId": sourceId,
+            "category": category,
+            "id":       objId
+        },
+        beforeSend: function () {
+            $('#sbic' + category).html($loader);
+        },
+        success: function (data) {
+            returnValue = data;
+            $('#sbic' + category).html(data);
+        }
+    });
 });
+
+$('#genericEraseModal').on('show.bs.modal', function (event) {
+    var modal = $(this);
+    modal.find('.modal-body').html($loader); // Clear all HTML and show the loading spinner
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var btnDataName = button.data('name');// Extract info from data-* attributes
+    var btnDataDeleteCategory = button.data('category'); //Extract info from data-* attributes
+    var btnDataDomId = button.data('domid'); //Extract info from data-* attributes
+    var btnDataDeleteId = button.data('id'); //Extract info from data-* attributes
+    var returnValue;
+
+    $.ajax({
+        type: 'GET',
+        url: '/checkerase/'+btnDataDeleteCategory+'/'+btnDataDeleteId,
+        data: {},
+        success: function (data) {
+            returnValue = data;
+            modal.find('.modal-body').html(returnValue);
+            modal.find('#genericEraseModalYesBtn').attr('data-category', btnDataDeleteCategory);
+            modal.find('#genericEraseModalYesBtn').attr('data-id', btnDataDeleteId);
+            modal.find('#genericEraseModalYesBtn').attr('data-domid', btnDataDomId);
+        }
+    });
+});
+
+$(document).on('click', '#genericEraseModalYesBtn', function () {
+    btnDataDomId = $(this)[0].dataset.domid;
+    btnDataId = $(this)[0].dataset.id;
+    btnDataCategory = $(this)[0].dataset.category;
+    $.ajax({
+        type: 'GET',
+        method: 'DELETE',
+        url: '/'+btnDataCategory+'/'+btnDataId,
+        data: {_method: 'delete'},
+        success: function (data) {
+            $('#'+btnDataDomId).remove();
+            $('#genericRecoverModal').modal('hide');
+            window.location.replace('/' + btnDataCategory, {'success' : 'Permanently erased'});
+        },
+        // error: function(xhr) {
+        //     console.log(xhr.responseText); // this line will save you tons of hours while debugging
+        //     // do something here because of error
+        // }
+    });
+});
+
+
 
 $(document).on('click', '.btnModalInfoUser', function () {
     //$('#containter-lead-investigator').html($(this)[0].dataset.save);
@@ -308,4 +393,213 @@ $(document).on('click', '.btnModalInfoUser', function () {
             $('#genericInfoModal').modal().find('.modal-body').html(returnValue);
         }
     });
+});
+
+
+
+
+
+
+
+
+
+
+
+$(document).on('click', '.dynamicSearchBox', function () {
+    this.select();
+});
+
+
+$(document).on('input', '.dynamicSearchBox', function () {
+    //DynamicSearchController@getSearchItems needs data:
+    //categories
+    //returnCols
+    //searchCols
+    //searchString
+    category = $(this)[0].dataset.category;
+    variant = $(this)[0].dataset.variant;
+    sourceCat = $(this)[0].dataset.source;
+    sourceId = $(this)[0].dataset.sourceid;
+    permissionFilter = $(this)[0].dataset.permissionfilter;
+    objId = $(this)[0].dataset.id;
+    objTargetId = $(this)[0].dataset.targetid;
+    console.log($(this)[0].dataset.targetid);
+    var myanchor = this;
+    var a, b, i, n = $(this).value;
+    var results;
+    var categories, searchCols, returnCols = [];
+
+    if(category === 'casefiles'){
+        categories = ['casefiles'];
+        searchCols = ['name','casecode'];
+        returnCols = [['id','name','casecode']];
+    }
+    if(category === 'posts'){
+        categories = ['posts'];
+        searchCols = ['name'];
+        returnCols = [['id','name']];
+    }
+    if(category === 'leaders'){
+        categories = ['leaders'];
+        searchCols = ['name'];
+        returnCols = [['id','name','permission']];
+    }
+    if(category === 'investigators'){
+        categories = ['investigators'];
+        searchCols = ['name'];
+        returnCols = [['id','name','permission']];
+    }
+    if(category === 'clients'){
+        categories = ['clients'];
+        searchCols = ['name','city','email','phone'];
+        returnCols = [['id','name','permission']];
+    }
+    if(category === 'subjects'){
+        categories = ['subjects'];
+        searchCols = ['name','city','email','phone'];
+        returnCols = [['id','name']];
+    }
+    if(category === 'users'){
+        categories = ['users'];
+        searchCols = ['name','email','city','phone'];
+        returnCols = [['id','name','permission']];
+    }
+    $(myanchor).removeClass("bg-success-light");
+    $(myanchor).removeClass("border-success");
+    document.getElementById(objTargetId).value = '';
+    if ($(this).val().length > 2 && $floodProtect === true){
+        $.ajax({
+            type: 'POST',
+            url: '/ajaxdynamicsearch',
+            context: $(this),
+            data: {
+                "searchString": $(this).val(),
+                "categories": categories,
+                "searchCols": searchCols,
+                "returnCols": returnCols,
+                "permissionfilter": permissionFilter,
+            },
+            success: function (data) {
+                killAll();
+                results = Array.prototype.concat.apply([], JSON.parse(data));
+                if(results.length > 0 ){
+                    console.log(results.length);
+                    a = document.createElement("DIV");
+                    a.setAttribute("id",  + "autocomplete-list");
+                    a.setAttribute("class", "autocomplete-items");
+                    a.innerHTML += "<input type='hidden' value=''>";
+                    myanchor.parentNode.appendChild(a);
+                    for(var i = 0; i < results.length; i++){
+                        b = document.createElement("DIV");
+                        if(category === 'casefiles'){
+                            b.innerHTML = "" + results[i]['name'] + " <small class='text-muted'>("+results[i]['casecode']+")</small>";
+                        } else {
+                            b.innerHTML = "" + results[i]['name'] + " <small class='text-muted'>(#" + results[i]['id'] + ")</small>";
+                        }
+                        b.innerHTML += "<input type='hidden' value='" + results[i]['id'] + "'>";
+                        b.innerHTML += "<input type='hidden' value='" + results[i]['name'] + "'>";
+                        b.addEventListener("click", function(e) {
+                            if(variant === 'addToList'){
+                                console.log("value:"+ $(this).find('input')[0].value);
+                                console.log(category);
+                                $.ajax({
+                                    type: 'POST',
+                                    context: $(this),
+                                    url: '/ajaxdynamicsearch/addtolist',
+                                    data: {"category" : category, "sourceCat" : sourceCat, "sourceId" : sourceId, "id" : $(this).find('input')[0].value},
+                                    beforeSend: function(){
+                                        $('#'+objTargetId).html($loader);
+                                    },
+                                    success: function (data) {
+                                        returnValue = data;
+                                        $('#'+objTargetId).html(data);
+                                    }
+                                });
+                            } else {
+                                document.getElementById(objTargetId).value = this.getElementsByTagName('input')[0].value;
+                                myanchor.value = this.getElementsByTagName('input')[1].value;
+                                $(myanchor).addClass("border-success");
+                                $(myanchor).addClass("bg-success-light");
+                            }
+                            killAll();
+                        });
+                        a.appendChild(b);
+                    }
+                } else {
+                    console.log("empty");
+                    killAll();
+                }
+            }
+        });
+
+        $floodProtect = false;
+        setTimeout(function(){ $floodProtect = true }, 100);
+
+    } else {
+        killAll();
+    }
+
+    function killAll() {
+        var x = document.getElementsByClassName("autocomplete-items");
+        for (var i = 0; i < x.length; i++) {
+            x[i].parentNode.removeChild(x[i]);
+        }
+    }
+});
+
+
+
+$( document ).ready(function() { //if the container is visible on the page
+    $('.searchBoxItemsContainer').each(function(i, obj) {
+        var sourceCat = $(this)[0].dataset.sourcecat;
+        var targetCat = $(this)[0].dataset.targetcat;
+        var sourceId = $(this)[0].dataset.sourceid;
+        var objTargetId = $(this)[0].dataset.targetid;
+        $.ajax({
+            type: 'GET',
+            url: '/ajaxdynamicsearch/receivelist',
+            data: {
+                "sourceCat": sourceCat,
+                "sourceId": sourceId,
+                "targetCat": targetCat,
+            },
+            beforeSend: function () {
+                $('#' + objTargetId).html($loader);
+            },
+            success: function (data) {
+                returnValue = data;
+                $('#' + objTargetId).html(data);
+            }
+        });
+    });
+});
+
+
+/////////////////////
+//////AUTOSAVE///////
+/////////////////////
+function startTimer($timer, $category, $id, $inputId, $inputName){
+    timers[$timer] = window.setTimeout(function(){
+        // console.log(document.getElementById($inputId).value);
+        $.ajax({
+            type: 'POST',
+            url: '/ajaxautosave/'+$category+'/'+$id,
+            data: {
+                "input": $inputName,
+                "data": document.getElementById($inputId).value
+            },
+            success: function (data) {
+                // console.log(data);
+            }
+        });
+    },5000)
+}
+$(document).on('input', '.autosave-input', function () {
+    var cooldownGroup = $(this)[0].dataset.cooldowngroup;
+    var sourceCat = $(this)[0].dataset.sourcecat;
+    var sourceId = $(this)[0].dataset.sourceid;
+    var sourceInputName = $(this)[0].dataset.sourceinput;
+    var inputId = $(this)[0].dataset.inputid;
+    clearTimeout(timers[cooldownGroup]);
+    startTimer(cooldownGroup, sourceCat, sourceId, inputId, sourceInputName);
 });

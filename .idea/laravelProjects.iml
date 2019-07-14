@@ -4,6 +4,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/rapportagetool_laravel/tests" isTestSource="true" packagePrefix="Tests\" />
       <sourceFolder url="file://$MODULE_DIR$/rapportagetool_laravel/app" isTestSource="false" packagePrefix="App\" />
+      <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/bacon/bacon-qr-code" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/barryvdh/laravel-ide-helper" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/barryvdh/reflection-docblock" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/beyondcode/laravel-dump-server" />
@@ -69,6 +70,7 @@
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/sebastian/version" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/seld/jsonlint" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/seld/phar-utils" />
+      <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/simplesoftwareio/simple-qrcode" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/swiftmailer/swiftmailer" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/symfony/console" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/symfony/css-selector" />

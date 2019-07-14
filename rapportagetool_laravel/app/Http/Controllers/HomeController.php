@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ActionLog;
 use App\Casefile;
 use App\Client;
+use App\Http\Controllers\Services\PermissionsService;
 use App\License;
 use App\Post;
 use App\Subject;
@@ -51,8 +52,14 @@ class HomeController extends Controller
             ->select('casefiles.*')
             ->orderBy('assigned_investigators.is_lead_investigator', 'DESC')
             ->orderBy('assigned_investigators.created_at', 'DESC')->take($limitPerPage)->get();
+        if (PermissionsService::canDoWithCat('messages', 'd_adv')) {
+            $recentMessages = User::find(auth()->user()->id)->messages()->withPivot('marked_as_read')->orderBy('marked_as_read', 'ASC')->orderBy('created_at', 'DESC')->paginate($limitPerPage);
+        } else {
+            $recentMessages = User::find(auth()->user()->id)->messages()->where('messages.deleted', false)->withPivot('marked_as_read')->orderBy('marked_as_read', 'ASC')->orderBy('created_at', 'DESC')->paginate($limitPerPage);
+        }
         $cavedButtonsController = new CavedButtonsController;
         $cavedBtn = array();
+        $cavedBtn['messages_recent'] = $cavedButtonsController->getCavedBtnArray('messages',$recentMessages);
         $cavedBtn['posts'] = $cavedButtonsController->getCavedBtnArray('posts',$recentPosts);
         $cavedBtn['casefiles_recent'] = $cavedButtonsController->getCavedBtnArray('casefiles',$recentCasefiles);
         $cavedBtn['casefiles_updated'] = $cavedButtonsController->getCavedBtnArray('casefiles',$recentUpdatedCasefiles);
@@ -63,6 +70,7 @@ class HomeController extends Controller
         //return $recentPosts;
         $data = array(
             'posts' => $recentPosts,
+            'messages_recent' => $recentMessages,
             'casefiles_recent' => $recentCasefiles,
             'casefiles_updated' => $recentUpdatedCasefiles,
             'casefiles_user' => $userCasefiles,
