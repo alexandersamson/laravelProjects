@@ -11,10 +11,12 @@ use App\CaseState;
 use App\Client;
 use App\Http\Controllers\Services\CasefileNumberGenerator;
 use App\Http\Controllers\Services\ClassNameService;
+use App\Http\Controllers\Services\Helper;
 use App\Http\Controllers\Services\PermissionsService;
 use App\Organization;
 use App\Post;
 use App\Subject;
+use App\Traits\ControllerHelper;
 use App\User;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
@@ -24,6 +26,8 @@ use Illuminate\Validation\ValidationException;
 
 class CasefilesController extends Controller
 {
+
+    use ControllerHelper;
 
     protected $category;
 
@@ -42,7 +46,7 @@ class CasefilesController extends Controller
      */
     public function index()
     {
-        $casefiles = Casefile::orderBy('created_at', 'desc')->where('deleted','=',false)->paginate(10);
+        $casefiles = Casefile::orderBy('created_at', 'desc')->where('deleted','=',false)->paginate(25);
 
         $data = array(
             'category' => $this->category,
@@ -69,7 +73,6 @@ class CasefilesController extends Controller
         $caseCode = $caseCodeGenerator->generateCasefileCode();
         while (Casefile::where('casecode', '=', $caseCode)->first()){
             $caseCode = $caseCodeGenerator->generateCasefileCode();
-            dd($caseCode);
         }
 
         //get possible casestates
@@ -99,22 +102,10 @@ class CasefilesController extends Controller
         $actionLog = new ActionLogsController;
         $actionLog->insertAction($casefile, 'new draft');
 
-        //Instantiate helpers
-        $assignedInvestigatorController = new AssignedInvestigatorController();
-        $assignedClientController = new AssignedClientController();
-        $assignedSubjectsController = new AssignedSubjectController();
-
-        //Get viable Investigators/clients/subjects
-        $viableInvestigators = $assignedInvestigatorController->getAvailableInvestigators();
-        $viableClients = $assignedClientController->getAvailableClients();
-        $viableSubjects = $assignedSubjectsController->getAvailableSubjects();
 
         $data = array(
             'casecode' => $caseCode,
             'id' => $casefile->id,
-            'investigators' => $viableInvestigators,
-            'clients' => $viableClients,
-            'subjects' => $viableSubjects,
             'casestatus' => $caseStates,
         );
         return view('casefiles.create')->with('data', $data);
@@ -180,28 +171,7 @@ class CasefilesController extends Controller
      */
     public function show($id)
     {
-        $casefile = Casefile::find($id);
-        if(!$casefile){
-            return redirect('home')->with('error', 'Casefile does not exist');
-        }
-        if (!PermissionsService::canDoWithObj($this->category, $id, 'r', false, true)) {
-            return redirect('home')->with('error', 'No permission');
-        }
-        if($casefile->draft) {
-            if (!PermissionsService::canDoWithObj($this->category, $id, 'r_adv', false, true)) {
-                return redirect('home')->with('info', 'This casefile is still a draft.');
-            }
-        }
-        if($casefile->deleted) {
-            if (!PermissionsService::canDoWithObj($this->category, $id, 'd_adv', false, true)) {
-                return redirect('home')->with('info', 'This casefile has been deleted.');
-            }
-        }
-        if(!$casefile->approved) {
-            if (!PermissionsService::canDoWithObj($this->category, $id, 'u_adv', false, true)) {
-                return redirect('home')->with('info', 'This casefile has not been approved yet');
-            }
-        }
+        $casefile = $this->checkAndGetObjToShow($this->category, $id);
 
         $creator = User::find($casefile->creator_id);
         $modifier = User::find($casefile->modifier_id);

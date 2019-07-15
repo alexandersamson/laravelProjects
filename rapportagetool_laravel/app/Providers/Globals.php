@@ -62,5 +62,17 @@ class Globals extends ServiceProvider
             'licenses' => 'License',
             'messages' => 'Message']
         ]);
+        Config::set(['objectLinks' => [
+            'posts' => 'post_id',
+            'casefiles' => 'casefile_id',
+            'users' => 'user_id',
+            'investigators' => 'user_id',
+            'leaders' => 'user_id',
+            'clients' => 'client_id',
+            'organizations' => 'organization_id',
+            'subjects' => 'subject_id',
+            'licenses' => 'license_id',
+            'messages' => 'message_id']
+        ]);
     }
 }

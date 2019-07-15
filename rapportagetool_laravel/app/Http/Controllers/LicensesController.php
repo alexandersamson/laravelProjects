@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\License;
+use App\Traits\ControllerHelper;
 use App\User;
 use Illuminate\Http\Request;
 
 class LicensesController extends Controller
 {
+
+    use ControllerHelper;
 
     protected $category;
 
@@ -60,7 +63,8 @@ class LicensesController extends Controller
      */
     public function show($id)
     {
-        $license = License::find($id);
+        $license  = $this->checkAndGetObjToShow($this->category, $id);
+
         $creator = User::find($license->creator_id);
         $modifier = User::find($license->modifier_id);
         $createdAt = $license->created_at;

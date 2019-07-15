@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Http\Controllers\Services\Helper;
 use App\Subject;
+use App\Traits\ControllerHelper;
 use App\User;
 use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
+
+    use ControllerHelper;
 
     protected $category;
 
@@ -65,11 +69,7 @@ class SubjectController extends Controller
      */
     public function show($id)
     {
-        $subject = Subject::find($id);
-
-        if(!$subject){
-            return redirect('home')->with('error', 'Subject does not exist');
-        }
+        $subject = $this->checkAndGetObjToShow($this->category, $id);
 
         $creator = User::find($subject->creator_id);
         $modifier = User::find($subject->modifier_id);

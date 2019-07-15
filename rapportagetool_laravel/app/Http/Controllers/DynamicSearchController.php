@@ -7,7 +7,7 @@ use App\AssignedInvestigator;
 use App\AssignedSubject;
 use App\Client;
 use App\Http\Controllers\Services\ClassNameService;
-use App\Http\Controllers\Services\Helper;
+use App\Http\Controllers\Services\AssignedHelper;
 use App\Http\Controllers\Services\PermissionsService;
 use App\LinkMessageUser;
 use App\Subject;
@@ -85,169 +85,71 @@ class DynamicSearchController extends Controller
 
     public function addToList(Request $request){
 
-
         $input = $request->all();
         //dd($input);
         $idPrefix = '#';
         $objs = array();
 
-        $classNameService = new ClassNameService();
-        $obj = $classNameService->getClassByCategory($input['category'], false, $input['id']);
+        $objectLinks = \Config::get('objectLinks');
+        $cns = new ClassNameService();
+        $assigneeClass = $cns->getClassByAssigneeCategory($input['sourceCat'], $input['category']);
+        $sourceObj = $cns->getClassByCategory($input['sourceCat'], false, $input['sourceId']);
+        $targetObj = $cns->getClassByCategory($input['category'], false, $input['id']);
+        $targetObjClass = $cns->getClassByCategory($input['category']);
 
-        if($input['sourceCat'] == 'casefiles') {
-            if ($input['category'] == 'leaders') {
-                if ($obj->draft == false) {
-                    if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'u_adv', false, true)) {
-                        return view('pages.ajax-returns.no-permission');
-                    }
-                } else {
-                    if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'c', false, true)) {
-                        return view('pages.ajax-returns.no-permission');
-                    }
-                }
-                $assignee = AssignedInvestigator::where('is_lead_investigator', true)->where('casefile_id', $input['sourceId'])->first();
-                if (PermissionsService::checkPermission(PermissionsService::getBitwiseValue(['Investigator']), $obj->permission, true)['permission'] == true) {
-                    if ($assignee) {
-                        $assignee->user_id = $input['id'];
-                        $assignee->save();
-                    } else {
-                        $assignee = new AssignedInvestigator();
-                        $assignee->casefile_id = $input['sourceId'];
-                        $assignee->user_id = $input['id'];
-                        $assignee->is_lead_investigator = true;
-                        $assignee->creator_id = auth()->user()->id;
-                        $assignee->modifier_id = auth()->user()->id;
-                        $assignee->save();
-                    }
-                    $assignees = AssignedInvestigator::where('is_lead_investigator', true)->where('casefile_id', $input['sourceId'])->get();
-                    foreach ($assignees as $item) {
-                        $objs[] = User::find($item->user_id);
-                    }
-                } else {
-                    return json_encode(["ERROR" => 'Selected Lead Investigator has no permission to be assigned']);
-                }
+        if ($sourceObj->draft == false) {
+            if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'u_adv', false, true)) {
+                return view('pages.ajax-returns.no-permission');
             }
-
-            if ($input['category'] == 'investigators') {
-                if ($obj->draft == false) {
-                    if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'u_adv', false, true)) {
-                        return view('pages.ajax-returns.no-permission');
-                    }
-                } else {
-                    if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'c', false, true)) {
-                        return view('pages.ajax-returns.no-permission');
-                    }
-                }
-                $assignee = AssignedInvestigator::where('is_lead_investigator', false)->where('casefile_id', $input['sourceId'])->where('user_id', $input['id'])->first();
-                if (PermissionsService::checkPermission(PermissionsService::getBitwiseValue(['Investigator']), $obj->permission)['permission'] == true) {
-                    if ($assignee) {
-                        //Do nothing; already there
-                    } else {
-                        $assignee = new AssignedInvestigator();
-                        $assignee->casefile_id = $input['sourceId'];
-                        $assignee->user_id = $input['id'];
-                        $assignee->is_lead_investigator = false;
-                        $assignee->creator_id = auth()->user()->id;
-                        $assignee->modifier_id = auth()->user()->id;
-                        $assignee->save();
-                    }
-                    $assignees = AssignedInvestigator::where('is_lead_investigator', false)->where('casefile_id', $input['sourceId'])->get();
-                    foreach ($assignees as $item) {
-                        $objs[] = User::find($item->user_id);
-                    }
-                } else {
-                    return json_encode(["ERROR" => 'Selected Investigator has no permission to be assigned']);
-                }
-                //dd($objs);
-            }
-
-            if ($input['category'] == 'clients') {
-                if ($obj->draft == false) {
-                    if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'u_adv', false, true)) {
-                        return view('pages.ajax-returns.no-permission');
-                    }
-                } else {
-                    if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'c', false, true)) {
-                        return view('pages.ajax-returns.no-permission');
-                    }
-                }
-                $assignee = AssignedClient::where('casefile_id', $input['sourceId'])->where('client_id', $input['id'])->first();
-                if ($assignee) {
-                    //Do nothing; already there
-                } else {
-                    $assignee = new AssignedClient();
-                    $assignee->casefile_id = $input['sourceId'];
-                    $assignee->client_id = $input['id'];
-                    $assignee->is_first_contact = true;
-                    $assignee->creator_id = auth()->user()->id;
-                    $assignee->modifier_id = auth()->user()->id;
-                    $assignee->save();
-                }
-                $assignees = AssignedClient::where('casefile_id', $input['sourceId'])->get();
-                foreach ($assignees as $client) {
-                    $objs[] = Client::find($client->client_id);
-                }
-                //dd($objs);
-            }
-
-            if ($input['category'] == 'subjects') {
-                if ($obj->draft == false) {
-                    if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'u', false, true)) {
-                        return view('pages.ajax-returns.no-permission');
-                    }
-                } else {
-                    if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'c', false, true)) {
-                        return view('pages.ajax-returns.no-permission');
-
-                    }
-                }
-                $assignee = AssignedSubject::where('casefile_id', $input['sourceId'])->where('subject_id', $input['id'])->first();
-                if ($assignee) {
-                    //Do nothing; already there
-                } else {
-                    $assignee = new AssignedSubject();
-                    $assignee->casefile_id = $input['sourceId'];
-                    $assignee->subject_id = $input['id'];
-                    $assignee->is_prime_subject = true;
-                    $assignee->creator_id = auth()->user()->id;
-                    $assignee->modifier_id = auth()->user()->id;
-                    $assignee->save();
-                }
-                $assignees = AssignedSubject::where('casefile_id', $input['sourceId'])->get();
-                foreach ($assignees as $subject) {
-                    $objs[] = Subject::find($subject->subject_id);
-                }
-                //dd($objs);
+        } else {
+            if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'c', false, true)) {
+                return view('pages.ajax-returns.no-permission');
             }
         }
-        if($input['sourceCat'] == 'messages') {
-            if ($input['category'] == 'users') {
-                if ($obj->draft == false) {
-                    if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'c', false, true)) {
-                        return view('pages.ajax-returns.no-permission');
-                    }
-                }
-                $lmu = LinkMessageUser::where('message_id', $input['sourceId'])->where('user_id', $input['id'])->first();
-                if ($lmu) {
-                    //Do nothing; already there
-                } else {
-                    $lmu = new LinkMessageUser();
-                    $lmu->message_id = $input['sourceId'];
-                    $lmu->user_id = $input['id'];
-                    $lmu->marked_as_read = false;
-                    $lmu->creator_id = auth()->user()->id;
-                    $lmu->modifier_id = auth()->user()->id;
-                    $lmu->save();
-                }
-                $recipients = LinkMessageUser::where('message_id', $input['sourceId'])->get();
-                foreach ($recipients as $rec) {
-                    $objs[] = User::find($rec->user_id);
-                }
-                //dd($objs);
+        if ($input['category'] == 'leaders' || $input['category'] == 'investigators') {
+            if (!PermissionsService::checkPermission(PermissionsService::getBitwiseValue(['Investigator']), $targetObj->permission, true)['permission'] == true) {
+                return json_encode(["ERROR" => 'Selected user or asset has no permission to be assigned']);
             }
         }
 
-
+        if ($input['category'] == 'leaders') {
+            $assignee = $assigneeClass::where('is_lead_investigator', true)->where($objectLinks[$input['sourceCat']], $input['sourceId'])->first();
+        } else {
+            $assignee = $assigneeClass::where($objectLinks[$input['sourceCat']], $input['sourceId'])->where($objectLinks[$input['category']], $input['id'])->first();
+        }
+        if ($assignee) {
+            if($input['category'] == 'leaders') {
+                $assignee->{$objectLinks[$input['category']]} = $input['id'];
+                $assignee->save();
+                $duplicate = $assigneeClass::where($objectLinks[$input['sourceCat']], $input['sourceId'])->where($objectLinks[$input['category']], $input['id'])->where('is_lead_investigator', false)->first();
+                if($duplicate) {
+                    $duplicate->delete();
+                    echo "<script>location.reload();</script>"; //TODO: fire an AJAX call to just refresh the element container of the deleted item instead of this nasty pagerefresh
+                }
+            }
+        } else {
+            $assignee = new $assigneeClass();
+            $assignee->{$objectLinks[$input['sourceCat']]} = $input['sourceId'];
+            $assignee->{$objectLinks[$input['category']]} = $input['id'];
+            if($input['category'] == 'leaders') {
+                $assignee->is_lead_investigator = true;
+            } else if($input['category'] == 'investigators'){
+                $assignee->is_lead_investigator = false;
+            }
+            $assignee->creator_id = auth()->user()->id;
+            $assignee->modifier_id = auth()->user()->id;
+            $assignee->save();
+        }
+        if ($input['category'] == 'leaders') {
+            $assignees = $assigneeClass::where('is_lead_investigator', true)->where($objectLinks[$input['sourceCat']], $input['sourceId'])->get();
+        } else if ($input['category'] == 'investigators'){
+            $assignees = $assigneeClass::where('is_lead_investigator', false)->where($objectLinks[$input['sourceCat']], $input['sourceId'])->get();
+        } else {
+            $assignees = $assigneeClass::where($objectLinks[$input['sourceCat']], $input['sourceId'])->get();
+        }
+        foreach ($assignees as $item) {
+            $objs[] = $targetObjClass::find($item->{$objectLinks[$input['category']]});
+        }
 
         $data = array(
             'objs' => $objs,
@@ -257,110 +159,59 @@ class DynamicSearchController extends Controller
             'sourceId' => $input['sourceId']
         );
 
-
-        //return print_r($data);
         return view('casefiles.elements.select-assignee')->with('data',$data);
 
     }
 
 
     public function removeFromList(Request $request){
-
+        //In de request should be these 4 pieces of data:
+        //$input['sourceCat'] = category of parent object
+        //$input['sourceId'] = id of parent object
+        //$input['category'] = category of child/targeted object
+        //$input['id'] = id of child/targeted object
 
         $input = $request->all();
-        //dd($input);
         $idPrefix = '#';
         $objs = array();
 
-        $classNameService = new ClassNameService();
-        $obj = $classNameService->getClassByCategory($input['category'], false, $input['id']);
+        $objectLinks = \Config::get('objectLinks');
 
+        $cns = new ClassNameService();
+        $assigneeClass = $cns->getClassByAssigneeCategory($input['sourceCat'], $input['category']);
+        $obj = $cns->getClassByCategory($input['category'], false, $input['id']);
 
-        if($input['sourceCat'] == 'casefiles') {
-            if ($input['category'] == 'leaders') {
-                //Noone can delete lead investigators. They can only be replaced with someone else via the addToList method
+        if ($obj->draft == false) {
+            if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'u_adv', false, true)) {
                 return view('pages.ajax-returns.no-permission');
             }
-
-            if ($input['category'] == 'investigators') {
-                if ($obj->draft == false) {
-                    if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'u_adv', false, true)) {
-                        return view('pages.ajax-returns.no-permission');
-                    }
-                } else {
-                    if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'c', false, true)) {
-                        return view('pages.ajax-returns.no-permission');
-                    }
-                }
-                $assignee = AssignedInvestigator::where('is_lead_investigator', false)->where('casefile_id', $input['sourceId'])->where('user_id', $input['id'])->first();
-                if ($assignee) {
-                    $assignee->delete();
-                }
-                $assignees = AssignedInvestigator::where('is_lead_investigator', false)->where('casefile_id', $input['sourceId'])->get();
-                foreach ($assignees as $item) {
-                    $objs[] = User::find($item->user_id);
-                }
-            }
-
-            if ($input['category'] == 'clients') {
-                if ($obj->draft == false) {
-                    if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'u_adv', false, true)) {
-                        return view('pages.ajax-returns.no-permission');
-                    }
-                } else {
-                    if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'c', false, true)) {
-                        return view('pages.ajax-returns.no-permission');
-                    }
-                }
-                $assignee = AssignedClient::where('casefile_id', $input['sourceId'])->where('client_id', $input['id'])->first();
-                if ($assignee) {
-                    $assignee->delete();
-                }
-                $assignees = AssignedClient::where('casefile_id', $input['sourceId'])->get();
-                foreach ($assignees as $client) {
-                    $objs[] = Client::find($client->client_id);
-                }
-            }
-
-            if ($input['category'] == 'subjects') {
-                if ($obj->draft == false) {
-                    if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'u', false, true)) {
-                        return view('pages.ajax-returns.no-permission');
-                    }
-                } else {
-                    if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'c', false, true)) {
-                        return view('pages.ajax-returns.no-permission');
-                    }
-                }
-                $assignee = AssignedSubject::where('casefile_id', $input['sourceId'])->where('subject_id', $input['id'])->first();
-                if ($assignee) {
-                    $assignee->delete();
-                }
-                $assignees = AssignedSubject::where('casefile_id', $input['sourceId'])->get();
-                foreach ($assignees as $subject) {
-                    $objs[] = Subject::find($subject->subject_id);
-                }
-            }
-        }
-        if($input['sourceCat'] == 'messages') {
-            if ($input['category'] == 'users') {
-                if ($obj->draft == false) {
-                    if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'c', false, true)) {
-                        return view('pages.ajax-returns.no-permission');
-                    }
-                }
-                $recipient = LinkMessageUser::where('message_id', $input['sourceId'])->where('user_id', $input['id'])->first();
-                if ($recipient) {
-                    $recipient->delete();
-                }
-                $recipients = LinkMessageUser::where('message_id', $input['sourceId'])->get();
-                foreach ($recipients as $rec) {
-                    $objs[] = User::find($rec->user_id);
-                }
+        } else {
+            if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'c', false, true)) {
+                return view('pages.ajax-returns.no-permission');
             }
         }
 
+        if ($input['category'] == 'leaders') {
+            //Noone can delete lead investigators. They can only be replaced with someone else via the addToList method
+            return view('pages.ajax-returns.no-permission');
+        }
+        else if ($input['category'] == 'investigators') {
+            $assignee = $assigneeClass::where('is_lead_investigator', false)->where($objectLinks[$input['sourceCat']], $input['sourceId'])->where($objectLinks[$input['category']], $input['id'])->first();
+            if ($assignee) {
+                $assignee->delete();
+            }
+            $assignees = $assigneeClass::where('is_lead_investigator', false)->where($objectLinks[$input['sourceCat']], $input['sourceId'])->get();
+        } else {
+            $assignee = $assigneeClass::where($objectLinks[$input['sourceCat']], $input['sourceId'])->where($objectLinks[$input['category']], $input['id'])->first();
+            if ($assignee) {
+                $assignee->delete();
+            }
+            $assignees = $assigneeClass::where($objectLinks[$input['sourceCat']], $input['sourceId'])->get();
+        }
 
+        foreach ($assignees as $assignee) {
+            $objs[] = User::find($assignee->{$objectLinks[$input['category']]});
+        }
 
         $data = array(
             'objs' => $objs,
@@ -370,8 +221,6 @@ class DynamicSearchController extends Controller
             'sourceId' => $input['sourceId']
         );
 
-
-        //return print_r($data);
         return view('casefiles.elements.select-assignee')->with('data',$data);
 
     }
@@ -379,52 +228,10 @@ class DynamicSearchController extends Controller
 
     public function receiveList(Request $request){
 
-
         $input = $request->all();
-        //dd($input);
         $idPrefix = '#';
-        $objs = array();
 
-        if($input['sourceCat'] == 'casefiles') {
-            if ($input['targetCat'] == 'leaders') {
-                $assignees = AssignedInvestigator::where('is_lead_investigator', true)->where('casefile_id', $input['sourceId'])->get();
-                foreach ($assignees as $item) {
-                    $objs[] = User::find($item->user_id);
-                }
-            }
-
-            if ($input['targetCat'] == 'investigators') {
-                $assignees = AssignedInvestigator::where('is_lead_investigator', false)->where('casefile_id', $input['sourceId'])->get();
-                foreach ($assignees as $item) {
-                    $objs[] = User::find($item->user_id);
-                }
-            }
-
-            if ($input['targetCat'] == 'clients') {
-                $assignees = AssignedClient::where('casefile_id', $input['sourceId'])->get();
-                foreach ($assignees as $client) {
-                    $objs[] = Client::find($client->client_id);
-                }
-            }
-
-            if ($input['targetCat'] == 'subjects') {
-                $assignees = AssignedSubject::where('casefile_id', $input['sourceId'])->get();
-                foreach ($assignees as $subject) {
-                    $objs[] = Subject::find($subject->subject_id);
-                }
-            }
-        }
-
-        if($input['sourceCat'] == 'messages') {
-            if ($input['targetCat'] == 'users') {
-                $users = LinkMessageUser::where('message_id', $input['sourceId'])->get();
-                foreach ($users as $user) {
-                    $objs[] = User::find($user->user_id);
-                }
-            }
-        }
-
-
+        $objs = AssignedHelper::getAssigneesArray($input['sourceCat'], $input['sourceId'], $input['targetCat']);
 
         $data = array(
             'objs' => $objs,
@@ -434,8 +241,6 @@ class DynamicSearchController extends Controller
             'sourceId' => $input['sourceId']
         );
 
-
-        //return print_r($data);
         return view('casefiles.elements.select-assignee')->with('data',$data);
 
     }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Services\PermissionsService;
 use App\LinkMessageUser;
 use App\Message;
 use App\Post;
+use App\Traits\ControllerHelper;
 use App\User;
 use Composer\Package\Link;
 use DB;
@@ -15,6 +16,8 @@ use Illuminate\Http\Request;
 class MessagesController extends Controller
 {
 
+
+    use ControllerHelper;
 
     protected $category;
 
@@ -35,9 +38,9 @@ class MessagesController extends Controller
 
                 //With admin rights (d_adv)
         if (PermissionsService::canDoWithCat($this->category, 'd_adv')) {
-            $messages = User::find(auth()->user()->id)->messages()->withPivot('marked_as_read')->orderBy('marked_as_read', 'ASC')->orderBy('created_at', 'DESC')->paginate($limitPerPage);
+            $messages = User::find(auth()->user()->id)->messages()->where('messages.draft', false)->withPivot('marked_as_read')->orderBy('marked_as_read', 'ASC')->orderBy('created_at', 'DESC')->paginate($limitPerPage);
         } else { //Without admin rights (normal users)
-            $messages = User::find(auth()->user()->id)->messages()->where('messages.deleted', false)->withPivot('marked_as_read')->orderBy('marked_as_read', 'ASC')->orderBy('created_at', 'DESC')->paginate($limitPerPage);
+            $messages = User::find(auth()->user()->id)->messages()->where('messages.deleted', false)->where('messages.draft', false)->withPivot('marked_as_read')->orderBy('marked_as_read', 'ASC')->orderBy('created_at', 'DESC')->paginate($limitPerPage);
         }
         $data = array(
             'category' => $this->category,
@@ -154,13 +157,7 @@ class MessagesController extends Controller
      */
     public function show($id)
     {
-        $message = Message::find($id);
-        if(!$message){
-            return redirect('home')->with('error', 'Message does not exist');
-        }
-        if(!PermissionsService::canReadMessage($id, true)){
-            return redirect('home')->with('error', 'No permission');
-        }
+        $message = Helper::checkAndGetObjToShow($this->category, $id);
 
         $creator = User::find($message->creator_id);
         $modifier = User::find($message->modifier_id);

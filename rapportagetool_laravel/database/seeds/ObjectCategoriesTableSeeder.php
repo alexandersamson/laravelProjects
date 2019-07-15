@@ -183,9 +183,9 @@ class ObjectCategoriesTableSeeder extends Seeder
                 'r_by_assigned_user' => true // for subjects, clients, licenses and posts
             ],
             [   'name' => 'messages',
-                'c_permission' => $postPermissions->getBitwiseValue(['Registered']),
+                'c_permission' => $postPermissions->getBitwiseValue(['Staff','Investigator']),
                 'r_permission' => $postPermissions->getBitwiseValue(['Registered']),
-                'u_permission' => $postPermissions->getBitwiseValue(['Registered']),
+                'u_permission' => $postPermissions->getBitwiseValue(['Staff','Investigator']),
                 'd_permission' => $postPermissions->getBitwiseValue(['Registered']),
                 'c_adv_permission' => $postPermissions->getBitwiseValue(['Administrator']),
                 'r_adv_permission' => $postPermissions->getBitwiseValue(['Administrator']),
@@ -196,10 +196,12 @@ class ObjectCategoriesTableSeeder extends Seeder
                 'u_match_all' => false,
                 'u_adv_match_all' => false,
                 'd_match_all' => false,
-                'r_by_creator' => false,
-                'u_by_creator' => false,
-                'u_adv_by_creator' => false,
+                'c_by_creator' => true,
+                'r_by_creator' => true,
+                'u_by_creator' => true,
                 'd_by_creator' => false,
+                'r_adv_by_creator' => true,
+                'u_adv_by_creator' => true,
                 'r_by_assigned_user' => true // for subjects, clients, licenses and posts
             ]
         ];

@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Services;
 
+use App\AssignedClient;
+use App\AssignedInvestigator;
+use App\AssignedSubject;
 use App\Casefile;
 use App\Client;
 use App\License;
+use App\LinkMessageUser;
 use App\Message;
 use App\Organization;
 use App\Post;
@@ -75,8 +79,39 @@ class ClassNameService extends Controller
                     $class = Message::find($id);
                 }
             }
-        } else {
-            return redirect('home')->with('error', 'No permission');
+        }
+        return $class;
+    }
+
+
+    public function getClassByAssigneeCategory($parentCategory, $assigneeCategory){
+        $categories = Config::get('categoriesUnformatted'); //Providers/Globals.php
+        if(isset($categories[$assigneeCategory])){
+            if($categories[$parentCategory] == 'casefiles') {
+                if($categories[$assigneeCategory] == 'leaders') {
+                    $class = new AssignedInvestigator();
+                }
+                if($categories[$assigneeCategory] == 'investigators'){
+                    $class = new AssignedInvestigator();
+                }
+                if($categories[$assigneeCategory] == 'users'){
+                    $class = new AssignedInvestigator();
+                }
+                if($categories[$assigneeCategory] == 'staff'){
+                    $class = new AssignedInvestigator();
+                }
+                if($categories[$assigneeCategory] == 'clients'){
+                    $class = new AssignedClient();
+                }
+                if($categories[$assigneeCategory] == 'subjects'){
+                    $class = new AssignedSubject();
+                }
+            }
+            if($categories[$parentCategory] == 'messages'){
+                if($categories[$assigneeCategory] == 'users'){
+                    $class = new LinkMessageUser();
+                }
+            }
         }
         return $class;
     }

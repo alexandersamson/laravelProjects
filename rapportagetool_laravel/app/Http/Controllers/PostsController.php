@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\ActionLog;
+use App\Http\Controllers\Services\Helper;
 use App\Http\Controllers\Services\PermissionsService;
+use App\Traits\ControllerHelper;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -11,18 +13,9 @@ use App\Post;
 
 class PostsController extends Controller
 {
-    // index
-    // create
-    // store
-    // edit
-    // update
-    // show
-    // destroy
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+
+    use ControllerHelper;
+
     protected $category;
 
     public function __construct()
@@ -118,24 +111,7 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        $post = Post::find($id);
-        if(!$post){
-            return redirect('home')->with('error', 'Post does not exist');
-        }
-        if (!PermissionsService::canDoWithObj($this->category, $id, 'r', false, true)) {
-            return redirect('home')->with('error', 'No permission');
-        }
-
-        if($post->deleted) {
-            if (!PermissionsService::canDoWithObj($this->category, $id, 'd_adv', false, true)) {
-                return redirect('home')->with('info', 'This post has been deleted.');
-            }
-        }
-        if(!$post->approved) {
-            if (!PermissionsService::canDoWithObj($this->category, $id, 'u_adv', false, true)) {
-                return redirect('home')->with('info', 'This post has not been approved yet');
-            }
-        }
+        $post = $this->checkAndGetObjToShow($this->category, $id);
 
         $creator = User::find($post->creator_id);
         $modifier = User::find($post->modifier_id);

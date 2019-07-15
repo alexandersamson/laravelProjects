@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Http\Controllers\Services\Helper;
+use App\Traits\ControllerHelper;
 use App\User;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
+
+    use ControllerHelper;
 
     protected $category;
 
@@ -64,10 +68,7 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        $client = Client::find($id);
-        if(!$client){
-            return redirect('home')->with('error', 'Client does not exist');
-        }
+        $client = $this->checkAndGetObjToShow($this->category, $id);
 
         $creator = User::find($client->creator_id);
         $modifier = User::find($client->modifier_id);

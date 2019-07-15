@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Services\Helper;
+use App\Http\Controllers\Services\PermissionsService;
 use App\License;
 use App\Post;
 use App\Providers\PermissionsProvider;
+use App\Traits\ControllerHelper;
 use App\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+    use ControllerHelper;
 
     protected $category;
 
@@ -66,10 +71,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
-        if(!$user){
-            return redirect('home')->with('error', 'User does not exist');
-        }
+
+        $user = $this->checkAndGetObjToShow($this->category, $id);
+
         $creator = User::find($user->creator_id);
         $modifier = User::find($user->modifier_id);
         $createdAt = $user->created_at;

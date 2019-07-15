@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Services;
 
 use App\AssignedInvestigator;
 use App\AssignedSubject;
+use App\Casefile;
 use App\CaseState;
 use App\Http\Controllers\Controller;
 use App\Organization;
 use App\User;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
 class Helper extends Controller
@@ -31,6 +33,34 @@ class Helper extends Controller
             return true;
         }
         return false;
+    }
+
+    public static function needsApproval($category, $id){
+        $classNameService = new ClassNameService();
+        $obj = $classNameService->getClassByCategory($category, false, $id);
+        if(!$obj->deleted) {
+            return !$obj->approved;
+        } else {
+            return false;
+        }
+    }
+
+    public static function isDeleted($category, $id){
+        $classNameService = new ClassNameService();
+        $obj = $classNameService->getClassByCategory($category, false, $id);
+        if(!$obj){
+            return false;
+        }
+        return $obj->deleted;
+    }
+
+    public static function isDraft($category, $id){
+        $classNameService = new ClassNameService();
+        $obj = $classNameService->getClassByCategory($category, false, $id);
+        if(!$obj){
+            return false;
+        }
+        return $obj->draft;
     }
 
 
@@ -107,8 +137,10 @@ class Helper extends Controller
                 $returnStringAppend .= $s;
             }
         } elseif($diff > 1) {
+            $returnValue = $diff;
             $returnStringAppend = ' days';
         } else if($diff > 0){
+            $returnValue = $diff;
             $returnStringAppend = ' day';
         } else if($diff == 0){
             $returnValue = '';
@@ -126,21 +158,6 @@ class Helper extends Controller
         }
     }
 
-    public static function needsApproval($category, $id){
-        $classNameService = new ClassNameService();
-        $obj = $classNameService->getClassByCategory($category, false, $id);
-        if(!$obj->deleted) {
-            return !$obj->approved;
-        } else {
-            return false;
-        }
-    }
-
-    public static function isDeleted($category, $id){
-        $classNameService = new ClassNameService();
-        $obj = $classNameService->getClassByCategory($category, false, $id);
-        return $obj->deleted;
-    }
 
     //extractObjs() Inserts:
     //Array of objects (obj)
@@ -215,57 +232,94 @@ class Helper extends Controller
         return "<a title=\"$title\" href=\"$cat/$obj\">$string</a>";
     }
 
-    public static function parseBB($string = ''){
-        //str_replace ( mixed $search , mixed $replace , mixed $subject [, int &$count ] ) : mixed
-        //strpos ( string $haystack , mixed $needle [, int $offset = 0 ] ) : int
 
-        //CC[...]
-        //Change Casecodes from CC|XXXXX|  to a working CC-link
 
-        while((substr_count($string, '[cc]') > 0) && (substr_count($string, '[/cc]') > 0)){
-            $startPos = strpos($string, '[cc]');
-            $endPhrasePos = strpos($string, '[/cc]', $startPos);
-            $substrToReplace = substr ( $string, $startPos, ($endPhrasePos-$startPos+5));
-            $substrValue = substr ( $string, $startPos+4, ($endPhrasePos-$startPos-4));
-            $string = str_replace($substrToReplace, '<a href="/casefiles/cc/'.$substrValue.'">'.$substrValue.'</a>', $string);
-            $startPos += 4;
+
+
+    //  custom BB parser [parseBB] - 2019 - Alexander Samson
+    //  Add items to the $bbCodes array as you wish.
+    //  [#*S*#] points to the string between the 'openTag' and 'closeTag'
+    //  [#*R*#] points to the name of an object searched for by the value of  [#*S*#] in the model's table and is
+    //  defined by 'Rcat'. Rcat is not necessary when this database functionality is not needed.
+    public static function parseBB($string = '')
+    {
+
+        $bbCodes = array(
+            [
+                'openTag' => '[cc]',
+                'closeTag' => '[/cc]',
+                'replace' => '<a href="/casefiles/cc/[#*S*#]">[#*S*#]</a>',
+                'Rcat' => '',
+            ],
+            [
+                'openTag' => '[user]',
+                'closeTag' => '[/user]',
+                'replace' => '<a href="/users/[#*S*#]">[#*R*#]</a>',
+                'Rcat' => 'users'
+            ],
+            [
+                'openTag' => '[b]',
+                'closeTag' => '[/b]',
+                'replacement' => '<span class="font-weight-bolder">[#*S*#]</span>',
+                'Rcat' => ''
+            ],
+            [
+                'openTag' => '[i]',
+                'closeTag' => '[/i]',
+                'replacement' => '<span class="font-italic">[#*S*#]</span>',
+                'Rcat' => ''
+            ],
+            [
+                'openTag' => '[red]',
+                'closeTag' => '[/red]',
+                'replace' => '<span class="text-danger">[#*S*#]</span>',
+                'Rcat' => ''
+            ],
+            [
+                'openTag' => '[green]',
+                'closeTag' => '[/green]',
+                'replace' => '<span class="text-success">[#*S*#]</span>',
+                'Rcat' => ''
+            ],
+            [
+                'openTag' => '[blue]',
+                'closeTag' => '[/blue]',
+                'replace' => '<span class="text-primary">[#*S*#]</span>',
+                'Rcat' => ''
+            ],
+        );
+
+        foreach ($bbCodes as $bbCode){
+            while ((substr_count($string, $bbCode['openTag']) > 0) && (substr_count($string, $bbCode['closeTag']) > 0)) {
+                $startPos = strpos($string, $bbCode['openTag']);
+                $endPhrasePos = strpos($string, $bbCode['closeTag'], $startPos);
+                $substrToReplace = substr($string, $startPos, ($endPhrasePos - $startPos + strlen($bbCode['closeTag'])));
+                $substrValueS = substr($string, $startPos + strlen($bbCode['openTag']), ($endPhrasePos - $startPos - strlen($bbCode['openTag'])));
+                if($bbCode['Rcat'] !== ''){
+                    $categories = \Config::get('categories');
+                    $cns = new ClassNameService;
+                    $class = $cns->getClassByCategory($categories[$bbCode['Rcat']]);
+                    $substrValueR = ' ... ';
+                    $obj = $class::find($substrValueS);
+                    if($obj){
+                        $objName = $obj->name;
+                        $substrValueR = $objName;
+                    } else {
+                        $obj = $class::where('name', 'LIKE', '%'.$substrValueS.'%')->first();
+                        if($obj) {
+                            $objName = $obj->name;
+                            $substrValueR = $objName;
+                        }
+                    }
+                    $replaceString = str_replace('[#*R*#]', $substrValueR, $bbCode['replace']);
+                    $string = str_replace($substrToReplace, str_replace('[#*S*#]', $substrValueS, $replaceString), $string);
+                } else {
+                    $string = str_replace($substrToReplace, str_replace('[#*S*#]', $substrValueS, $bbCode['replace']), $string);
+                }
+            }
         }
-
-        while((substr_count($string, '[bold]') > 0) && (substr_count($string, '[/bold]') > 0)){
-
-            $startPos = strpos($string, '[bold]');
-            $endPhrasePos = strpos($string, '[/bold]', $startPos);
-            $substrToReplace = substr ( $string, $startPos, ($endPhrasePos-$startPos+7));
-            $substrValue = substr ( $string, $startPos+6, ($endPhrasePos-$startPos-6));
-            $string = str_replace($substrToReplace, '<span class="font-weight-bolder">'.$substrValue.'</span>', $string);
-        }
-
-        while((substr_count($string, '[red]') > 0) && (substr_count($string, '[/red]') > 0)){
-            $startPos = strpos($string, '[red]');
-            $endPhrasePos = strpos($string, '[/red]', $startPos);
-            $substrToReplace = substr ( $string, $startPos, ($endPhrasePos-$startPos+6));
-            $substrValue = substr ( $string, $startPos+5, ($endPhrasePos-$startPos-5));
-            $string = str_replace($substrToReplace, '<span class="text-danger">'.$substrValue.'</span>', $string);
-            $startPos += 5;
-        }
-
-        while((substr_count($string, '[blue]') > 0) && (substr_count($string, '[/blue]') > 0)){
-            $startPos = strpos($string, '[blue]');
-            $endPhrasePos = strpos($string, '[/blue]', $startPos);
-            $substrToReplace = substr ( $string, $startPos, ($endPhrasePos-$startPos+7));
-            $substrValue = substr ( $string, $startPos+6, ($endPhrasePos-$startPos-6));
-            $string = str_replace($substrToReplace, '<span class="text-primary">'.$substrValue.'</span>', $string);
-        }
-
-        while((substr_count($string, '[green]') > 0) && (substr_count($string, '[/green]') > 0)){
-            $startPos = strpos($string, '[green]');
-            $endPhrasePos = strpos($string, '[/green]', $startPos);
-            $substrToReplace = substr ( $string, $startPos, ($endPhrasePos-$startPos+8));
-            $substrValue = substr ( $string, $startPos+7, ($endPhrasePos-$startPos-7));
-            $string = str_replace($substrToReplace, '<span class="text-success">'.$substrValue.'</span>', $string);
-        }
-
         return $string;
+
     }
 
 }
