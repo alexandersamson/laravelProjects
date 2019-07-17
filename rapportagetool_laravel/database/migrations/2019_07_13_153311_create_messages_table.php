@@ -27,8 +27,8 @@ class CreateMessagesTable extends Migration
             $table->boolean('deleted')->default(false);
             $table->integer('permission')->default(0);
             $table->string('style')->default('default');
-            $table->string('name'); //is title
-            $table->mediumText('body'); //is content
+            $table->string('name');
+            $table->string('body');
             $table->string('cover_image')->default('profilepicture/profilepicture');
         });
     }

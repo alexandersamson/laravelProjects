@@ -2,13 +2,14 @@
 
 @section('content')
 
-    <h1>Create Casefile</h1>
+
+    <h1>New Casefile</h1>
     {!! Form::open(['action' => 'CasefilesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
         <div class="form-group">
-            <span class="">{{$data['casecode']}}</span>
-            @include('includes.snippets.copy-buttons',['obj' => $data['casecode']])
-            {{Form::hidden('casecode', $data['casecode'])}}
-            {{Form::hidden('id', $data['id'])}}
+            <span class="">{{$data['obj']->casecode}}</span>
+            @include('includes.snippets.copy-buttons',['obj' => $data['obj']->casecode])
+            {{Form::hidden('casecode', $data['obj']->casecode)}}
+            {{Form::hidden('id', $data['obj']->id)}}
 
         </div>
         <div class="form-group">
@@ -19,7 +20,7 @@
                                       'data-sourcecat' => 'casefiles',
                                       'data-sourceinput' => 'name',
                                       'data-inputid' => 'main-casefile-name',
-                                      'data-sourceid' => $data['id']])}}
+                                      'data-sourceid' => $data['obj']->id])}}
         </div>
         <div class="form-group">
             {{Form::label('description', 'Description')}}
@@ -30,7 +31,7 @@
                                                  'data-sourcecat' => 'casefiles',
                                                  'data-sourceinput' => 'description',
                                                  'data-inputid' => 'main-casefile-description',
-                                                 'data-sourceid' => $data['id']])}}
+                                                 'data-sourceid' => $data['obj']->id])}}
         </div>
         <div class="form-group">
             {{Form::label('case-state', 'Status')}}
@@ -42,7 +43,7 @@
                 <div class="row" id="assigneesContainerA">
                     <div class="col-sm-12">
                         <div class="form-row m-2">
-                            @include('includes.components.searchbox-add-to-list', ['sourceCat' => "casefiles", 'sourceId' => $data["id"], 'searchCategories' => ["leaders","investigators","clients","subjects"], 'searchTitles' => ["Lead Investigator","Investigators","Clients","Subjects"], 'searchPermissionFilters' => ["Investigator","Investigator",null,null]])
+                            @include('includes.components.searchbox-add-to-list', ['sourceCat' => "casefiles", 'sourceId' => $data['obj']->id, 'searchCategories' => ["leaders","investigators","clients","subjects","assets"], 'searchTitles' => ["Lead Investigator","Investigators","Clients","Subjects","Assets"], 'searchPermissionFilters' => ["Investigator","Investigator",null,null,null]])
                         </div>
                     </div>
                 </div>
@@ -51,6 +52,9 @@
         <div class="form-group">
             {{Form::file('cover_image')}}
         </div>
-        {{Form::submit('Submit', ['class' => 'btn btn-primary'])}}
+        @if(!\App\Http\Controllers\Services\PermissionsService::canDoWithObj('casefiles', $data['obj']->id,\App\Http\Controllers\Services\PermissionsService::getPermCode('approve'), true))
+            <span class="badge font-weight-normal badge-warning">This casefile needs approval by a {{\App\Http\Controllers\Services\PermissionsService::getPermissionsTextArray(\App\Http\Controllers\Services\PermissionsService::getBitwiseValue(['Casemanager']))[0]}}</span><br>
+        @endif
+        {{Form::submit('Create', ['class' => 'btn btn-primary'])}}
         {!! Form::close() !!}
 @endsection

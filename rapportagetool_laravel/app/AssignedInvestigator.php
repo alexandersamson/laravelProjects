@@ -2,8 +2,15 @@
 
 namespace App;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Builder;
+/**
+ * AssignedInvestigator
+ *
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class AssignedInvestigator extends Model
 {
     public function casefile(){

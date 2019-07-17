@@ -2,8 +2,15 @@
 
 namespace App;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Builder;
+/**
+ * AssignedClient
+ *
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class AssignedClient extends Model
 {
     public function casefile(){

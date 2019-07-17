@@ -18,12 +18,12 @@ class CreateCasefilesTable extends Migration
             $table->timestamps();
             $table->integer('creator_id');
             $table->integer('modifier_id');
-            $table->boolean('approved')->default(true);
+            $table->boolean('approved')->default(false);
             $table->dateTime('approved_at')->nullable();
             $table->integer('approved_by_id')->nullable();
             $table->boolean('active')->default(true);
             $table->boolean('hidden')->default(false);
-            $table->boolean('draft')->default(false);
+            $table->boolean('draft')->default(true);
             $table->boolean('deleted')->default(false);
             $table->integer('permission')->default(0);
             $table->string('style')->default('default');

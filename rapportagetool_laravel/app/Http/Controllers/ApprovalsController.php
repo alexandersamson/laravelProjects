@@ -15,7 +15,7 @@ class ApprovalsController extends Controller
         $returncmd = '';
         $returnvalue = '';
 
-        if(PermissionsService::canDoWithObj($category, $id, 'u_adv')){
+        if(PermissionsService::canDoWithObj($category, $id, PermissionsService::getPermCode('approve'))){
             if(!$obj->deleted){
                 $actionLog = new ActionLogsController;
                 if($action == 'approve'){
@@ -36,7 +36,7 @@ class ApprovalsController extends Controller
                 }
             } else {
                 $returncmd = 'error';
-                $returnvalue = 'This item was already deleted';
+                $returnvalue = 'This item was deleted and therefore cannot be approved or dismissed';
             }
         } else {
             $returncmd = 'error';

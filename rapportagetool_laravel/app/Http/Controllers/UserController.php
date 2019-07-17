@@ -7,9 +7,14 @@ use App\Http\Controllers\Services\PermissionsService;
 use App\License;
 use App\Post;
 use App\Providers\PermissionsProvider;
+use App\RegistrationKey;
 use App\Traits\ControllerHelper;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendRegkey;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -22,8 +27,7 @@ class UserController extends Controller
     {
         $this->category = 'users';
         $this->middleware('auth'); //Anyone can Show, Edit and Update their own profile TODO: handle user profile permissions
-        $this->middleware('permission:matchOne,Staff', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:matchOne,Manager,Owner', ['only' => ['create', 'store', 'destroy']]);
+
     }
     /**
      * Display a listing of the resource.
@@ -49,7 +53,15 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+
+        $permissions = PermissionsService::getSettablePermissions();
+
+        $data = array(
+            'permissions' => $permissions,
+        );
+
+
+        return view('users.create')->with('data', $data);
     }
 
     /**
@@ -61,6 +73,65 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function generateRegkey(Request $request)
+    {
+
+        //VALIDATION
+        $this->validate($request,
+        [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'unique:registration_keys,user_email'],
+            'description' => ['nullable', 'string', 'max:1000'],
+            'permissionValues' => ['nullable', 'array'],
+        ]);
+
+        //VARS
+        $regkey = Str::random(32);
+        $hashedKey = Hash::make($regkey);
+        $input =  $request->all();
+        $name = $input['name'];
+        $email = $input['email'];
+        if(isset($input['description'])){
+            $description = $input['description'];
+        } else {
+            $description = '';
+        }
+        $permissionVal = 0;
+        if(isset($input['permissionValues'])){
+            foreach($input['permissionValues'] as $val) {
+                $permissionVal += $val;
+            }
+        }
+
+        //DBASE
+        $regkeyObj = new RegistrationKey();
+        $regkeyObj->name = $name;
+        $regkeyObj->description = $description;
+        $regkeyObj->user_email = $email;
+        $regkeyObj->user_permission = $permissionVal;
+        $regkeyObj->regkey = $hashedKey;
+        $regkeyObj->creator_id = auth()->user()->id;
+        $regkeyObj->modifier_id = auth()->user()->id;
+        $regkeyObj->save();
+
+        //EMAIL
+        $data = array(
+            'name' => $name,
+            'email' => $email,
+            'regkey' => $regkey,
+        );
+        Mail::to($email)->send(new SendRegkey($data));
+
+        //RETURN
+        return back()->with('success', 'Registration Key generated and emailed to '.$email);
     }
 
     /**

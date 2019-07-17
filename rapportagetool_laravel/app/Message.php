@@ -2,8 +2,15 @@
 
 namespace App;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Builder;
+/**
+ * Message
+ *
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class Message extends Model
 {
     // Table Name

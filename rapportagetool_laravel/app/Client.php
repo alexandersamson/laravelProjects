@@ -2,8 +2,15 @@
 
 namespace App;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Builder;
+/**
+ * Client
+ *
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class Client extends Model
 {
     /**
@@ -33,5 +40,15 @@ class Client extends Model
 
     public function permission(){
         return $this->belongsTo('App\Permission' );
+    }
+
+    public function assets()
+    {
+        return $this->belongsToMany('App\Asset', 'link_client_assets');
+    }
+
+    public function vehicles()
+    {
+        return $this->belongsToMany('App\Vehicle', 'link_client_vehicles');
     }
 }

@@ -35,8 +35,6 @@ class CasefilesController extends Controller
     {
         $this->category = 'casefiles';
         $this->middleware('auth');
-        $this->middleware('permission:matchOne,Investigator,Casemanager', ['only' => ['create', 'store', 'index', 'show', 'edit', 'update']]);
-        $this->middleware('permission:matchAll,Casemanager',              ['only' => ['destroy']]);
 
     }
     /**
@@ -46,7 +44,12 @@ class CasefilesController extends Controller
      */
     public function index()
     {
-        $casefiles = Casefile::orderBy('created_at', 'desc')->where('deleted','=',false)->paginate(25);
+        if(!PermissionsService::canDoWithCat($this->category,'d_adv')){
+            $casefiles = Casefile::orderBy('created_at', 'desc')->where('deleted','=',false)->paginate(25);
+        } else {
+            $casefiles = Casefile::orderBy('deleted','ASC')->orderBy('created_at', 'DESC')->paginate(25);
+        }
+
 
         $data = array(
             'category' => $this->category,
@@ -104,9 +107,9 @@ class CasefilesController extends Controller
 
 
         $data = array(
-            'casecode' => $caseCode,
-            'id' => $casefile->id,
-            'casestatus' => $caseStates,
+            'obj' => $casefile,
+            'category' => $this->category,
+            'casestatusses' => $caseStates,
         );
         return view('casefiles.create')->with('data', $data);
     }
@@ -122,8 +125,6 @@ class CasefilesController extends Controller
         if (!PermissionsService::canDoWithCat($this->category, 'c')) {
             return redirect('home')->with('error', 'No permission');
         }
-
-        $categories = Config::get('categoriesUnformatted');
 
 
         $validator = Validator::make($request->all(), [
@@ -145,6 +146,12 @@ class CasefilesController extends Controller
             return redirect('/home')->with('error', 'CaseCode/ID combination not found');
         }
 
+        if((PermissionsService::canDoWithObj($this->category,$casefile->id,PermissionsService::getPermCode('approve'), true, true)) == false && ($casefile->approved == false)){
+            $approved = false;
+        } else {
+            $approved = true;
+        }
+
         $casefile->name = $request->input('name');
         $casefile->casecode = $request->input('casecode');
         $casefile->description = $request->input('description');
@@ -152,6 +159,7 @@ class CasefilesController extends Controller
         $casefile->case_state_index = $request->input('case-state');
         $casefile->lead_investigator_index = 0;
         $casefile->client_index = 0;
+        $casefile->approved = $approved; // If not having u_adv rights, approval is needed
         $casefile->draft = false;
         $casefile->save();
 
@@ -188,7 +196,7 @@ class CasefilesController extends Controller
             'createdAt' => $createdAt,
             'modifiedAt' => $modifiedAt,
             'modifier' => $modifier,
-            'casestatus' => $casestatus
+            'casestatusses' => $casestatus
         );
         return view('casefiles.show')->with('data', $data);
     }
@@ -237,7 +245,7 @@ class CasefilesController extends Controller
             'createdAt' => $createdAt,
             'modifiedAt' => $modifiedAt,
             'modifier' => $modifier,
-            'casestatus' => $casestatus,
+            'casestatusses' => $casestatus,
         );
         return view('casefiles.edit')->with('data', $data);
     }
@@ -271,18 +279,5 @@ class CasefilesController extends Controller
         //
     }
 
-
-    public function addAssignee($own_id, $category, $item_id){
-
-
-        if($category == 'leaders'){
-            $result = AssignedInvestigator::where('is_lead_investigator', true)->where('case_id',$own_id)->where('user_id',$item_id)->take(1)->get();
-            dd($result);
-        }
-
-        //return print_r($data);
-        return view('casefiles.elements.select-assignee')->with('data',$data);
-
-    }
 
 }

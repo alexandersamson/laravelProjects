@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ActionLog;
+use App\Casefile;
 use App\Http\Controllers\Services\Helper;
 use App\Http\Controllers\Services\PermissionsService;
 use App\Traits\ControllerHelper;
@@ -31,8 +32,11 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::where('deleted', false)->orderBy('created_at', 'desc')->paginate(10);
-
+        if(!PermissionsService::canDoWithCat($this->category,'d_adv')){
+            $posts = Post::orderBy('created_at', 'desc')->where('deleted','=',false)->paginate(25);
+        } else {
+            $posts = Post::orderBy('deleted','ASC')->orderBy('created_at', 'DESC')->paginate(25);
+        }
         $data = array(
             'category' => $this->category,
             'objs' => $posts,

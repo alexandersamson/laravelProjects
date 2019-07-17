@@ -2,8 +2,15 @@
 
 namespace App;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Builder;
+/**
+ * AssignedSubject
+ *
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class AssignedSubject extends Model
 {
     public $table = 'assigned_subjects';

@@ -2,8 +2,15 @@
 
 namespace App;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Builder;
+/**
+ * Organization
+ *
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class Organization extends Model
 {
     public function user(){

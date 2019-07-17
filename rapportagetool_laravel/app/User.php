@@ -2,10 +2,17 @@
 
 namespace App;
 
+use Eloquent;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Illuminate\Database\Eloquent\Builder;
+/**
+ * User
+ *
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -16,7 +23,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password'
+        'name', 'email', 'password', 'creator_id', 'modifier_id', 'profile_picture_path'
     ];
 
     /**
@@ -70,6 +77,11 @@ class User extends Authenticatable
 
     public function messages(){
         return $this->belongsToMany('App\Message', 'link_message_users');
+    }
+
+    public function casenotes()
+    {
+        return $this->belongsToMany('App\Casenote', 'link_casefile_casenotes');
     }
 
 

@@ -36,7 +36,10 @@ class Globals extends ServiceProvider
             'organizations' => 'organizations',
             'subjects' => 'subjects',
             'licenses' => 'licenses',
-            'messages' => 'messages']
+            'messages' => 'messages',
+            'assets' => 'assets',
+            'vehicles' => 'vehicles',
+            'casenotes' => 'casenotes']
         ]);
         Config::set(['categoriesUnformatted' => [
             'posts' => 'posts',
@@ -48,7 +51,10 @@ class Globals extends ServiceProvider
             'organizations' => 'organizations',
             'subjects' => 'subjects',
             'licenses' => 'licenses',
-            'messages' => 'messages']
+            'messages' => 'messages',
+            'assets' => 'assets',
+            'vehicles' => 'vehicles',
+            'casenotes' => 'casenotes']
         ]);
         Config::set(['categoriesSingular' => [
             'posts' => 'Post',
@@ -60,9 +66,12 @@ class Globals extends ServiceProvider
             'organizations' => 'Organization',
             'subjects' => 'Subject',
             'licenses' => 'License',
-            'messages' => 'Message']
+            'messages' => 'Message',
+            'assets' => 'Asset',
+            'vehicles' => 'Vehicle',
+            'casenotes' => 'Casenote']
         ]);
-        Config::set(['objectLinks' => [
+        Config::set(['objectColumnLinks' => [
             'posts' => 'post_id',
             'casefiles' => 'casefile_id',
             'users' => 'user_id',
@@ -72,7 +81,10 @@ class Globals extends ServiceProvider
             'organizations' => 'organization_id',
             'subjects' => 'subject_id',
             'licenses' => 'license_id',
-            'messages' => 'message_id']
+            'messages' => 'message_id',
+            'assets' => 'asset_id',
+            'vehicles' => 'vehicle_id',
+            'casenotes' => 'casenote_id']
         ]);
     }
 }

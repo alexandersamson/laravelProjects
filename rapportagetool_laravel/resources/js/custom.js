@@ -2,6 +2,14 @@
 var timers = {
     "title": null ,
     "body": null,
+    "itemA": null,
+    "itemB": null,
+    "itemC": null,
+    "itemD": null,
+    "itemE": null,
+    "itemF": null,
+    "itemG": null,
+    "itemH": null,
     "footer": null,
 };
 
@@ -64,12 +72,10 @@ $( document ).ready(function() {
     });
 
     //init some timers
-    startTimer('title');
-    clearTimeout(timers['title']);
-    startTimer('body');
-    clearTimeout(timers['body']);
-    startTimer('footer');
-    clearTimeout(timers['footer']);
+    Object.keys(timers).forEach(function(index){
+        startTimer(index);
+        clearTimeout(timers[index]);
+    });
 });
 
 //loader for modals etc
@@ -88,17 +94,25 @@ $('#testModal').on('show.bs.modal', function (event) {
     var name = $("Test").val();
     var returnValue;
     var modal = $(this);
-    modal.find('.modal-title').text('Loading...');
-    modal.find('.modal-body').html($loader);
+
 
     $.ajax({
         type: 'POST',
         url: '/ajaxTestRequest',
         data: {},
+        beforeSend: function () {
+            modal.find('.modal-title').text('Loading...');
+            modal.find('.modal-body').html($loader);
+        },
         success: function (data) {
             returnValue = JSON.stringify(data);
             modal.find('.modal-title').text(btnDataHeader);
             modal.find('.modal-body').html('<small>' + returnValue + '</small>');
+        },
+        error: function (data){
+            returnValue = JSON.stringify(data);
+            modal.find('.modal-title').text('Error: ' + data['status']);
+            modal.find('.modal-body').html('<small>' +data['statusText'] + '</small>');
         }
     });
     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
@@ -130,76 +144,17 @@ $('#genericFormModal').on('show.bs.modal', function (event) {
                 returnValue = data;
                 modal.find('.modal-title').text(btnDataHeader);
                 modal.find('.modal-body').html(returnValue);
+            },
+            error: function (data){
+                returnValue = JSON.stringify(data);
+                modal.find('.modal-title').text('Error: ' + data['status']);
+                modal.find('.modal-body').html('<small>' +data['statusText'] + '</small>');
             }
         });
     }
     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 });
-
-$(document).on('click', '.selectBtnRadio', function () {
-
-    dontSet = false;
-    if($(this).hasClass("btn-success")){
-        dontSet = true;
-        $(this).addClass("btn-primary");
-        $(this).removeClass("btn-success");
-        $(this).text("Select this user");
-    }
-    $(this).addClass("btn-success");
-    $(this).removeClass("btn-primary");
-    $(this).html("&nbsp;User selected&nbsp;&nbsp;");
-    $(selectedBtnOptions[0]).addClass("btn-primary");
-    $(selectedBtnOptions[0]).removeClass("btn-success");
-    $(selectedBtnOptions[0]).text("Select this user");
-    selectedBtnOptions = {};
-    if (dontSet === false){
-        selectedBtnOptions[0] = this;
-    }
-    tempOptionStorage = {};
-    tempOptionStorage[0]=$(this)[0].dataset.value;
-    console.log(tempOptionStorage);
-});
-
-$(document).on('click', '.selectBtnMulti', function () {
-
-    dontSet = false;
-    if($(this).hasClass("btn-success")){
-        dontSet = true;
-        $(this).addClass("btn-primary");
-        $(this).removeClass("btn-success");
-        $(this).text("Select this user");
-        selectedBtnOptions[$(this)[0].dataset.value] = {};
-        tempOptionStorage[$(this)[0].dataset.value] = {};
-    } else {
-        $(this).addClass("btn-success");
-        $(this).removeClass("btn-primary");
-        $(this).html("&nbsp;User selected&nbsp;&nbsp;");
-        selectedBtnOptions[$(this)[0].dataset.value] = this;
-        tempOptionStorage[$(this)[0].dataset.value] = $(this)[0].dataset.value;
-    }
-    console.log(tempOptionStorage);
-});
-
-$(document).on('click', '.modalSaveBtn', function () {
-    //$('#containter-lead-investigator').html($(this)[0].dataset.save);
-    $('#genericFormModal').modal().find('.modal-body').html($loader + "<br><p style=\"text-align:center\">Saving...</p></center>");
-    $url = $(this)[0].dataset.url;
-    $category = $(this)[0].dataset.category;
-    $.ajax({
-        type: 'POST',
-        url: '/' + $url,
-        data: {"category" : $category, "data" : tempOptionStorage},
-        success: function (data) {
-            returnValue = data;
-            $('#ajax-output-' + $category).html(data);
-            $('#genericFormModal').modal('hide');
-            selectedBtnOptions = {};
-            tempOptionStorage = {};
-        }
-    });
-});
-
 
 
 
@@ -361,10 +316,6 @@ $(document).on('click', '#genericEraseModalYesBtn', function () {
             $('#genericRecoverModal').modal('hide');
             window.location.replace('/' + btnDataCategory, {'success' : 'Permanently erased'});
         },
-        // error: function(xhr) {
-        //     console.log(xhr.responseText); // this line will save you tons of hours while debugging
-        //     // do something here because of error
-        // }
     });
 });
 
@@ -372,7 +323,7 @@ $(document).on('click', '#genericEraseModalYesBtn', function () {
 
 $(document).on('click', '.btnModalInfoUser', function () {
     //$('#containter-lead-investigator').html($(this)[0].dataset.save);
-    $('#genericInfoModal').modal().find('.modal-body').html($loader + "<br><p style=\"text-align:center\">Loading...</p></center>");
+    $modal = $('#genericInfoModal');
     title = $(this)[0].dataset.header;
     category = "";
     if($(this)[0].dataset.category === usertypes.investigators || $(this)[0].dataset.category === usertypes.leaders){
@@ -387,10 +338,18 @@ $(document).on('click', '.btnModalInfoUser', function () {
         type: 'GET',
         url: '/profile-modal/'+ category +'/' + personId,
         data: {},
+        before: function(){
+            $modal.modal().find('.modal-body').html($loader + "<br><p style=\"text-align:center\">Loading...</p></center>");
+        },
         success: function (data) {
             returnValue = data;
-            $('#genericInfoModal').modal().find('.modal-title').html(title);
-            $('#genericInfoModal').modal().find('.modal-body').html(returnValue);
+            $modal.modal().find('.modal-title').html(title);
+            $modal.modal().find('.modal-body').html(returnValue);
+        },
+        error: function (data){
+            returnValue = JSON.stringify(data);
+            $modal.find('.modal-title').text('Error: ' + data['status']);
+            $modal.find('.modal-body').html('<small>' +data['statusText'] + '</small>');
         }
     });
 });
@@ -463,6 +422,21 @@ $(document).on('input', '.dynamicSearchBox', function () {
         categories = ['users'];
         searchCols = ['name','email','city','phone'];
         returnCols = [['id','name','permission']];
+    }
+    if(category === 'assets'){
+        categories = ['assets'];
+        searchCols = ['name','type','city','address'];
+        returnCols = [['id','name','city','address']];
+    }
+    if(category === 'vehicles'){
+        categories = ['vehicles'];
+        searchCols = ['name','type','vin','city'];
+        returnCols = [['id','name','type','vin','city']];
+    }
+    if(category === 'casenotes'){
+        categories = ['casenotes'];
+        searchCols = ['name','description','case_id'];
+        returnCols = [['id','name','case_id','user_id','permission']];
     }
     $(myanchor).removeClass("bg-success-light");
     $(myanchor).removeClass("border-success");
@@ -592,7 +566,7 @@ function startTimer($timer, $category, $id, $inputId, $inputName){
                 // console.log(data);
             }
         });
-    },5000)
+    },3500)
 }
 $(document).on('input', '.autosave-input', function () {
     var cooldownGroup = $(this)[0].dataset.cooldowngroup;

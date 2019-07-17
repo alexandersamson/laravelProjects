@@ -157,7 +157,7 @@ class MessagesController extends Controller
      */
     public function show($id)
     {
-        $message = Helper::checkAndGetObjToShow($this->category, $id);
+        $message = $this->checkAndGetObjToShow($this->category, $id);
 
         $creator = User::find($message->creator_id);
         $modifier = User::find($message->modifier_id);

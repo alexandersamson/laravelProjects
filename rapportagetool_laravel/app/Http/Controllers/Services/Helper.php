@@ -73,6 +73,9 @@ class Helper extends Controller
             'posts' => ['Name','Written by','Created','Summary'],
             'licenses' => ['Name','Type','Issued to','Expires in'],
             'messages' => ['Name','From','Sent date'],
+            //'assets' => ['Name','Written by','Created','Summary'],
+            //'vehicles' => ['Name','Type','Issued to','Expires in'],
+            //'casenotes' => ['Name','From','Sent date'],
         );
         return $rowTitles[$category];
     }

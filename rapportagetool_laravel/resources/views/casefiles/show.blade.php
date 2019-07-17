@@ -1,4 +1,4 @@
-@extends('layouts.obj-show', ['category' => 'casefiles','id' => $data['obj']->id,'name' => $data['obj']->name,'deleted' => $data['obj']->deleted])
+@extends('layouts.obj-show', ['category' => 'casefiles','id' => $data['obj']->id,'name' => $data['obj']->name])
 
 @section('obj-show')
     <div class="">

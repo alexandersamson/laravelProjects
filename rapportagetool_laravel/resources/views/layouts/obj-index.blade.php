@@ -11,7 +11,7 @@
                         <table class="table table-sm mb-0 table-hover">
                             @include('includes.headers.index-obj-table',['category' => $data['category']])
                             @foreach($data['objs'] as $obj)
-                                <tr class=" @if($obj->draft == true) text-muted @endif ">
+                                <tr class=" @if($obj->draft == true) text-muted @elseif($obj->deleted == true) text-red-50 @endif ">
                                     @foreach(\App\Http\Controllers\Services\Helper::getObjRowData($data['category'], $obj)[0] as $rowData)
                                         <td class="@if($loop->index > 2)d-none d-lg-table-cell @elseif($loop->index == 2)d-none d-sm-table-cell @endif">
                                             @if($loop->index == 0)

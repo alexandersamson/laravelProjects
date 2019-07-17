@@ -2,8 +2,15 @@
 
 namespace App;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Builder;
+/**
+ * Post
+ *
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class Post extends Model
 {
     // Table Name

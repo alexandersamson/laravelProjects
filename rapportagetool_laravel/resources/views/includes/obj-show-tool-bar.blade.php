@@ -40,7 +40,7 @@
                 </a>
             @endif
         @else
-            @if(\App\Http\Controllers\Services\PermissionsService::canDoWithObj($category, $id, 'd_adv', false))
+            @if(\App\Http\Controllers\Services\PermissionsService::canDoWithObj($category, $id, \App\Http\Controllers\Services\PermissionsService::getPermCode('recover'), false))
                 <a title="Recover {{$name}}" href="#"
                    data-toggle="modal"
                    data-category="{{$category}}"
@@ -50,7 +50,7 @@
                    data-target="#genericRecoverModal"
                    class="btn btn-sm btn-success oi oi-arrow-circle-bottom">
                 </a>
-                @if(\App\Http\Controllers\Services\PermissionsService::canEraseObj($category, $id, 'd_adv'))
+                @if(\App\Http\Controllers\Services\PermissionsService::canEraseObj($category, $id, \App\Http\Controllers\Services\PermissionsService::getPermCode('erase')))
                        <a title="Permanently erase {{$name}}" href="#"
                        data-toggle="modal"
                        data-category="{{$category}}"

@@ -21,6 +21,10 @@ Route::get('/about', 'PagesController@about');
 Route::resource('posts', 'PostsController');
 Route::get('/casefiles/cc/{casecode}', 'CasefilesController@showByCasecode');
 Route::resource('casefiles', 'CasefilesController');
+Route::post('/generateregkey',[
+    'as' => 'generateregkey',
+    'uses' => 'UserController@generateRegkey'
+]);
 Route::resource('users', 'UserController');
 Route::resource('clients', 'ClientController');
 Route::resource('subjects', 'SubjectController');

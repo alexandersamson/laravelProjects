@@ -2,7 +2,16 @@
 
 namespace App;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+
+/**
+ * Casefile
+ *
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 
 class Casefile extends Model
 {
@@ -26,5 +35,20 @@ class Casefile extends Model
 
     public function assignedSubjects(){
         return $this->hasMany('App\AssignedSubject');
+    }
+
+    public function casenotes()
+    {
+        return $this->belongsToMany('App\Casenote', 'link_casefile_casenotes');
+    }
+
+    public function assets()
+    {
+        return $this->belongsToMany('App\Asset', 'link_casefile_assets');
+    }
+
+    public function vehicles()
+    {
+        return $this->belongsToMany('App\Vehicle', 'link_casefile_vehicles');
     }
 }

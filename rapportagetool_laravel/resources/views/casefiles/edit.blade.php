@@ -47,9 +47,9 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            {{Form::file('cover_image')}}
-        </div>
+        @if(!\App\Http\Controllers\Services\PermissionsService::canDoWithObj('casefiles', $data['obj']->id,\App\Http\Controllers\Services\PermissionsService::getPermCode('approve'), true) && $data['obj']->approved == false)
+            <span class="badge font-weight-normal badge-warning">This casefile needs approval by a {{\App\Http\Controllers\Services\PermissionsService::getPermissionsTextArray(\App\Http\Controllers\Services\PermissionsService::getBitwiseValue(['Casemanager']))[0]}}</span><br>
+        @endif
         {{Form::submit('Done', ['class' => 'btn btn-primary'])}}
         {!! Form::close() !!}
 @endsection

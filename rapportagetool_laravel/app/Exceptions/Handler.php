@@ -4,6 +4,9 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -23,29 +26,40 @@ class Handler extends ExceptionHandler
      */
     protected $dontFlash = [
         'password',
+        'regkey',
         'password_confirmation',
     ];
 
     /**
      * Report or log an exception.
      *
-     * @param  \Exception  $exception
+     * @param Exception $e
      * @return void
+     * @throws Exception
      */
-    public function report(Exception $exception)
+    public function report(Exception $e)
     {
-        parent::report($exception);
+        parent::report($e);
     }
 
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Exception $e
+     * @return Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, Exception $e)
     {
-        return parent::render($request, $exception);
+        if($this->isHttpException($e)){
+            if ($request->expectsJson()) {
+                return response()->json(['error' => 'Unauthorized.'], 403);
+            }
+            if (view()->exists('errors.'.$e->getStatusCode()))
+            {
+                return response()->view('errors.'.$e->getStatusCode(), [], $e->getStatusCode());
+            }
+        }
+        return parent::render($request, $e);
     }
 }

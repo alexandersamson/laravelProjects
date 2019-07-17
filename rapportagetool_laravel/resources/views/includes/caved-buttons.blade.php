@@ -1,8 +1,12 @@
 @if(isset($cavedBtnArray))
 <span class="btn-group btn-xs-table">
     @if($cavedBtnArray['a'] && $cavedBtnArray['a_show'] && !isset($a))
-        <a title="Approve" href="/approval/{{$cavedBtnArray['category']}}/{{$cavedBtnArray['id']}}/approve" class="btn btn-sm btn-xs-table btn-success oi oi-check"></a>
-        <a title="Dismiss" href="/approval/{{$cavedBtnArray['category']}}/{{$cavedBtnArray['id']}}/dismiss" class="btn btn-sm btn-xs-table btn-danger oi oi-minus"></a>
+        <a title="Approve" href="/{{$cavedBtnArray['category']}}/{{$cavedBtnArray['id']}}" class="btn btn-sm btn-xs-table text-dark border-dark btn-warning">&nbsp;A&nbsp;</a>
+    @elseif(\App\Http\Controllers\Services\Helper::needsApproval($cavedBtnArray['category'],$cavedBtnArray['id']))
+        <a title="Waiting for approval" href="#" data-title="Waiting for approval" class="btn btn-sm btn-xs-table btn-warning border-dark disabled">A</a>
+    @endif
+    @if((\App\Http\Controllers\Services\Helper::isDraft($cavedBtnArray['category'],$cavedBtnArray['id'])))
+        <a title="This is a draft" href="#" data-title="This is a draft" class="btn btn-sm btn-xs-table btn-primary border-dark disabled">D</a>
     @endif
     @if($cavedBtnArray['c'] && !isset($c))
         <a title="Copy to new" href="/copynew/{{$cavedBtnArray['category']}}/{{$cavedBtnArray['id']}}" class="btn btn-sm btn-xs-table btn-outline-info">&nbsp;&nbsp;C&nbsp;&nbsp;</a>
@@ -24,7 +28,10 @@
     @if($cavedBtnArray['v'] && !isset($o))
         <a title="Open" href="/{{$cavedBtnArray['category']}}/{{$cavedBtnArray['id']}}" class="btn btn-sm btn-xs-table btn-outline-primary">&nbsp;O&nbsp;</a>
     @endif
-    @if($cavedBtnArray['p'] && !isset($p))
+    @if($cavedBtnArray['p']
+    && !isset($p)
+    && !(\App\Http\Controllers\Services\Helper::needsApproval($cavedBtnArray['category'],$cavedBtnArray['id']))
+    && !(\App\Http\Controllers\Services\Helper::isDraft($cavedBtnArray['category'],$cavedBtnArray['id'])))
             <a id="btnAppendModal{{$cavedBtnArray['category']}}{{$cavedBtnArray['id']}}"
                title="Append to this"
                href="/{{$cavedBtnArray['category']}}/{{$cavedBtnArray['id']}}"

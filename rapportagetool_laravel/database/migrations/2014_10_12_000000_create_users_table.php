@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->boolean('deleted')->default(false);
             $table->integer('permission')->default(0);
             $table->string('style')->default('default');
-            $table->string('name')->unique();;
+            $table->string('name')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

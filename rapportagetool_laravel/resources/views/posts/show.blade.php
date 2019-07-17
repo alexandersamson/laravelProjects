@@ -1,4 +1,4 @@
-@extends('layouts.obj-show', ['category' => 'posts','id' => $data['obj']->id,'name' => $data['obj']->name,'deleted' => $data['obj']->deleted])
+@extends('layouts.obj-show', ['category' => 'posts','id' => $data['obj']->id,'name' => $data['obj']->name])
 
 @section('obj-show')
     <img alt="cover image" width="100%" src="/storage/cover_images/{{$data['obj']->cover_image}}">

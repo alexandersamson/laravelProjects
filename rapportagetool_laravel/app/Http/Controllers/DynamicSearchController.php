@@ -12,7 +12,15 @@ use App\Http\Controllers\Services\PermissionsService;
 use App\LinkMessageUser;
 use App\Subject;
 use App\User;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+/**
+ * DynamicSearchController (Controller)
+ *
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 
 class DynamicSearchController extends Controller
 {
@@ -24,7 +32,7 @@ class DynamicSearchController extends Controller
         //searchCols
         //searchString
 
-        $permissionsService = new PermissionsService();
+        $ps = new PermissionsService();
 
         if(!is_array($input['categories'])){
             $categories[] = $input['categories'];
@@ -58,10 +66,14 @@ class DynamicSearchController extends Controller
             $objs = $class->getClassByCategory($category);
             foreach($searchCols as $searchCol) {
                 if(isset($input['permissionfilter'])){
-                    $items = $objs::where($searchCol, 'LIKE', '%'.$input['searchString'].'%')->where('permission', '>=', $permissionsService->getBitwiseValue($input['permissionfilter']))->select($returnCols[$i])->take(20)->get();
+                    $items = $objs::where($searchCol, 'LIKE', '%'.$input['searchString'].'%')
+                        ->where('permission', '>=', $ps->getBitwiseValue($input['permissionfilter']))
+                        ->select($returnCols[$i])
+                        ->take(20)
+                        ->get();
                     foreach ($items as $item) {
                         if(isset($item->permission)){
-                            if ($permissionsService->checkPermission($permissionsService->getBitwiseValue([$input['permissionfilter']]), $item->permission, false)['permission'] == true) {
+                            if ($ps->checkPermission($ps->getBitwiseValue([$input['permissionfilter']]), $item->permission, false)['permission'] == true) {
                                 if (!in_array($item, $values)){
                                     $values[] = $item;
                                 }
@@ -69,7 +81,11 @@ class DynamicSearchController extends Controller
                         }
                     }
                 } else {
-                    $items = $objs::where($searchCol, 'LIKE', '%'.$input['searchString'].'%')->select($returnCols[$i])->take(20)->get()->toArray();
+                    $items = $objs::where($searchCol, 'LIKE', '%'.$input['searchString'].'%')
+                        ->select($returnCols[$i])
+                        ->take(20)
+                        ->get()
+                        ->toArray();
                     foreach ($items as $item) {
                         if (!in_array($item, $values)) {
                             $values[] = $item;
@@ -86,51 +102,60 @@ class DynamicSearchController extends Controller
     public function addToList(Request $request){
 
         $input = $request->all();
-        //dd($input);
         $idPrefix = '#';
         $objs = array();
 
-        $objectLinks = \Config::get('objectLinks');
+        $ps = new PermissionsService();
         $cns = new ClassNameService();
-        $assigneeClass = $cns->getClassByAssigneeCategory($input['sourceCat'], $input['category']);
+
+        $assigneeData = $cns->getClassByAssigneeCategory($input['sourceCat'], $input['category']);
         $sourceObj = $cns->getClassByCategory($input['sourceCat'], false, $input['sourceId']);
         $targetObj = $cns->getClassByCategory($input['category'], false, $input['id']);
         $targetObjClass = $cns->getClassByCategory($input['category']);
 
+        $objectColumnLinks = \Config::get('objectColumnLinks');
+
         if ($sourceObj->draft == false) {
-            if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'u_adv', false, true)) {
+            if (!$ps::canDoWithObj($input['sourceCat'], $input['sourceId'], 'u_adv', false, true)) {
                 return view('pages.ajax-returns.no-permission');
             }
         } else {
-            if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'c', false, true)) {
+            if (!$ps::canDoWithObj($input['sourceCat'], $input['sourceId'], 'c', false, true)) {
                 return view('pages.ajax-returns.no-permission');
             }
         }
         if ($input['category'] == 'leaders' || $input['category'] == 'investigators') {
-            if (!PermissionsService::checkPermission(PermissionsService::getBitwiseValue(['Investigator']), $targetObj->permission, true)['permission'] == true) {
+            if (!$ps::checkPermission($ps::getBitwiseValue(['Investigator']), $targetObj->permission, true)['permission'] == true) {
                 return json_encode(["ERROR" => 'Selected user or asset has no permission to be assigned']);
             }
         }
 
         if ($input['category'] == 'leaders') {
-            $assignee = $assigneeClass::where('is_lead_investigator', true)->where($objectLinks[$input['sourceCat']], $input['sourceId'])->first();
+            $assignee = $assigneeData['class']::where('is_lead_investigator', true)
+                ->where($objectColumnLinks[$input['sourceCat']], $input['sourceId'])
+                ->first();
         } else {
-            $assignee = $assigneeClass::where($objectLinks[$input['sourceCat']], $input['sourceId'])->where($objectLinks[$input['category']], $input['id'])->first();
+            $assignee = $assigneeData['class']::where($objectColumnLinks[$input['sourceCat']], $input['sourceId'])
+                ->where($objectColumnLinks[$input['category']], $input['id'])
+                ->first();
         }
         if ($assignee) {
             if($input['category'] == 'leaders') {
-                $assignee->{$objectLinks[$input['category']]} = $input['id'];
+                $assignee->{$objectColumnLinks[$input['category']]} = $input['id'];
                 $assignee->save();
-                $duplicate = $assigneeClass::where($objectLinks[$input['sourceCat']], $input['sourceId'])->where($objectLinks[$input['category']], $input['id'])->where('is_lead_investigator', false)->first();
+                $duplicate = $assigneeData['class']::where($objectColumnLinks[$input['sourceCat']], $input['sourceId'])
+                    ->where($objectColumnLinks[$input['category']], $input['id'])
+                    ->where('is_lead_investigator', false)
+                    ->first();
                 if($duplicate) {
                     $duplicate->delete();
                     echo "<script>location.reload();</script>"; //TODO: fire an AJAX call to just refresh the element container of the deleted item instead of this nasty pagerefresh
                 }
             }
         } else {
-            $assignee = new $assigneeClass();
-            $assignee->{$objectLinks[$input['sourceCat']]} = $input['sourceId'];
-            $assignee->{$objectLinks[$input['category']]} = $input['id'];
+            $assignee = new $assigneeData['class']();
+            $assignee->{$objectColumnLinks[$input['sourceCat']]} = $input['sourceId'];
+            $assignee->{$objectColumnLinks[$input['category']]} = $input['id'];
             if($input['category'] == 'leaders') {
                 $assignee->is_lead_investigator = true;
             } else if($input['category'] == 'investigators'){
@@ -141,14 +166,19 @@ class DynamicSearchController extends Controller
             $assignee->save();
         }
         if ($input['category'] == 'leaders') {
-            $assignees = $assigneeClass::where('is_lead_investigator', true)->where($objectLinks[$input['sourceCat']], $input['sourceId'])->get();
+            $assignees = $assigneeData['class']::where('is_lead_investigator', true)
+                ->where($objectColumnLinks[$input['sourceCat']], $input['sourceId'])
+                ->get();
         } else if ($input['category'] == 'investigators'){
-            $assignees = $assigneeClass::where('is_lead_investigator', false)->where($objectLinks[$input['sourceCat']], $input['sourceId'])->get();
+            $assignees = $assigneeData['class']::where('is_lead_investigator', false)
+                ->where($objectColumnLinks[$input['sourceCat']], $input['sourceId'])
+                ->get();
         } else {
-            $assignees = $assigneeClass::where($objectLinks[$input['sourceCat']], $input['sourceId'])->get();
+            $assignees = $assigneeData['class']::where($objectColumnLinks[$input['sourceCat']], $input['sourceId'])
+                ->get();
         }
         foreach ($assignees as $item) {
-            $objs[] = $targetObjClass::find($item->{$objectLinks[$input['category']]});
+            $objs[] = $targetObjClass::find($item->{$objectColumnLinks[$input['category']]});
         }
 
         $data = array(
@@ -159,7 +189,8 @@ class DynamicSearchController extends Controller
             'sourceId' => $input['sourceId']
         );
 
-        return view('casefiles.elements.select-assignee')->with('data',$data);
+        return view('casefiles.elements.select-assignee')
+            ->with('data',$data);
 
     }
 
@@ -174,19 +205,20 @@ class DynamicSearchController extends Controller
         $input = $request->all();
         $idPrefix = '#';
         $objs = array();
+        $ps = new PermissionsService;
 
-        $objectLinks = \Config::get('objectLinks');
+        $objectColumnLinks = \Config::get('objectColumnLinks');
 
         $cns = new ClassNameService();
-        $assigneeClass = $cns->getClassByAssigneeCategory($input['sourceCat'], $input['category']);
+        $assigneeData = $cns->getClassByAssigneeCategory($input['sourceCat'], $input['category']);
         $obj = $cns->getClassByCategory($input['category'], false, $input['id']);
 
         if ($obj->draft == false) {
-            if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'u_adv', false, true)) {
+            if (!$ps::canDoWithObj($input['sourceCat'], $input['sourceId'], 'u_adv', false, true)) {
                 return view('pages.ajax-returns.no-permission');
             }
         } else {
-            if (!PermissionsService::canDoWithObj($input['sourceCat'], $input['sourceId'], 'c', false, true)) {
+            if (!$ps::canDoWithObj($input['sourceCat'], $input['sourceId'], 'c', false, true)) {
                 return view('pages.ajax-returns.no-permission');
             }
         }
@@ -196,21 +228,29 @@ class DynamicSearchController extends Controller
             return view('pages.ajax-returns.no-permission');
         }
         else if ($input['category'] == 'investigators') {
-            $assignee = $assigneeClass::where('is_lead_investigator', false)->where($objectLinks[$input['sourceCat']], $input['sourceId'])->where($objectLinks[$input['category']], $input['id'])->first();
+            $assignee = $assigneeData['class']::where('is_lead_investigator', false)
+                ->where($objectColumnLinks[$input['sourceCat']], $input['sourceId'])
+                ->where($objectColumnLinks[$input['category']], $input['id'])
+                ->first();
             if ($assignee) {
                 $assignee->delete();
             }
-            $assignees = $assigneeClass::where('is_lead_investigator', false)->where($objectLinks[$input['sourceCat']], $input['sourceId'])->get();
+            $assignees = $assigneeData['class']::where('is_lead_investigator', false)
+                ->where($objectColumnLinks[$input['sourceCat']], $input['sourceId'])
+                ->get();
         } else {
-            $assignee = $assigneeClass::where($objectLinks[$input['sourceCat']], $input['sourceId'])->where($objectLinks[$input['category']], $input['id'])->first();
+            $assignee = $assigneeData['class']::where($objectColumnLinks[$input['sourceCat']], $input['sourceId'])
+                ->where($objectColumnLinks[$input['category']], $input['id'])
+                ->first();
             if ($assignee) {
                 $assignee->delete();
             }
-            $assignees = $assigneeClass::where($objectLinks[$input['sourceCat']], $input['sourceId'])->get();
+            $assignees = $assigneeData['class']::where($objectColumnLinks[$input['sourceCat']], $input['sourceId'])
+                ->get();
         }
 
         foreach ($assignees as $assignee) {
-            $objs[] = User::find($assignee->{$objectLinks[$input['category']]});
+            $objs[] = User::find($assignee->{$objectColumnLinks[$input['category']]});
         }
 
         $data = array(
@@ -221,7 +261,8 @@ class DynamicSearchController extends Controller
             'sourceId' => $input['sourceId']
         );
 
-        return view('casefiles.elements.select-assignee')->with('data',$data);
+        return view('casefiles.elements.select-assignee')
+            ->with('data',$data);
 
     }
 
@@ -241,7 +282,8 @@ class DynamicSearchController extends Controller
             'sourceId' => $input['sourceId']
         );
 
-        return view('casefiles.elements.select-assignee')->with('data',$data);
+        return view('casefiles.elements.select-assignee')
+            ->with('data',$data);
 
     }
 }

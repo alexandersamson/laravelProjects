@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\RegistrationKey;
+use App\Rules\checkRegkey;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Validation\Rule;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -48,11 +52,19 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        //dd($data);
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'regkey' => [
+                'required',
+                'string',
+                'max:64',
+                new checkRegkey($data['email'])
+            ],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
+
     }
 
     /**
@@ -63,11 +75,30 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $registrationKey = new RegistrationKey();
+        $key = $registrationKey::where('user_email', '=', $data['email'])->first();
+        if(!$key){
+            abort(403);
+        }
+        if(!Hash::check($data['regkey'], $key->regkey)){
+            abort(403);
+        }
+
+
+
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'permission' => 1,
             'password' => Hash::make($data['password']),
+            'creator_id' => $key->creator_id,
+            'modifier_id' => $key->creator_id,
+            'profile_picture_path' => 'profilepicture/profilepicture'
         ]);
+        $user->permission = $key->user_permission;
+        $user->save();
+
+        $key->delete();
+
+        return $user;
     }
 }

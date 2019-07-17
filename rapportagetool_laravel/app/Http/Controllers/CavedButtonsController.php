@@ -82,7 +82,8 @@ class CavedButtonsController extends Controller
                 'e' => false, //Edit        (Update rights needed
                 'p' => false, //Append (add something to it)    (Editing rights needed)
                 'd' => false,//Delete      (Deletion rights needed)
-                'd_adv' => false];//Delete Advance (Advanced Deletion rights needed)
+                'd_adv' => false, //Delete Advanced (Advanced Deletion rights needed)
+                'd_max' => false];//Delete Maximum (Maximum Deletion rights needed)
 
             $objCat = ObjectCategory::where('name', $category)->first();
 
@@ -91,20 +92,20 @@ class CavedButtonsController extends Controller
             }
 
             if ($object->creator_id == $current_user_id) {
-                if ($objCat->c_by_creator) {
+                if ($objCat->c_by_creator) { //create
                     $data[$i]['c'] = true;
                 }
-                if ($objCat->r_by_creator) {
+                if ($objCat->r_by_creator) { //read
                     $data[$i]['v'] = true;
                 }
-                if ($objCat->u_by_creator) {
+                if ($objCat->e_by_creator) { //update
                     $data[$i]['p'] = true;
                     $data[$i]['e'] = true;
                 }
-                if ($objCat->u_adv_by_creator) {
+                if ($objCat->c_adv_by_creator) { //approval
                     $data[$i]['a'] = true;
                 }
-                if ($objCat->d_by_creator) {
+                if ($objCat->d_by_creator) { // delete
                     $data[$i]['d'] = true;
                 }
             }
@@ -114,7 +115,7 @@ class CavedButtonsController extends Controller
                 }
             }
             if ($data[$i]['a'] == false) {
-                if ($permission->checkPermission($objCat->u_permission, $current_user->permission, !$objCat->u_adv_match_all, false)['permission']) {
+                if ($permission->checkPermission($objCat->u_adv_permission, $current_user->permission, !$objCat->c_adv_match_all, false)['permission']) {
                     $data[$i]['a'] = true;
                 }
             }
