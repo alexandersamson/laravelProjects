@@ -16,3 +16,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('casenote/{id}', 'CasenotesController@showApi'); //A single casenote
+Route::get('casenotes/{id}', 'CasenotesController@showCasefileNotesApi'); //All casenotes belonging to a case
+Route::get('casenotes', 'CasenotesController@indexApi'); //All casenotes

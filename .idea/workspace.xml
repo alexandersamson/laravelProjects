@@ -1,11 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/layouts/obj-index.blade.php" line="19" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/layouts/obj-index.blade.php" line="22" mnemonic="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e2674c6e-d931-442e-ab0f-e0446604a37b" name="Default Changelist" comment="">
+    <list default="true" id="e2674c6e-d931-442e-ab0f-e0446604a37b" name="Default Changelist" comment="PhPStorm 2">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/CasenotesController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/PdfController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Resources/Casesnote.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Resources/Casesnotes.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rapportagetool_laravel/config/dompdf.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rapportagetool_laravel/database/factories/CasenoteFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rapportagetool_laravel/database/seeds/CasenotesTableSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rapportagetool_laravel/database/seeds/LinkCasefileCasenotesTableSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rapportagetool_laravel/public/css/print.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rapportagetool_laravel/resources/js/components/casenotes/Casenotes.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rapportagetool_laravel/resources/js/components/generic/date_time/GenericSmallDateWithTime.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rapportagetool_laravel/resources/js/components/generic/links/GenericSmallLink.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rapportagetool_laravel/resources/js/components/obj/ObjIndex.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rapportagetool_laravel/resources/js/components/obj/ObjIndexNav.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rapportagetool_laravel/resources/views/pdf/mypdf.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rapportagetool_laravel/resources/views/pdf/pdf-casefiles.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/laravelProjects.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/laravelProjects.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rapportagetool_laravel/app/Casefile.php" beforeDir="false" afterPath="$PROJECT_DIR$/rapportagetool_laravel/app/Casefile.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rapportagetool_laravel/app/Casenote.php" beforeDir="false" afterPath="$PROJECT_DIR$/rapportagetool_laravel/app/Casenote.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/CasefilesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/CasefilesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rapportagetool_laravel/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/rapportagetool_laravel/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rapportagetool_laravel/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/rapportagetool_laravel/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rapportagetool_laravel/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/rapportagetool_laravel/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164339_create_casenotes_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164339_create_casenotes_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164522_create_vehicles_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164522_create_vehicles_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164535_create_assets_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164535_create_assets_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rapportagetool_laravel/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/rapportagetool_laravel/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rapportagetool_laravel/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/rapportagetool_laravel/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rapportagetool_laravel/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/rapportagetool_laravel/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rapportagetool_laravel/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/rapportagetool_laravel/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rapportagetool_laravel/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/rapportagetool_laravel/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rapportagetool_laravel/resources/views/casefiles/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/rapportagetool_laravel/resources/views/casefiles/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rapportagetool_laravel/resources/views/includes/obj-show-tool-bar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/rapportagetool_laravel/resources/views/includes/obj-show-tool-bar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rapportagetool_laravel/resources/views/layouts/obj-index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/rapportagetool_laravel/resources/views/layouts/obj-index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rapportagetool_laravel/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/rapportagetool_laravel/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rapportagetool_laravel/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/rapportagetool_laravel/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,96 +71,115 @@
     <option name="HIDDEN_KINDS">
       <set />
     </option>
-    <expand />
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="DB3642709@localhost" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="DB3642709@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="DB3642709@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="db3642709: schema" type="ebfa3cd1:MariaImplModel$Schema" />
+      </path>
+    </expand>
     <select />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/DynamicSearchController.php">
+        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/factories/CasenoteFactory.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2674">
-              <caret line="203" selection-start-line="203" selection-end-line="203" />
+            <state relative-caret-position="210">
+              <caret line="16" selection-start-line="16" selection-end-line="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/CasefilesController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="30" column="4" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="25" />
               <folding>
-                <element signature="e#40#63#0#PHP" expanded="true" />
+                <element signature="e#40#58#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/casefiles/elements/select-assignee.blade.php">
+        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/PdfController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/casefiles/elements/select-case-state-dropdown.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="28">
-              <caret line="2" column="119" selection-start-line="2" selection-start-column="119" selection-end-line="2" selection-end-column="119" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/casefiles/elements/status-container.blade.php">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/casefiles/create.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="45" column="385" selection-start-line="45" selection-start-column="385" selection-end-line="45" selection-end-column="385" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/Services/AssignedHelper.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="868">
-              <caret line="62" column="25" selection-start-line="62" selection-start-column="25" selection-end-line="62" selection-end-column="25" />
+            <state relative-caret-position="476">
+              <caret line="34" column="40" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="40" />
+              <folding>
+                <element signature="e#40#69#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/HomeController.php">
+        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/pdf/pdf-casefiles.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="44" column="62" selection-start-line="44" selection-start-column="62" selection-end-line="44" selection-end-column="62" />
+            <state relative-caret-position="196">
+              <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/Controller.php">
+        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/AssignedInvestigator.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
+            <state relative-caret-position="154">
+              <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Traits/ControllerHelper.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="112">
               <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Providers/Globals.php">
+        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/routes/console.php">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/includes/obj-show-tool-bar.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1022">
-              <caret line="75" column="41" selection-start-line="75" selection-start-column="41" selection-end-line="75" selection-end-column="41" />
+            <state relative-caret-position="196">
+              <caret line="14" column="60" lean-forward="true" selection-start-line="14" selection-start-column="60" selection-end-line="14" selection-end-column="60" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/includes/components/searchbox-add-to-list.blade.php">
+        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_05_013034_create_object_categories_table.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="14">
-              <caret line="1" column="30" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="30" />
+            <state relative-caret-position="504">
+              <caret line="38" column="38" selection-start-line="38" selection-start-column="38" selection-end-line="38" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Casefile.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="392">
+              <caret line="30" column="26" selection-start-line="30" selection-start-column="26" selection-end-line="30" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -135,7 +195,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>clip</find>
       <find>clipboa</find>
       <find>btnC</find>
       <find>portlet&quot;</find>
@@ -165,6 +224,7 @@
       <find>$assigneeClass</find>
       <find>$pms</find>
       <find>objectLinks</find>
+      <find>$casefile</find>
     </findStrings>
     <replaceStrings>
       <replace>client</replace>
@@ -180,28 +240,16 @@
       <replace>sourceId</replace>
       <replace>return view('pages.ajax-returns.no-permission');</replace>
       <replace>$item</replace>
-      <replace>$obj</replace>
       <replace>$message</replace>
       <replace>$assigneeData['class']</replace>
       <replace>$ps</replace>
       <replace>objectColumnLinks</replace>
+      <replace>c_dt</replace>
+      <replace>$obj</replace>
     </replaceStrings>
   </component>
   <component name="FrameworkCommandLineHistory">
     <commandsHistory>
-      <command text="artisan migrate:refresh --seed" />
-      <command text="artisan route:list" />
-      <command text="artisan migrate:refresh --seed" />
-      <command text="artisan make:seeder RegistrationKeysTableSeeder" />
-      <command text="artisan migrate:refresh --seed" />
-      <command text="artisan make:rule checkRegkey" />
-      <command text="artisan migrate:refresh --seed" />
-      <command text="artisan route:list" />
-      <command text="artisan route:clear" />
-      <command text="artisan route:list" />
-      <command text="artisan route:clear" />
-      <command text="artisan make:mail SendRegkey" />
-      <command text="artisan migrate:refresh --seed" />
       <command text="artisan make:model Casenote -m" />
       <command text="artisan make:model LinkCasefileCasenote -m" />
       <command text="artisan make:model LinkCasefileAsset -m" />
@@ -214,66 +262,82 @@
       <command text="artisan make:model LinkClientVehicle -m" />
       <command text="artisan make:model LinkClientAsset -m" />
       <command text="artisan migrate:refresh --seed" />
+      <command text="artisan make:controller NotesController" />
+      <command text="artisan make:controller CasenotesController --resource" />
+      <command text="artisan make:resource CasesnoteResource" />
+      <command text="artisan make:seeder CasenotesTableSeeder" />
+      <command text="artisan make:factory CasenoteFactory" />
+      <command text="artisan migrate:refresh --seed" />
+      <command text="artisan route:list" />
+      <command text="artisan make:seeder LinkCasefileCasenotesTableSeeder" />
+      <command text="artisan migrate:refresh --seed" />
+      <command text="php artisan vendor:publish" />
+      <command text="artisan vendor:publish" />
+      <command text="artisan vendor:publish 1" />
+      <command text="artisan make:controller PdfController" />
     </commandsHistory>
   </component>
   <component name="Git.Settings">
     <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.txt" root0="SKIP_INSPECTION" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/views/includes/caved-buttons.blade.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_05_013034_create_object_categories_table.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/CavedButtonsController.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Traits/ControllerHelper.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/ApprovalsController.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/seeds/PermissionTableSeeder.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_06_27_011127_create_permissions_table.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/Services/PermissionsService.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/views/posts/create.blade.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/routes/web.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/views/includes/messages.blade.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Mail/SendRegkey.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/views/emails/regkey_template.blade.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_15_194718_create_registration_keys_table.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/seeds/RegistrationKeysTableSeeder.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/UserController.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Rules/checkRegkey.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/Auth/RegisterController.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/views/users/create.blade.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/views/casefiles/elements/select-case-state-dropdown.blade.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/CasefilesController.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_06_27_005728_create_casefiles_table.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/views/casefiles/edit.blade.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/seeds/ObjectCategoriesTableSeeder.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/views/includes/obj-show-tool-bar.blade.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/js/custom.js" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/Services/Helper.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164356_create_link_casefile_casenotes_table.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164447_create_link_casefile_assets_table.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164459_create_link_casefile_vehicles_table.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164634_create_link_subject_assets_table.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164643_create_link_subject_vehicles_table.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164755_create_link_client_vehicles_table.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164802_create_link_client_assets_table.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_13_153311_create_messages_table.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164522_create_vehicles_table.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164535_create_assets_table.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164339_create_casenotes_table.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/app/User.php" />
         <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Client.php" />
         <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Subject.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Casefile.php" />
         <option value="$PROJECT_DIR$/rapportagetool_laravel/app/LinkMessageUser.php" />
         <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/Services/ClassNameService.php" />
         <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Vehicle.php" />
         <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Asset.php" />
-        <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Casenote.php" />
         <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/views/casefiles/create.blade.php" />
         <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Providers/Globals.php" />
         <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/DynamicSearchController.php" />
         <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/Services/AssignedHelper.php" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/package.json" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/js/components/ObjShow.vue" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/views/layouts/obj-show.blade.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/js/components/ObjIndex.vue" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/views/layouts/obj-index.blade.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/js/components/ObjIndexNav.vue" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/seeds/CasenotesTableSeeder.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164339_create_casenotes_table.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164535_create_assets_table.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164522_create_vehicles_table.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/routes/api.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/seeds/DatabaseSeeder.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/views/casefiles/show.blade.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/factories/CasenoteFactory.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Resources/Casesnote.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Casefile.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Casenote.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Resources/Casesnotes.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/database/seeds/LinkCasefileCasenotesTableSeeder.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/js/components/generic/links/SmallLink.vue" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/js/components/generic/links/GenericSmallLink.vue" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/js/app.js" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/js/components/generic/date_time/GenericSmallDateWithTime.vue" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/js/components/casenotes/Casenotes.vue" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/config/app.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/views/includes/snippets/qrCode.blade.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/config/dompdf.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/views/pdf/mypdf.blade.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/HomeController.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/views/pdf/casefile-pdf.blade.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/public/css/print.css" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/views/pdf/pdf-casefile.blade.php" />
+        <option value="$PROJECT_DIR$/../AppData/Local/JetBrains/Toolbox/apps/PhpStorm/ch-0/191.7479.51.vmoptions" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/CasenotesController.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/CasefilesController.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/routes/web.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/views/includes/obj-index-tool-bar.blade.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/views/includes/obj-show-tool-bar.blade.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/PdfController.php" />
+        <option value="$PROJECT_DIR$/rapportagetool_laravel/resources/views/pdf/pdf-casefiles.blade.php" />
       </list>
     </option>
   </component>
@@ -383,6 +447,11 @@
       <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/intervention/image" />
       <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/simplesoftwareio/simple-qrcode" />
       <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/bacon/bacon-qr-code" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/sabberworm/php-css-parser" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/dompdf/dompdf" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/phenx/php-font-lib" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/phenx/php-svg-lib" />
+      <path value="$PROJECT_DIR$/rapportagetool_laravel/vendor/barryvdh/laravel-dompdf" />
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
@@ -446,45 +515,7 @@
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="Http" type="462c0819:PsiDirectoryNode" />
               <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="Auth" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
-              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
-              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
               <item name="Services" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
-              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
-              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Middleware" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
-              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
-              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Mail" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
-              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
-              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Providers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
-              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
-              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Rules" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
@@ -497,7 +528,20 @@
               <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
               <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
               <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
+              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
               <item name="database" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
+              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+              <item name="factories" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
@@ -510,28 +554,27 @@
               <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
               <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
               <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-              <item name="seeds" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
+              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
+              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
+              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
               <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
               <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
-              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
-              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
-              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
-              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="sass" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
@@ -539,39 +582,6 @@
               <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
-              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
-              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="auth" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
-              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
-              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="casefiles" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
-              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
-              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="casefiles" type="462c0819:PsiDirectoryNode" />
-              <item name="elements" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
-              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
-              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="clients" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
@@ -587,32 +597,7 @@
               <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="includes" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
-              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
-              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
-              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
-              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="subjects" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
-              <item name="laravelProjects" type="462c0819:PsiDirectoryNode" />
-              <item name="rapportagetool_laravel" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="users" type="462c0819:PsiDirectoryNode" />
+              <item name="pdf" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="laravelProjects" type="b2602c69:ProjectViewProjectNode" />
@@ -632,28 +617,29 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="sqlserver&#10;mysql" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="C:/Program Files/Git/cmd/git.exe" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/rapportagetool_laravel/resources/js/components/generic/date_time" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Isa\laravelProjects\rapportagetool_laravel\resources\js\components\generic\date_time" />
+      <recent name="C:\Users\Isa\laravelProjects\rapportagetool_laravel\app\Http\Resources" />
+      <recent name="C:\Users\Isa\laravelProjects\rapportagetool_laravel\resources\js\components" />
       <recent name="C:\Users\Isa\laravelProjects\rapportagetool_laravel\resources\views\errorpages" />
       <recent name="C:\Users\Isa\laravelProjects\rapportagetool_laravel\database\seeds" />
-      <recent name="C:\Users\Isa\laravelProjects\rapportagetool_laravel\resources\views\modals" />
-      <recent name="C:\Users\Isa\laravelProjects\rapportagetool_laravel\resources\views\messages" />
-      <recent name="C:\Users\Isa\laravelProjects\rapportagetool_laravel\resources\views\dashboard\cards" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Isa\laravelProjects\rapportagetool_laravel\resources\js\components\obj" />
       <recent name="C:\Users\Isa\laravelProjects\rapportagetool_laravel\app\Http\Controllers\Services" />
       <recent name="C:\Users\Isa\laravelProjects\rapportagetool_laravel\app" />
       <recent name="C:\Users\Isa\laravelProjects\rapportagetool_laravel\app\Http" />
       <recent name="C:\Users\Isa\laravelProjects\rapportagetool_laravel\resources\views\includes\snippets" />
-      <recent name="C:\Users\Isa\laravelProjects\rapportagetool_laravel\app\Http\Controllers" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -707,12 +693,23 @@
       <workItem from="1563059580262" duration="98290000" />
       <workItem from="1563380175822" duration="60000" />
       <workItem from="1563380563701" duration="7000" />
-      <workItem from="1563380585997" duration="33000" />
+      <workItem from="1563380585997" duration="4133000" />
+      <workItem from="1563416022182" duration="36795000" />
+      <workItem from="1563678591591" duration="353000" />
+      <workItem from="1563679043680" duration="6763000" />
     </task>
+    <task id="LOCAL-00001" summary="PhPStorm">
+      <created>1563380653293</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1563380653294</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="656801000" />
+    <option name="totallyTimeSpent" value="704812000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -725,45 +722,47 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2553305" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27345416" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" weight="0.32972974" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4914712" weight="0.32936078" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49093816" weight="0.32864866" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" weight="0.32936078" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49946696" weight="0.32936078" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49946696" weight="0.14918919" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49946696" weight="0.32936078" />
-      <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Command Line Tools Console" order="10" sideWeight="0.4792111" visible="true" weight="0.21885157" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.48027718" weight="0.32936078" />
-      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.5197228" side_tool="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.4989339" weight="0.13621622" />
+      <window_info anchor="bottom" id="Database Changes" order="9" weight="0.32972974" />
+      <window_info anchor="bottom" id="Command Line Tools Console" order="10" sideWeight="0.478145" weight="0.2054054" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.47654584" weight="0.07783784" />
+      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.521855" side_tool="true" weight="0.36836404" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" id="Database" order="3" visible="true" weight="0.15724947" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18390192" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25799572" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4914712" weight="0.32936078" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49093816" weight="0.32936078" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" weight="0.32936078" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49946696" weight="0.32936078" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49946696" weight="0.32936078" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.4989339" weight="0.32936078" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Command Line Tools Console" order="10" sideWeight="0.4792111" visible="true" weight="0.15384616" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.48027718" weight="0.32936078" />
-      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.5197228" side_tool="true" weight="0.32936078" />
+      <window_info active="true" anchor="bottom" id="Command Line Tools Console" order="10" sideWeight="0.478145" visible="true" weight="0.36836404" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.47654584" weight="0.32936078" />
+      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.521855" side_tool="true" visible="true" weight="0.36836404" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -773,390 +772,379 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="PhPStorm" />
+    <MESSAGE value="PhPStorm 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="PhPStorm 2" />
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/users/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="16" column="109" selection-start-line="16" selection-start-column="109" selection-end-line="16" selection-end-column="109" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/auth/register.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="73" column="72" selection-start-line="73" selection-start-column="72" selection-end-line="73" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="109" column="39" lean-forward="true" selection-start-line="109" selection-start-column="39" selection-end-line="109" selection-end-column="39" />
-          <folding>
-            <element signature="e#40#81#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_06_27_005728_create_casefiles_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="33" column="55" selection-start-line="33" selection-start-column="55" selection-end-line="33" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/casefiles/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="516">
-          <caret line="47" column="18" selection-start-line="47" selection-start-column="18" selection-end-line="47" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/CavedButtonsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="846">
-          <caret line="86" selection-start-line="86" selection-end-line="86" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_05_013034_create_object_categories_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="63" column="30" selection-start-line="63" selection-start-column="30" selection-end-line="63" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/seeds/ObjectCategoriesTableSeeder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="35" column="52" selection-start-line="35" selection-start-column="52" selection-end-line="35" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/includes/obj-show-tool-bar.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="39" column="20" selection-start-line="39" selection-start-column="20" selection-end-line="39" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/js/custom.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="490">
-          <caret line="434" column="5" selection-start-line="434" selection-start-column="5" selection-end-line="434" selection-end-column="5" />
-          <folding>
-            <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/Services/Helper.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="77" column="57" selection-start-line="77" selection-start-column="57" selection-end-line="77" selection-end-column="57" />
-          <folding>
-            <element signature="e#49#78#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/Services/PermissionsService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3920">
-          <caret line="328" column="53" selection-start-line="328" selection-start-column="53" selection-end-line="328" selection-end-column="53" />
-          <folding>
-            <element signature="e#50#86#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164643_create_link_subject_vehicles_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="27" column="11" lean-forward="true" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164755_create_link_client_vehicles_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="19" column="36" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164802_create_link_client_assets_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="20" column="42" lean-forward="true" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_06_28_043217_create_clients_table.php">
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164447_create_link_casefile_assets_table.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="56">
           <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164356_create_link_casefile_casenotes_table.php">
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164535_create_assets_table.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="19" column="26" lean-forward="true" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164447_create_link_casefile_assets_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="19" column="33" lean-forward="true" selection-start-line="19" selection-start-column="33" selection-end-line="19" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164459_create_link_casefile_vehicles_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="19" column="42" lean-forward="true" selection-start-line="19" selection-start-column="42" selection-end-line="19" selection-end-column="42" />
+        <state relative-caret-position="448">
+          <caret line="34" column="50" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164634_create_link_subject_assets_table.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="18" column="24" lean-forward="true" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+        <state relative-caret-position="56">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_13_153311_create_messages_table.php">
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/js/bootstrap.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164522_create_vehicles_table.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="28" column="12" selection-start-line="28" selection-start-column="12" selection-end-line="28" selection-end-column="56" />
+        <state relative-caret-position="390">
+          <caret line="35" column="50" selection-start-line="35" selection-start-column="50" selection-end-line="35" selection-end-column="50" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164339_create_casenotes_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="29" column="33" lean-forward="true" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/routes/channels.php">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_13_155409_create_link_message_users_table.php">
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/routes/api.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
-          <caret line="19" column="42" lean-forward="true" selection-start-line="19" selection-start-column="42" selection-end-line="19" selection-end-column="42" />
+          <caret line="17" column="3" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/seeds/DatabaseSeeder.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="31" column="5" lean-forward="true" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164356_create_link_casefile_casenotes_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="17" column="33" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/seeds/CasenotesTableSeeder.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="13" column="20" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/seeds/LinkMessageUsersTableSeeder.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="56">
+          <caret line="5" column="48" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2014_10_12_000000_create_users_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="5" lean-forward="true" selection-start-column="5" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/User.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="81" column="31" lean-forward="true" selection-start-line="81" selection-start-column="31" selection-end-line="81" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164535_create_assets_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="27" column="56" selection-start-line="27" selection-start-column="56" selection-end-line="27" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Client.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
-          <caret line="44" selection-start-line="44" selection-end-line="52" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Subject.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="530">
-          <caret line="40" column="76" lean-forward="true" selection-start-line="40" selection-start-column="76" selection-end-line="40" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Casefile.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="502">
-          <caret line="45" column="5" lean-forward="true" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_17_164522_create_vehicles_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="27" column="56" selection-start-line="27" selection-start-column="56" selection-end-line="27" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/LinkSubjectAsset.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/LinkSubjectVehicle.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/LinkMessageUser.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="21" column="7" lean-forward="true" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
-          <folding>
-            <element signature="e#23#36#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/ObjectCategory.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Message.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Vehicle.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
-          <folding>
-            <element signature="e#23#36#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Asset.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
-          <folding>
-            <element signature="e#23#36#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Casenote.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="18" column="32" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
-          <folding>
-            <element signature="e#23#36#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="-294">
+          <caret line="28" column="7" lean-forward="true" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/MessagesController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2267">
-          <caret line="162" column="54" selection-start-line="162" selection-start-column="54" selection-end-line="162" selection-end-column="54" />
+        <state relative-caret-position="723">
+          <caret line="71" selection-start-line="71" selection-end-line="71" />
           <folding>
             <element signature="e#40#81#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/LinkClientVehicle.php">
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/js/components/ExampleComponent.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+        <state>
+          <caret selection-end-line="23" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/Services/ClassNameService.php">
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="201" column="39" lean-forward="true" selection-start-line="201" selection-start-column="39" selection-end-line="201" selection-end-column="39" />
-          <folding>
-            <element signature="e#49#63#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="434">
+          <caret line="31" column="52" selection-start-line="31" selection-start-column="52" selection-end-line="31" selection-end-column="52" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/CasefilesController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="866">
-          <caret line="247" column="26" selection-start-line="247" selection-start-column="26" selection-end-line="247" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/DynamicSearchController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2674">
-          <caret line="203" selection-start-line="203" selection-end-line="203" />
-          <folding>
-            <element signature="e#40#63#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/casefiles/elements/select-assignee.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/casefiles/elements/select-case-state-dropdown.blade.php">
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/js/components/obj/ObjIndex.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="28">
-          <caret line="2" column="119" selection-start-line="2" selection-start-column="119" selection-end-line="2" selection-end-column="119" />
+          <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/casefiles/elements/status-container.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/casefiles/create.blade.php">
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Http/Resources/Casesnote.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="45" column="385" selection-start-line="45" selection-start-column="385" selection-end-line="45" selection-end-column="385" />
+        <state relative-caret-position="336">
+          <caret line="24" column="46" selection-start-line="24" selection-start-column="46" selection-end-line="24" selection-end-column="46" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/Services/AssignedHelper.php">
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Http/Resources/Casesnotes.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="868">
-          <caret line="62" column="25" selection-start-line="62" selection-start-column="25" selection-end-line="62" selection-end-column="25" />
+        <state>
+          <caret column="5" selection-start-column="5" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/Controller.php">
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/js/components/obj/ObjIndexNav.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+        <state relative-caret-position="196">
+          <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Providers/Globals.php">
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/js/components/generic/links/GenericSmallLink.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1022">
-          <caret line="75" column="41" selection-start-line="75" selection-start-column="41" selection-end-line="75" selection-end-column="41" />
+        <state relative-caret-position="42">
+          <caret line="3" column="80" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="80" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/includes/components/searchbox-add-to-list.blade.php">
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/js/components/generic/date_time/GenericSmallDateWithTime.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14">
-          <caret line="1" column="30" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="30" />
+        <state relative-caret-position="364">
+          <caret line="26" column="25" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/js/components/casenotes/Casenotes.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="31" column="80" selection-start-line="31" selection-start-column="80" selection-end-line="31" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/vendor/dompdf/dompdf/src/Dompdf.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-8145">
+          <caret line="69" column="6" selection-start-line="69" selection-start-column="6" selection-end-line="69" selection-end-column="6" />
+          <folding>
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/config/app.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="233" column="47" lean-forward="true" selection-start-line="233" selection-start-column="47" selection-end-line="233" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/seeds/LinkCasefileCasenotesTableSeeder.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="39" column="14" selection-start-line="39" selection-start-column="14" selection-end-line="39" selection-end-column="14" />
+          <folding>
+            <element signature="e#7#36#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/includes/snippets/qrCode.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28">
+          <caret line="2" column="78" lean-forward="true" selection-start-line="2" selection-start-column="37" selection-end-line="2" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/public/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="2247" column="7" selection-start-line="2247" selection-start-column="7" selection-end-line="2247" selection-end-column="7" />
+          <folding>
+            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/HomeController.php">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="543">
+          <caret line="114" column="47" selection-start-line="114" selection-start-column="42" selection-end-line="114" selection-end-column="47" />
+          <folding>
+            <element signature="e#40#58#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/public/css/app.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/public/css/print.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/pdf/mypdf.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="15" column="7" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/config/dompdf.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="543">
+          <caret line="234" column="35" selection-start-line="234" selection-start-column="35" selection-end-line="234" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/casefiles/show.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="3" selection-start-line="3" selection-end-line="19" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../AppData/Local/JetBrains/Toolbox/apps/PhpStorm/ch-0/191.7479.51.vmoptions">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/13fca856-6c16-413d-a1bd-9315fe7495b6/console.sql">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/CasenotesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1246">
+          <caret line="89" column="29" lean-forward="true" selection-start-line="89" selection-start-column="29" selection-end-line="89" selection-end-column="29" />
+          <folding>
+            <element signature="e#40#57#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="13" column="20" lean-forward="true" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/factories/CasenoteFactory.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/includes/obj-index-tool-bar.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="10" column="107" selection-start-line="10" selection-start-column="107" selection-end-line="10" selection-end-column="107" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="548">
+          <caret line="81" column="53" lean-forward="true" selection-start-line="81" selection-start-column="53" selection-end-line="81" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/CasefilesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="30" column="4" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="25" />
+          <folding>
+            <element signature="e#40#58#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Casenote.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="29" column="1" lean-forward="true" selection-start-line="29" selection-start-column="1" selection-end-line="29" selection-end-column="1" />
+          <folding>
+            <element signature="e#23#36#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Casefile.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="30" column="26" selection-start-line="30" selection-start-column="26" selection-end-line="30" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/database/migrations/2019_07_05_013034_create_object_categories_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="38" column="38" selection-start-line="38" selection-start-column="38" selection-end-line="38" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/routes/console.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/includes/obj-show-tool-bar.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="14" column="60" lean-forward="true" selection-start-line="14" selection-start-column="60" selection-end-line="14" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/AssignedInvestigator.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Traits/ControllerHelper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/app/Http/Controllers/PdfController.php">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
-          <caret line="44" column="62" selection-start-line="44" selection-start-column="62" selection-end-line="44" selection-end-column="62" />
+          <caret line="34" column="40" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="40" />
+          <folding>
+            <element signature="e#40#69#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rapportagetool_laravel/resources/views/pdf/pdf-casefiles.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
         </state>
       </provider>
     </entry>

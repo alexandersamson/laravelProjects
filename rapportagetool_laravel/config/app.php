@@ -165,6 +165,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         \App\Providers\Globals::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -230,6 +231,7 @@ return [
         'Mail' => Illuminate\Support\Facades\Mail::class,
         'Notification' => Illuminate\Support\Facades\Notification::class,
         'Password' => Illuminate\Support\Facades\Password::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
         'Queue' => Illuminate\Support\Facades\Queue::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
         'Redirect' => Illuminate\Support\Facades\Redirect::class,

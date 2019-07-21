@@ -18,6 +18,7 @@ use App\Post;
 use App\Subject;
 use App\Traits\ControllerHelper;
 use App\User;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
@@ -278,6 +279,8 @@ class CasefilesController extends Controller
     {
         //
     }
+
+
 
 
 }

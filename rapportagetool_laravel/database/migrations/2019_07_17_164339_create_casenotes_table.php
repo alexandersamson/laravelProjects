@@ -16,6 +16,7 @@ class CreateCasenotesTable extends Migration
         Schema::create('casenotes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->integer('creator_id');
             $table->integer('modifier_id')->nullable();
             $table->boolean('classified')->default(false);
             $table->boolean('permission')->default(0);
@@ -28,10 +29,10 @@ class CreateCasenotesTable extends Migration
             $table->string('style')->default('default');
             $table->string('name');
             $table->text('body');
-            $table->string('country')->nullable;
-            $table->string('postal_code')->nullable;
-            $table->string('city')->nullable;
-            $table->string('address')->nullable;
+            $table->string('country')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->string('city')->nullable();
+            $table->string('address')->nullable();
         });
     }
 

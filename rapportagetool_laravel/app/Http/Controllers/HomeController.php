@@ -9,6 +9,7 @@ use App\Http\Controllers\Services\PermissionsService;
 use App\License;
 use App\Post;
 use App\Subject;
+use Barryvdh\DomPDF\Facade as PDF;
 use DB;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Http\Request;
@@ -106,5 +107,13 @@ class HomeController extends Controller
             'mysqlData' => $mysqlData,
         );
         return response()->json($data);
+    }
+
+    public function generatePDF()
+    {
+        $data = ['title' => 'Test PDF'];
+        $pdf = PDF::loadView('pdf.mypdf', $data);
+
+        return $pdf->stream('testpdf.pdf');
     }
 }

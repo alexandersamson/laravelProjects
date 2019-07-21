@@ -1,9 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+
     <h3>{{ucfirst($data['category'])}}</h3>
     @include('includes.obj-index-tool-bar',['category' => $data['category']])
     <div class="mt-2">
+        <obj-index-nav></obj-index-nav>
+        <obj-index></obj-index>
         @if(count($data['objs']) > 0)
             <div class="card small">
                 <div class="row">

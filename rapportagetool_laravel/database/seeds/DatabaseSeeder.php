@@ -27,5 +27,7 @@ class DatabaseSeeder extends Seeder
          $this->call(MessagesTableSeeder::class);
          $this->call(LinkMessageUsersTableSeeder::class);
          $this->call(RegistrationKeysTableSeeder::class);
+         $this->call(CasenotesTableSeeder::class);
+         $this->call(LinkCasefileCasenotesTableSeeder::class);
     }
 }

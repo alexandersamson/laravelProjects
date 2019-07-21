@@ -16,13 +16,19 @@ use Illuminate\Database\Eloquent\Builder;
 class Casefile extends Model
 {
     protected $table = 'casefiles';
-    //
+    protected $with = ['user'];
+
+
     public function caseState(){
         return $this->belongsTo('App\CaseState');
     }
 
     public function user(){
-        return $this->belongsTo('App\User', 'creator_id');
+        return $this->belongsTo('App\User', 'creator_id', 'id');
+    }
+
+    public function modifier(){
+        return $this->belongsTo('App\User', 'modifier_id', 'id');
     }
 
     public function assignedInvestigators(){

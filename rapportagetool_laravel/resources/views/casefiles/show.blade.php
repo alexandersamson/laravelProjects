@@ -10,6 +10,9 @@
         {{$data['obj']->description}}
     </div>
     <hr>
+    <div>
+        <casenotes parent-id="{{ json_encode($data['obj']->id) }}"></casenotes>
+    </div>
     @if($data['obj']->deleted)
         <h5><span class="badge badge-danger">This casefile has been deleted</span></h5>
     @endif

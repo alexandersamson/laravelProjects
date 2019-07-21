@@ -1,0 +1,10 @@
+@page { margin-top: 0px; }
+body { margin-top: 0px; }
+
+.small{
+    font-size: 0.75em;
+}
+
+.smaller{
+    font-size: 0.60em;
+}

@@ -28,11 +28,11 @@ class CreateAssetsTable extends Migration
             $table->string('style')->default('default');
             $table->string('name');
             $table->string('type');
-            $table->integer('description')->nullable;
-            $table->string('country')->nullable;
-            $table->string('postal_code')->nullable;
-            $table->string('city')->nullable;
-            $table->string('address')->nullable;
+            $table->integer('description')->nullable();
+            $table->string('country')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->string('city')->nullable();
+            $table->string('address')->nullable();
         });
     }
 

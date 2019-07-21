@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.3.6",
         "ext-json": "*",
+        "barryvdh/laravel-dompdf": "^0.8.4",
         "barryvdh/laravel-ide-helper": "v2.6.2",
         "fideloper/proxy": "^4.0",
         "intervention/image": "^2.5",

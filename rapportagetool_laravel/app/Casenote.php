@@ -19,6 +19,10 @@ class Casenote extends Model
         return $this->belongsTo('App\User', 'creator_id'); //creators
     }
 
+    public function modifier(){
+        return $this->belongsTo('App\User', 'modifier_id', ); // Modifiers
+    }
+
     public function casefiles()
     {
         return $this->belongsToMany('App\Casefile', 'link_casefile_casenotes');

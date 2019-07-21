@@ -19,8 +19,13 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('obj-index', require('./components/obj/ObjIndex.vue').default);
+Vue.component('obj-index-nav', require('./components/obj/ObjIndexNav.vue').default);
+Vue.component('casenotes', require('./components/casenotes/Casenotes.vue').default);
 
+//Generics
+Vue.component('generic-small-link', require('./components/generic/links/GenericSmallLink.vue').default);
+Vue.component('generic-small-date-with-time', require('./components/generic/date_time/GenericSmallDateWithTime.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

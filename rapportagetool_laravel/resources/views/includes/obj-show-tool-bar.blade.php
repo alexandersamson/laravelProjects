@@ -12,10 +12,11 @@
     @endif
     @if(!\App\Http\Controllers\Services\Helper::isDeleted($category, $id))
     <div class="btn-group-sm mr-3" role="group" aria-label="Tools">
+        <a title="Generate printable PDF-file" href="/to-pdf/{{$category}}/{{$id}}" class="btn btn-sm btn-outline-secondary oi oi-print"></a>
         <a title="Copy '{{$name}}'"
            id = "btnCopyId"
            href="#"
-           class="btn btn-sm btn-outline-secondary oi oi-clipboard btnClipboard"
+           class="btn btn-sm btn-outline-secondary oi oi-layers btnClipboard"
            data-clipboard-return-id-target="btnCopyId"
            data-clipboard-text = "{{$name}}"></a>
         @if($category == 'users')

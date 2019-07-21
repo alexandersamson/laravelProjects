@@ -30,6 +30,7 @@ Route::resource('clients', 'ClientController');
 Route::resource('subjects', 'SubjectController');
 Route::resource('licenses', 'LicensesController');
 Route::resource('messages', 'MessagesController');
+Route::resource('casenotes', 'CasenotesController');
 
 //Person info modal calls
 Route::get('profile-modal/{category}/{user_id}', 'ModalController@showPersonInfo');
@@ -79,3 +80,7 @@ Route::post('/ajaxdynamicsearch/remove', 'DynamicSearchController@removeFromList
 Route::get('/approval/{cat}/{id}/{action}', 'ApprovalsController@approval');
 
 Route::post('/ajaxAddPersons/', 'CasefilesController@ajaxAddPersons');
+
+//PDF
+Route::get('/generate-test-pdf','HomeController@generatePDF');
+Route::get('/to-pdf/{category}/{id}','PdfController@toPdf');
