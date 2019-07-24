@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Services;
 
-use App\User;
+use App\Models\User;
 
 
 class AssignedHelper

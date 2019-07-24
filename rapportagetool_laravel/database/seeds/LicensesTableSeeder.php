@@ -1,7 +1,6 @@
 <?php
 
-use App\Casefile;
-use App\License;
+use App\Models\License;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 

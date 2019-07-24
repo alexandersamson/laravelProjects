@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\AssignedInvestigator;
-use App\CaseState;
+use App\Models\PivotLinks\LinkCasefileUser;
 use App\Traits\ControllerHelper;
-use App\User;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade as PDF;
-use Illuminate\Http\Request;
 
 class PdfController extends Controller
 {
@@ -22,7 +20,7 @@ class PdfController extends Controller
 
         if ($category == $categories['casefiles']) {
             $obj = $this->checkAndGetObjToShow($categories[$category], $id);
-            $leader = AssignedInvestigator::where('casefile_id',$id)
+            $leader = LinkCasefileUser::where('casefile_id',$id)
                 ->where('is_lead_investigator',true)
                 ->first()
                 ->user;
@@ -32,7 +30,7 @@ class PdfController extends Controller
             $createdAt = $obj->created_at;
             $modifiedAt = $obj->updated_at;
             $pdfTitle = $obj->casecode;
-            $checksumHash = hash('sha256', (serialize($obj))); //TODO: Generalize this checksum hashing in some global helper
+            $checksumHash = $obj->integrity;
 
         }
         if (isset($obj)){

@@ -1,33 +1,12 @@
-
+<div class="row m-0 p-0">
     @foreach($searchCategories as $searchCat)
-        <div class="dynamicSearchBoxHolder mr-2" id="dsbh{{ucfirst($searchCat)}}">
-            <div class="autocomplete">
-                <label class="mb-0" for="dynamicSearchBox{{ucfirst($searchCat)}}"><small>{{$searchTitles[$loop->index]}}</small></label>
-                <div data-sourcecat="{{$sourceCat}}"
-                     data-sourceid="{{$sourceId}}"
-                     data-targetcat="{{$searchCat}}"
-                     data-targetid="sbic{{$searchCat}}"
-                     class="searchBoxItemsContainer" id="sbic{{$searchCat}}">
+        <div class="col-lg-3 col-md-4 col-sm-6 m-0 p-0">
+            <div class="card m-1 p-2">
+                <div class="card-body m-0 p-0">
+{{--                    <h5 class="card-title">Special title treatment</h5>--}}
+                    <objects-selector :source-cat="'{{$sourceCat}}'" :source-id="'{{$sourceId}}'" :target-cat="'{{$searchCat}}'"></objects-selector>
                 </div>
-                @if(\App\Http\Controllers\Services\PermissionsService::canDoWithCat($searchCat, 'r') && \App\Http\Controllers\Services\PermissionsService::canDoWithObj($sourceCat, $sourceId, 'u_adv', true))
-                <input  id="dynamicSearchBox{{ucfirst($searchCat)}}"
-                        type="text"
-                        name="dynamicSearchBox{{$searchCat}}"
-                        placeholder="@if($searchCat == 'leaders') Change Lead Investigator @else Add {{ucfirst($searchCat)}} @endif"
-                        data-variant="addToList"
-                        data-source="{{$sourceCat}}"
-                        data-sourceid="{{$sourceId}}"
-                        data-permissionfilter="{{$searchPermissionFilters[$loop->index]}}"
-                        data-category="{{$searchCat}}"
-                        data-id="dynamicSearchBox{{ucfirst($searchCat)}}"
-                        data-targetid="sbic{{$searchCat}}"
-                        class="form-control dynamicSearchBox"
-                        autocomplete="off">
-                @endif
-{{--                <button type="button" class="btn btn-primary btnDsbhAdd" id="btnDsbhAdd{{ucfirst($searchCat)}}">+</button>--}}
-                <input name="{{$searchCat}}[]" id="dynamicSearchBoxTarget{{ucfirst($searchCat)}}" type="hidden" value="" required>
             </div>
         </div>
-
     @endforeach
-
+</div>

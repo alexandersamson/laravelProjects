@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\License;
+use App\Models\License;
 use App\Traits\ControllerHelper;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class LicensesController extends Controller

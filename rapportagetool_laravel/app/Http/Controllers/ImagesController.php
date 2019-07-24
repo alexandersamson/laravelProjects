@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Services\PermissionsService;
-use App\Permission;
-use App\User;
+use App\Models\User;
 use Intervention\Image\Facades\Image;
-use Illuminate\Http\Request;
 
 class imagesController extends Controller
 {

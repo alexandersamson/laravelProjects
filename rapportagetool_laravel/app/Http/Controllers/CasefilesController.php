@@ -2,28 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\ActionLog;
-use App\AssignedClient;
-use App\AssignedInvestigator;
-use App\AssignedSubject;
-use App\Casefile;
-use App\CaseState;
-use App\Client;
+
+use App\Models\PivotLinks\LinkCasefileUser;
+use App\Models\Casefile;
+use App\Models\CaseState;
 use App\Http\Controllers\Services\CasefileNumberGenerator;
-use App\Http\Controllers\Services\ClassNameService;
-use App\Http\Controllers\Services\Helper;
 use App\Http\Controllers\Services\PermissionsService;
-use App\Organization;
-use App\Post;
-use App\Subject;
 use App\Traits\ControllerHelper;
-use App\User;
-use Barryvdh\DomPDF\Facade as PDF;
-use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
+
 
 class CasefilesController extends Controller
 {
@@ -45,8 +34,9 @@ class CasefilesController extends Controller
      */
     public function index()
     {
+
         if(!PermissionsService::canDoWithCat($this->category,'d_adv')){
-            $casefiles = Casefile::orderBy('created_at', 'desc')->where('deleted','=',false)->paginate(25);
+            $casefiles = Casefile::orderBy('created_at', 'DESC')->where('deleted', false)->paginate(25);
         } else {
             $casefiles = Casefile::orderBy('deleted','ASC')->orderBy('created_at', 'DESC')->paginate(25);
         }
@@ -94,7 +84,7 @@ class CasefilesController extends Controller
         $casefile ->draft = true;
         $casefile ->save();
 
-        $assignedleader = new AssignedInvestigator();
+        $assignedleader = new LinkCasefileUser();
         $assignedleader ->user_id = auth()->user()->id;
         $assignedleader ->is_lead_investigator = true;
         $assignedleader ->casefile_id = $casefile->id;
@@ -132,7 +122,6 @@ class CasefilesController extends Controller
             'name' => 'required',
             'id' => 'required',
             'casecode' => 'required',
-            'case-state' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -157,7 +146,6 @@ class CasefilesController extends Controller
         $casefile->casecode = $request->input('casecode');
         $casefile->description = $request->input('description');
         $casefile->modifier_id = auth()->user()->id;
-        $casefile->case_state_index = $request->input('case-state');
         $casefile->lead_investigator_index = 0;
         $casefile->client_index = 0;
         $casefile->approved = $approved; // If not having u_adv rights, approval is needed

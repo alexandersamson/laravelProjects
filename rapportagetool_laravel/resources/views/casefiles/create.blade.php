@@ -35,19 +35,11 @@
         </div>
         <div class="form-group">
             {{Form::label('case-state', 'Status')}}
-            @include('casefiles.elements.select-case-state-dropdown')
+            <generic-dropdown :category="'casefiles'" :id="{{$data['obj']->id}}" :element="'case_state_index'" ></generic-dropdown>
         </div>
         <div class="form-group">
             {{Form::label('assignees', 'Assignees')}}
-            <div class="card mb-0 shadow-sm">
-                <div class="row" id="assigneesContainerA">
-                    <div class="col-sm-12">
-                        <div class="form-row m-2">
-                            @include('includes.components.searchbox-add-to-list', ['sourceCat' => "casefiles", 'sourceId' => $data['obj']->id, 'searchCategories' => ["leaders","investigators","clients","subjects","assets"], 'searchTitles' => ["Lead Investigator","Investigators","Clients","Subjects","Assets"], 'searchPermissionFilters' => ["Investigator","Investigator",null,null,null]])
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @include('includes.components.searchbox-add-to-list', ['sourceCat' => 'casefiles', 'sourceId' => $data['obj']->id, 'searchCategories' => ["leaders","investigators","clients","subjects","assets","vehicles"]])
         </div>
         <div class="form-group">
             {{Form::file('cover_image')}}

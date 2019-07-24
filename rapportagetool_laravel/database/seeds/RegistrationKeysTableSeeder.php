@@ -1,6 +1,6 @@
 <?php
 
-use App\RegistrationKey;
+use App\Models\RegistrationKey;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 

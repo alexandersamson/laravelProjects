@@ -22,7 +22,9 @@ var usertypes = {
     "clients":"clients",
     "subjects":"subjects",
     "licenses":"licenses",
-    "messages":"messages"};
+    "messages":"messages",
+    "assets":"assets",
+    "vehicles":"vehicles"};
 //Specific global storage
 var globalStorage = {};
 var $floodProtect = true;

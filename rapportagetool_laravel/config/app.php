@@ -190,7 +190,10 @@ return [
         Unisharp\Ckeditor\ServiceProvider::class,
 
         //QR
-        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+
+        //Passport
+        Laravel\Passport\PassportServiceProvider::class,
 
     ],
 

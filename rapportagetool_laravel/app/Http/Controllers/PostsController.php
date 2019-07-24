@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\ActionLog;
-use App\Casefile;
-use App\Http\Controllers\Services\Helper;
+
 use App\Http\Controllers\Services\PermissionsService;
 use App\Traits\ControllerHelper;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Post;
+use App\Models\Post;
 
 class PostsController extends Controller
 {

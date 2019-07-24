@@ -7,7 +7,10 @@
     @include('includes.snippets.copy-buttons',['obj' => $data['obj']->casecode])
     @include('includes.snippets.qrCode',['casecode'=>$data['obj']->casecode])
     <div>
-        {{$data['obj']->description}}
+        Integrity {{$data['obj']->integrity}}
+    </div>
+    <div>
+        Description {{$data['obj']->description}}
     </div>
     <hr>
     <div>

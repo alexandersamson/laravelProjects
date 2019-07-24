@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Casefile;
-use App\Casenote;
+use App\Models\Casefile;
+use App\Models\Casenote;
 use App\Http\Resources\Casesnote as CasenoteResource;
 use App\Http\Resources\Casesnotes as CasenoteCollection;
-use App\LinkCasefileAsset;
-use App\User;
 use Illuminate\Http\Request;
 
 class CasenotesController extends Controller
@@ -69,7 +67,7 @@ class CasenotesController extends Controller
             ->casenotes()
             ->where('casenotes.deleted', false)
             ->orderBy('casenotes.created_at', 'desc')
-            ->with(['modifier:id,name','user:id,name'])
+            ->with(['modifier:id,name','creator:id,name'])
             ->paginate(20);
         foreach ($notes as $key=>$note){
             if($note->created_at != $note->updated_at){

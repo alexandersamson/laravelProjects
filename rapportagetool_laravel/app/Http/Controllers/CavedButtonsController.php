@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Client;
+use App\Models\Client;
 use App\Http\Controllers\Services\PermissionsService;
-use App\ObjectCategory;
-use App\Post;
-use App\Providers\PermissionsProvider;
-use App\User;
-use DB;
-use Illuminate\Http\Request;
-use Psy\Util\Str;
+use App\Models\ObjectCategory;
+use App\Models\User;
+
 
 class CavedButtonsController extends Controller
 {

@@ -14,8 +14,12 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $response = $this->get('/');
+        $urls = ['/users','/casefiles','/subjects','/clients','/vehicles','/assets','/licenses'];
 
-        $response->assertStatus(200);
+        foreach($urls as $url) {
+            $response = $this->get($url);
+            $response->assertStatus(302, 404);
+
+        }
     }
 }

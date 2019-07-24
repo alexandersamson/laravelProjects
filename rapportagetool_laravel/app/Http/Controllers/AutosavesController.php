@@ -27,7 +27,7 @@ class AutosavesController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'data' => 'required|max:5000',
+            'data' => 'required|max:8000',
             'input' => 'required',
         ]);
 

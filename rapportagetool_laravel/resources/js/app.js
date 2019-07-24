@@ -5,8 +5,13 @@
  */
 
 require('./bootstrap');
-
+require('axios');
 window.Vue = require('vue');
+import BootstrapVue from 'bootstrap-vue' //Importing
+import vueDebounce from 'vue-debounce' //Importing
+Vue.use(BootstrapVue); // Telling Vue to use this in whole application
+Vue.use(vueDebounce); // Telling Vue to use this in whole application
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -26,11 +31,34 @@ Vue.component('casenotes', require('./components/casenotes/Casenotes.vue').defau
 //Generics
 Vue.component('generic-small-link', require('./components/generic/links/GenericSmallLink.vue').default);
 Vue.component('generic-small-date-with-time', require('./components/generic/date_time/GenericSmallDateWithTime.vue').default);
+Vue.component('generic-dropdown', require('./components/generic/dropdowns/GenericDropdown.vue').default);
+Vue.component('generic-search-list', require('./components/generic/lists/GenericSearchList.vue').default);
+Vue.component('generic-objects-list', require('./components/generic/lists/GenericObjectsList.vue').default);
+Vue.component('generic-dynamic-search-input', require('./components/generic/inputs/GenericDynamicSearchInput.vue').default);
+
+//Modals
+Vue.component('objects-selector', require('./components/modals/ObjectsSelector.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+
+//passport
+Vue.component(
+    'passport-clients',
+    require('./components/passport/Clients.vue').default
+);
+
+Vue.component(
+    'passport-authorized-clients',
+    require('./components/passport/AuthorizedClients.vue').default
+);
+
+Vue.component(
+    'passport-personal-access-tokens',
+    require('./components/passport/PersonalAccessTokens.vue').default
+);
 
 
 const app = new Vue({

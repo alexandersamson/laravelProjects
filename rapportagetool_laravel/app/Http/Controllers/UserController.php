@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Services\Helper;
 use App\Http\Controllers\Services\PermissionsService;
-use App\License;
-use App\Post;
-use App\Providers\PermissionsProvider;
-use App\RegistrationKey;
+use App\Models\License;
+use App\Models\RegistrationKey;
 use App\Traits\ControllerHelper;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;

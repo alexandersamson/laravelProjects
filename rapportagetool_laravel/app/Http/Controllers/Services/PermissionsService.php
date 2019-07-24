@@ -4,10 +4,9 @@
 namespace App\Http\Controllers\Services;
 
 use App\Http\Controllers\Controller;
-use App\LinkMessageUser;
-use App\ObjectCategory;
-use App\Permission;
-use App\User;
+use App\Models\PivotLinks\LinkMessageUser;
+use App\Models\ObjectCategory;
+use App\Models\Permission;
 use Eloquent;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\Builder;
@@ -26,6 +25,7 @@ class PermissionsService extends Controller
 
         $permCodes = array
         (
+            'update_casefile' => 'u_adv',
             'create' => 'c',
             'create_user' => 'c',
             'create_manager' => 'c_adv',
@@ -53,6 +53,7 @@ class PermissionsService extends Controller
             'recover' => 'd_adv',
             'restore' => 'd_max',
             'erase' => 'd_max',
+            'api_token_management' => 'u_max',
         );
         return $permCodes[$name];
     }
@@ -193,7 +194,7 @@ class PermissionsService extends Controller
     {
 
         $curUsrId = auth()->user()->id;
-        $curUsrPerm = \auth()->user()->permission;
+        $curUsrPerm = auth()->user()->permission;
 
         //Check if object has been deleted
         if ($checkDeletion == true) {
@@ -298,7 +299,7 @@ class PermissionsService extends Controller
         $category = $categories[$category];
 
         $objCat = ObjectCategory::where('name', $category)->first();
-        $curUsrPerm = \auth()->user()->permission;
+        $curUsrPerm = auth()->user()->permission;
 
         if (self::checkPermission($objCat->{$selector['permByRole']}, $curUsrPerm, !$objCat->{$selector['matches']}, false)['permission']) {
             return true;

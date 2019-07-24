@@ -1,6 +1,6 @@
 <?php
 
-use App\CaseState;
+use App\Models\CaseState;
 use Illuminate\Database\Seeder;
 
 class CaseStateTableSeeder extends Seeder

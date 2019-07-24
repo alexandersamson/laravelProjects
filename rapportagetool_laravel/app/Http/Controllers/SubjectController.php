@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Client;
-use App\Http\Controllers\Services\Helper;
-use App\Subject;
+use App\Models\Subject;
 use App\Traits\ControllerHelper;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SubjectController extends Controller

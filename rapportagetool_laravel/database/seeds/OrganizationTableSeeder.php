@@ -1,7 +1,6 @@
 <?php
 
-use App\ObjectCategory;
-use App\Organization;
+use App\Models\Organization;
 use Illuminate\Database\Seeder;
 
 class OrganizationTableSeeder extends Seeder

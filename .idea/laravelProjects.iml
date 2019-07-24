@@ -10,6 +10,7 @@
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/barryvdh/reflection-docblock" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/beyondcode/laravel-dump-server" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/defuse/php-encryption" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/dnoegel/php-xdg-base-dir" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/doctrine/inflector" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/doctrine/instantiator" />
@@ -20,7 +21,10 @@
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/erusev/parsedown" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/fideloper/proxy" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/filp/whoops" />
+      <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/firebase/php-jwt" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/fzaninotto/faker" />
+      <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/guzzlehttp/guzzle" />
+      <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/guzzlehttp/promises" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/guzzlehttp/psr7" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/hamcrest/hamcrest-php" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/intervention/image" />
@@ -28,9 +32,13 @@
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/jakub-onderka/php-console-highlighter" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/justinrainbow/json-schema" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/laravel/framework" />
+      <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/laravel/passport" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/laravel/tinker" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/laravelcollective/html" />
+      <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/lcobucci/jwt" />
+      <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/league/event" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/league/flysystem" />
+      <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/league/oauth2-server" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/mockery/mockery" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/monolog/monolog" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/myclabs/deep-copy" />
@@ -47,6 +55,7 @@
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/phpdocumentor/reflection-docblock" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/phpdocumentor/type-resolver" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/phpoption/phpoption" />
+      <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/phpseclib/phpseclib" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/phpspec/prophecy" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/phpunit/php-code-coverage" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/phpunit/php-file-iterator" />
@@ -55,6 +64,7 @@
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/phpunit/php-token-stream" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/phpunit/phpunit" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/psr/container" />
+      <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/psr/http-factory" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/psr/http-message" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/psr/log" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/psr/simple-cache" />
@@ -94,6 +104,7 @@
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/symfony/polyfill-php72" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/symfony/polyfill-php73" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/symfony/process" />
+      <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/symfony/psr-http-message-bridge" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/symfony/routing" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/symfony/service-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/symfony/translation" />
@@ -104,6 +115,7 @@
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/unisharp/laravel-ckeditor" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/vlucas/phpdotenv" />
       <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/webmozart/assert" />
+      <excludeFolder url="file://$MODULE_DIR$/rapportagetool_laravel/vendor/zendframework/zend-diactoros" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

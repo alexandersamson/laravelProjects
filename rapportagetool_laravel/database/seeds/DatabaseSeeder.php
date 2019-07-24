@@ -18,9 +18,9 @@ class DatabaseSeeder extends Seeder
          $this->call(SubjectsTableSeeder::class);
          $this->call(CasefileTableSeeder::class);
          $this->call(CaseStateTableSeeder::class);
-         $this->call(AssignedInvestigatorTableSeeder::class);
-         $this->call(AssignedClientTableSeeder::class);
-         $this->call(AssignedSubjectTableSeeder::class);
+         $this->call(LinkCasefileUserTableSeeder::class);
+         $this->call(LinkCasefileClientsTableSeeder::class);
+         $this->call(LinkCasefileSubjectTableSeeder::class);
          $this->call(OrganizationTableSeeder::class);
          $this->call(LicensesTableSeeder::class);
          $this->call(PostsTableSeeder::class);

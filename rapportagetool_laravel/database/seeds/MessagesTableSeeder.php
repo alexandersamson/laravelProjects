@@ -1,6 +1,6 @@
 <?php
 
-use App\Message;
+use App\Models\Message;
 use Illuminate\Database\Seeder;
 
 class MessagesTableSeeder extends Seeder

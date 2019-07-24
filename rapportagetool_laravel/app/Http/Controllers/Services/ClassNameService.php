@@ -2,26 +2,27 @@
 
 namespace App\Http\Controllers\Services;
 
-use App\Asset;
-use App\AssignedClient;
-use App\AssignedInvestigator;
-use App\AssignedSubject;
-use App\Casefile;
-use App\Client;
-use App\License;
-use App\LinkCasefileAsset;
-use App\LinkCasefileCasenote;
-use App\LinkCasefileVehicle;
-use App\LinkClientVehicle;
-use App\LinkMessageUser;
-use App\LinkSubjectAsset;
-use App\LinkSubjectVehicle;
-use App\Message;
-use App\Organization;
-use App\Post;
-use App\Subject;
-use App\User;
-use App\Vehicle;
+use App\Models\Asset;
+use App\Models\PivotLinks\LinkCasefileClient;
+use App\Models\PivotLinks\LinkCasefileUser;
+use App\Models\PivotLinks\LinkCasefileSubject;
+use App\Models\Casefile;
+use App\Models\Client;
+use App\Models\License;
+use App\Models\PivotLinks\LinkCasefileAsset;
+use App\Models\PivotLinks\LinkCasefileCasenote;
+use App\Models\PivotLinks\LinkCasefileVehicle;
+use App\Models\PivotLinks\LinkClientAsset;
+use App\Models\PivotLinks\LinkClientVehicle;
+use App\Models\PivotLinks\LinkMessageUser;
+use App\Models\PivotLinks\LinkSubjectAsset;
+use App\Models\PivotLinks\LinkSubjectVehicle;
+use App\Models\Message;
+use App\Models\Organization;
+use App\Models\Post;
+use App\Models\Subject;
+use App\Models\User;
+use App\Models\Vehicle;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -123,40 +124,40 @@ class ClassNameService extends Controller
             if($categories[$parentCategory] == 'casefiles') {
                 $parent = 'casefiles';
                 if($categories[$assigneeCategory] == 'leaders') {
-                    $class = new AssignedInvestigator();
-                    $handle = 'user';
+                    $class = new LinkCasefileUser();
+                    $handle = 'users';
                 }
                 if($categories[$assigneeCategory] == 'investigators'){
-                    $class = new AssignedInvestigator();
-                    $handle = 'user';
+                    $class = new LinkCasefileUser();
+                    $handle = 'users';
                 }
                 if($categories[$assigneeCategory] == 'users'){
-                    $class = new AssignedInvestigator();
-                    $handle = 'user';
+                    $class = new LinkCasefileUser();
+                    $handle = 'users';
                 }
                 if($categories[$assigneeCategory] == 'staff'){
-                    $class = new AssignedInvestigator();
-                    $handle = 'user';
+                    $class = new LinkCasefileUser();
+                    $handle = 'users';
                 }
                 if($categories[$assigneeCategory] == 'clients'){
-                    $class = new AssignedClient();
-                    $handle = 'client';
+                    $class = new LinkCasefileClient();
+                    $handle = 'clients';
                 }
                 if($categories[$assigneeCategory] == 'subjects'){
-                    $class = new AssignedSubject();
-                    $handle = 'subject';
+                    $class = new LinkCasefileSubject();
+                    $handle = 'subjects';
                 }
                 if($categories[$assigneeCategory] == 'assets'){
                     $class = new LinkCasefileAsset();
-                    $handle = 'asset';
+                    $handle = 'assets';
                 }
                 if($categories[$assigneeCategory] == 'vehicles'){
                     $class = new LinkCasefileVehicle();
-                    $handle = 'vehicle';
+                    $handle = 'vehicles';
                 }
                 if($categories[$assigneeCategory] == 'casenotes'){
                     $class = new LinkCasefileCasenote();
-                    $handle = 'casenote';
+                    $handle = 'casenotes';
                 }
             }
             if($categories[$parentCategory] == 'messages'){
@@ -170,55 +171,55 @@ class ClassNameService extends Controller
                 $parent = 'users';
                 if($categories[$assigneeCategory] == 'users'){
                     $class = new User();
-                    $handle = 'user';
+                    $handle = 'users';
                 }
             }
             if($categories[$parentCategory] == 'posts'){
                 $parent = 'posts';
                 if($categories[$assigneeCategory] == 'users'){
                     $class = new Post(); //irrelevant
-                    $handle = 'user';
+                    $handle = 'users';
                 }
             }
             if($categories[$parentCategory] == 'assets'){
                 $parent = 'assets';
                 if($categories[$assigneeCategory] == 'casefiles'){
                     $class = new LinkCasefileAsset();
-                    $handle = 'casefile';
+                    $handle = 'casefiles';
                 }
                 if($categories[$assigneeCategory] == 'subjects'){
                     $class = new LinkSubjectAsset();
-                    $handle = 'subject';
+                    $handle = 'subjects';
                 }
                 if($categories[$assigneeCategory] == 'clients'){
-                    $class = new LinkClientVehicle();
-                    $handle = 'client';
+                    $class = new LinkClientAsset();
+                    $handle = 'clients';
                 }
             }
             if($categories[$parentCategory] == 'vehicles'){
                 $parent = 'vehicles';
                 if($categories[$assigneeCategory] == 'casefiles'){
-                    $class = new LinkCasefileAsset();
-                    $handle = 'casefile';
+                    $class = new LinkCasefileVehicle();
+                    $handle = 'casefiles';
                 }
                 if($categories[$assigneeCategory] == 'subjects'){
                     $class = new LinkSubjectVehicle();
-                    $handle = 'subject';
+                    $handle = 'subjects';
                 }
                 if($categories[$assigneeCategory] == 'clients'){
                     $class = new LinkClientVehicle();
-                    $handle = 'client';
+                    $handle = 'clients';
                 }
             }
             if($categories[$parentCategory] == 'casenotes'){
                 $parent = 'casenotes';
                 if($categories[$assigneeCategory] == 'users'){
-                    $class = new AssignedInvestigator();
-                    $handle = 'user';
+                    $class = new LinkCasefileUser();
+                    $handle = 'users';
                 }
                 if($categories[$assigneeCategory] == 'casefiles'){
-                    $class = new Casefile();
-                    $handle = 'casefile';
+                    $class = new LinkCasefileCasenote();
+                    $handle = 'casefiles';
                 }
             }
         }

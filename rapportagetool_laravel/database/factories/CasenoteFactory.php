@@ -2,7 +2,7 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\Casenote;
+use App\Models\Casenote;
 use Faker\Generator as Faker;
 
 $factory->define(Casenote::class, function (Faker $faker) {

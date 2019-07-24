@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\ActionLog;
+use App\Models\ActionLog;
 use Illuminate\Http\Request;
 use Eloquent;
 

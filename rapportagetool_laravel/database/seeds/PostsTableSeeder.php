@@ -1,7 +1,7 @@
 <?php
 
-use App\CaseState;
-use App\Post;
+use App\Models\Casefile;
+use App\Models\Post;
 use Illuminate\Database\Seeder;
 use App\Http\Controllers\Services\PermissionsService;
 
@@ -15,7 +15,7 @@ class PostsTableSeeder extends Seeder
     public function run()
     {
         $postPermissions = new PermissionsService();
-        $casecode = \App\Casefile::find(1)->casecode;
+        $casecode = Casefile::find(1)->casecode;
         $permissionSeed = $postPermissions->getBitwiseValue(['Staff','Moderator']);
         $posts = [
             ['name' => 'The first test post', 'body' => 'The [bold]big[/bold] [green]green[/green] fox jumps over the [red]red[/red] fence and falls in the [blue]blue[/blue] water. [cc]'.$casecode.'[/cc]

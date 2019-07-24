@@ -20,20 +20,17 @@ class ApprovalsController extends Controller
                 $actionLog = new ActionLogsController;
                 if($action == 'approve'){
                     $obj->approved = true;
-                    $obj->approved_by_id = auth()->user()->id;
-                    $obj->save();
-                    $returncmd = 'success';
                     $returnvalue = 'Approved: '.$obj->name;
                     $actionLog->insertAction($obj, 'approve');
                 } else {
                     $obj->approved = false;
-                    $obj->approved_by_id = auth()->user()->id;
                     $obj->deleted = true;
-                    $obj->save();
-                    $returncmd = 'success';
                     $returnvalue = 'Dismissed and deleted: '.$obj->name;
                     $actionLog->insertAction($obj, 'dismiss');
                 }
+                $returncmd = 'success';
+                $obj->approved_by_id = auth()->user()->id;
+                $obj->save();
             } else {
                 $returncmd = 'error';
                 $returnvalue = 'This item was deleted and therefore cannot be approved or dismissed';

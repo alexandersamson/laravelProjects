@@ -163,8 +163,7 @@
                     <i class="icon-move">&#8596;</i>
                     <div class="card-body pt-2">
                         <h5 class="card-title">Administrative Tasks</h5>
-                        <p class="card-text">For administrators. This feature is under construction. It will be soon available to you.</p>
-                        <a href="#" class="btn btn-sm btn-primary">Go to Settings</a>
+                        @include('dashboard.cards.administrator-card')
                     </div>
                 </div>
             </li>

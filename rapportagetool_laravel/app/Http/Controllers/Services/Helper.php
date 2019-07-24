@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers\Services;
 
-use App\AssignedInvestigator;
-use App\AssignedSubject;
-use App\Casefile;
-use App\CaseState;
+use App\Models\PivotLinks\LinkCasefileUser;
+use App\Models\CaseState;
 use App\Http\Controllers\Controller;
-use App\Organization;
-use App\User;
+use App\Models\Organization;
+use App\Models\User;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
 class Helper extends Controller
@@ -87,7 +84,7 @@ class Helper extends Controller
             $rowData[] = [
                 $obj->casecode,
                 $obj->name,CaseState::find($obj->case_state_index)->name,
-                Helper::makeObjHyperlink(User::find(AssignedInvestigator::where('casefile_id', $obj->id)->where('is_lead_investigator', true)->first()->user_id)->name, 'users', User::find(AssignedInvestigator::where('casefile_id', $obj->id)->where('is_lead_investigator', true)->first()->user_id)->id),
+                Helper::makeObjHyperlink(User::find(LinkCasefileUser::where('casefile_id', $obj->id)->where('is_lead_investigator', true)->first()->user_id)->name, 'users', User::find(LinkCasefileUser::where('casefile_id', $obj->id)->where('is_lead_investigator', true)->first()->user_id)->id),
                 self::formatArrayText(self::extractObjs($obj->assignedClients, 'name', 'client' , 'clients', 2),','),
                 self::formatArrayText(self::extractObjs($obj->assignedSubjects, 'name', 'subject' , 'subjects', 1),',')];
         }
@@ -106,10 +103,10 @@ class Helper extends Controller
             $rowData[] = [$obj->name,$obj->city,$obj->occupation,self::formatArrayText(self::extractObjs($obj->assignedSubjects, 'casecode', 'casefile' , 'casefiles', 3),',')];
         }
         if($category == 'posts'){
-            $rowData[] = [$obj->name,$obj->user->name,$obj->created_at,Str::limit(strip_tags(self::parseBB($obj->body)),84)];
+            $rowData[] = [$obj->name,$obj->creator->name,$obj->created_at,Str::limit(strip_tags(self::parseBB($obj->body)),84)];
         }
         if($category == 'messages'){
-            $rowData[] = [$obj->name,$obj->user->name,$obj->created_at];
+            $rowData[] = [$obj->name,$obj->creator->name,$obj->created_at];
         }
 
         return $rowData;
@@ -261,15 +258,33 @@ class Helper extends Controller
                 'Rcat' => 'users'
             ],
             [
+                'openTag' => '[muted]',
+                'closeTag' => '[/muted]',
+                'replace' => '<span class="text-muted">[#*S*#]</span>',
+                'Rcat' => ''
+            ],
+            [
+                'openTag' => '[small]',
+                'closeTag' => '[/small]',
+                'replace' => '<span class="small">[#*S*#]</span>',
+                'Rcat' => ''
+            ],
+            [
                 'openTag' => '[b]',
                 'closeTag' => '[/b]',
-                'replacement' => '<span class="font-weight-bolder">[#*S*#]</span>',
+                'replace' => '<span class="font-weight-bold">[#*S*#]</span>',
+                'Rcat' => ''
+            ],
+            [
+                'openTag' => '[bold]',
+                'closeTag' => '[/bold]',
+                'replace' => '<span class="font-weight-bolder">[#*S*#]</span>',
                 'Rcat' => ''
             ],
             [
                 'openTag' => '[i]',
                 'closeTag' => '[/i]',
-                'replacement' => '<span class="font-italic">[#*S*#]</span>',
+                'replace' => '<span class="font-italic">[#*S*#]</span>',
                 'Rcat' => ''
             ],
             [
@@ -288,6 +303,18 @@ class Helper extends Controller
                 'openTag' => '[blue]',
                 'closeTag' => '[/blue]',
                 'replace' => '<span class="text-primary">[#*S*#]</span>',
+                'Rcat' => ''
+            ],
+            [
+                'openTag' => '[title]',
+                'closeTag' => '[/title]',
+                'replace' => '<h2>[#*S*#]</h2>',
+                'Rcat' => ''
+            ],
+            [
+                'openTag' => '[subtitle]',
+                'closeTag' => '[/subtitle]',
+                'replace' => '<h4>[#*S*#]</h4>',
                 'Rcat' => ''
             ],
         );

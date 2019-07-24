@@ -1,8 +1,7 @@
 <?php
 
 use App\Http\Controllers\Services\PermissionsService;
-use App\ObjectCategory;
-use App\Permission;
+use App\Models\ObjectCategory;
 use Illuminate\Database\Seeder;
 
 class ObjectCategoriesTableSeeder extends Seeder
@@ -219,6 +218,20 @@ class ObjectCategoriesTableSeeder extends Seeder
                 'u_by_creator' => true,
                 'r_adv_by_creator' => true,
                 'u_adv_by_creator' => true,
+            ],
+            [   'name' => 'system_settings',
+                'c_permission' => $postPermissions->getBitwiseValue(['Administrator']),
+                'r_permission' => $postPermissions->getBitwiseValue(['Administrator']),
+                'u_permission' => $postPermissions->getBitwiseValue(['Administrator']),
+                'd_permission' => $postPermissions->getBitwiseValue(['Administrator']),
+                'c_adv_permission' => $postPermissions->getBitwiseValue(['Administrator']),
+                'r_adv_permission' => $postPermissions->getBitwiseValue(['Administrator']),
+                'u_adv_permission' => $postPermissions->getBitwiseValue(['Administrator']),
+                'd_adv_permission' => $postPermissions->getBitwiseValue(['Administrator']),
+                'c_max_permission' => $postPermissions->getBitwiseValue(['Administrator']),
+                'r_max_permission' => $postPermissions->getBitwiseValue(['Administrator']),
+                'u_max_permission' => $postPermissions->getBitwiseValue(['Administrator']),
+                'd_max_permission' => $postPermissions->getBitwiseValue(['Administrator']),
             ]
         ];
 

@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\ActionLog;
-use App\Casefile;
-use App\Client;
+use App\Models\ActionLog;
+use App\Models\Casefile;
+use App\Models\Client;
 use App\Http\Controllers\Services\PermissionsService;
-use App\License;
-use App\Post;
-use App\Subject;
+use App\Models\License;
+use App\Models\Post;
+use App\Models\Subject;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade as PDF;
 use DB;
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Http\Request;
-use App\User;
+
+
 
 class HomeController extends Controller
 {
@@ -46,14 +47,21 @@ class HomeController extends Controller
         $recentDueLicenses = License::where('deleted', '=', false)->orderBy('valid_to', 'asc')->take($limitPerPage)->get();
         $actionLogs = ActionLog::where('hidden', '=', false)->where('deleted','=',false)->orderBy('id', 'desc')->take($limitPerPage)->get();
         //$userCasefiles = Casefile::where('user_id','=', $user_id)->orderBy('created_at', 'desc')->take(10)->get();
-        $userCasefiles = DB::table('casefiles')
-            ->join('assigned_investigators', 'casefiles.id', '=', 'assigned_investigators.casefile_id')
-            ->where('assigned_investigators.deleted','=',false)
-            ->where('casefiles.deleted','=',false)
-            ->where('assigned_investigators.user_id','=',$user_id)
-            ->select('casefiles.*')
-            ->orderBy('assigned_investigators.is_lead_investigator', 'DESC')
-            ->orderBy('assigned_investigators.created_at', 'DESC')->take($limitPerPage)->get();
+//        $userCasefiles = DB::table('casefiles')
+//            ->join('assigned_investigators', 'casefiles.id', '=', 'assigned_investigators.casefile_id')
+//            ->where('assigned_investigators.deleted','=',false)
+//            ->where('casefiles.deleted','=',false)
+//            ->where('assigned_investigators.user_id','=',$user_id)
+//            ->select('casefiles.*')
+//            ->orderBy('assigned_investigators.is_lead_investigator', 'DESC')
+//            ->orderBy('assigned_investigators.created_at', 'DESC')->take($limitPerPage)->get();
+        $userCasefiles = $user
+            ->casefiles()
+            ->where('casefiles.deleted', false)
+            ->wherePivot('deleted', false)
+            ->orderBy('is_lead_investigator', 'DESC')
+            ->orderBy('created_at', 'DESC')
+            ->paginate($limitPerPage);
         if (PermissionsService::canDoWithCat('messages', 'd_adv')) {
             $recentMessages = User::find(auth()->user()->id)->messages()->where('messages.draft', false)->withPivot('marked_as_read')->orderBy('marked_as_read', 'ASC')->orderBy('created_at', 'DESC')->paginate($limitPerPage);
         } else {
@@ -115,5 +123,14 @@ class HomeController extends Controller
         $pdf = PDF::loadView('pdf.mypdf', $data);
 
         return $pdf->stream('testpdf.pdf');
+    }
+
+    public function passportManager(){
+
+        if (!PermissionsService::canDoWithCat('system_settings', PermissionsService::getPermCode('api_token_management'))) {
+            return redirect('home')->with('error', 'No permission');
+        }
+
+        return view('passport.passport');
     }
 }

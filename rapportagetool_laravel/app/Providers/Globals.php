@@ -30,6 +30,7 @@ class Globals extends ServiceProvider
             'posts' => 'posts',
             'casefiles' => 'casefiles',
             'users' => 'users',
+            'staff' => 'users',
             'investigators' => 'users',
             'leaders' => 'users',
             'clients' => 'clients',
@@ -39,12 +40,14 @@ class Globals extends ServiceProvider
             'messages' => 'messages',
             'assets' => 'assets',
             'vehicles' => 'vehicles',
-            'casenotes' => 'casenotes']
+            'casenotes' => 'casenotes',
+            'system_settings' => 'system_settings']
         ]);
         Config::set(['categoriesUnformatted' => [
             'posts' => 'posts',
             'casefiles' => 'casefiles',
             'users' => 'users',
+            'staff' => 'staff',
             'investigators' => 'investigators',
             'leaders' => 'leaders',
             'clients' => 'clients',
@@ -54,12 +57,14 @@ class Globals extends ServiceProvider
             'messages' => 'messages',
             'assets' => 'assets',
             'vehicles' => 'vehicles',
-            'casenotes' => 'casenotes']
+            'casenotes' => 'casenotes',
+            'system_settings' => 'system_settings']
         ]);
         Config::set(['categoriesSingular' => [
             'posts' => 'Post',
             'casefiles' => 'Casefile',
             'users' => 'User',
+            'staff' => 'Staff',
             'investigators' => 'Investigator',
             'leaders' => 'Leader',
             'clients' => 'Client',
@@ -69,12 +74,14 @@ class Globals extends ServiceProvider
             'messages' => 'Message',
             'assets' => 'Asset',
             'vehicles' => 'Vehicle',
-            'casenotes' => 'Casenote']
+            'casenotes' => 'Casenote',
+            'system_settings' => 'System settings']
         ]);
         Config::set(['objectColumnLinks' => [
             'posts' => 'post_id',
             'casefiles' => 'casefile_id',
             'users' => 'user_id',
+            'staff' => 'user_id',
             'investigators' => 'user_id',
             'leaders' => 'user_id',
             'clients' => 'client_id',
@@ -84,7 +91,8 @@ class Globals extends ServiceProvider
             'messages' => 'message_id',
             'assets' => 'asset_id',
             'vehicles' => 'vehicle_id',
-            'casenotes' => 'casenote_id']
+            'casenotes' => 'casenote_id',
+            'system_settings' => 'system_settings_id']
         ]);
     }
 }

@@ -21,7 +21,7 @@
                             <span class="float-left">
                                 #{{ obj.id }} | {{ obj.name }} |
                                 <generic-small-date-with-time :datetime="obj.created_at"></generic-small-date-with-time> |
-                                <generic-small-link :url="'/users/'+obj.user.id" :name="obj.user.name" :active="true" ></generic-small-link>
+                                <generic-small-link :url="'/users/'+obj.creator.id" :name="obj.creator.name" :active="true" ></generic-small-link>
                             </span>
                             <span class="float-right">
                                 <generic-small-link :url="'/casenotes/'+obj.id+'/edit'" :name="'Edit'" :active="true" ></generic-small-link>
@@ -52,7 +52,7 @@
                     name: '',
                     created_at: '',
                     creator_id: 0,
-                    user: [],
+                    creator: [],
                     body: '',
                 }, casenote_id: '',
                 pagination:{},

@@ -1,6 +1,6 @@
 <?php
 
-use App\LinkCasefileCasenote;
+use App\Models\PivotLinks\LinkCasefileCasenote;
 use Illuminate\Database\Seeder;
 
 class LinkCasefileCasenotesTableSeeder extends Seeder

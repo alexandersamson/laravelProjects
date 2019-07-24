@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Casenote;
 use Illuminate\Database\Seeder;
 
 class CasenotesTableSeeder extends Seeder
@@ -11,6 +12,6 @@ class CasenotesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Casenote::class, 30)->create();
+        factory(Casenote::class, 30)->create();
     }
 }

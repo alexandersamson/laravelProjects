@@ -74,7 +74,8 @@ Route::get('/ajaxgetselectlist', 'ModalController@ajaxGetPersonSelectList');
 Route::post('/ajaxdynamicsearch', 'DynamicSearchController@getSearchItems');
 Route::post('/ajaxdynamicsearch/addtolist', 'DynamicSearchController@addToList');
 Route::get('/ajaxdynamicsearch/receivelist', 'DynamicSearchController@receiveList');
-Route::post('/ajaxdynamicsearch/remove', 'DynamicSearchController@removeFromList');
+
+
 
 //Approval
 Route::get('/approval/{cat}/{id}/{action}', 'ApprovalsController@approval');
@@ -84,3 +85,17 @@ Route::post('/ajaxAddPersons/', 'CasefilesController@ajaxAddPersons');
 //PDF
 Route::get('/generate-test-pdf','HomeController@generatePDF');
 Route::get('/to-pdf/{category}/{id}','PdfController@toPdf');
+
+//passport
+Route::get('/passport-manager','HomeController@passportManager');
+
+
+//AXIOS (internal API/JSON calls)
+//Generics
+Route::post('/axios/get-dropdown-values', 'Axios\DropdownController@getValues');
+Route::post('/axios/update-dropdown-value', 'Axios\DropdownController@updateValue');
+Route::post('/axios/get-linklist-values', 'Axios\LinklistController@getValues');
+Route::post('/axios/get-search-values', 'Axios\DynamicSearchController@getSearchValues');
+Route::post('/axios/add-to-list', 'Axios\DynamicSearchController@addToList');
+Route::post('/axios/remove-from-list', 'Axios\DynamicSearchController@removeFromList');
+Route::post('/axios/get-objects-list', 'Axios\DynamicSearchController@receiveList');

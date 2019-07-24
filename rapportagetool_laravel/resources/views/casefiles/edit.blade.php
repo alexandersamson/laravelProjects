@@ -33,20 +33,12 @@
         </div>
         <div class="form-group">
             {{Form::label('case-state', 'Status')}}
-            @include('casefiles.elements.select-case-state-dropdown')
+            <generic-dropdown :category="'casefiles'" :id="{{$data['obj']->id}}" :element="'case_state_index'" ></generic-dropdown>
         </div>
-        <div class="form-group">
-            {{Form::label('assignees', 'Assignees')}}
-            <div class="card mb-0 shadow-sm">
-                <div class="row" id="assigneesContainerA">
-                    <div class="col-sm-12">
-                        <div class="form-row m-2">
-                            @include('includes.components.searchbox-add-to-list', ['sourceCat' => "casefiles", 'sourceId' => $data['obj']->id, 'searchCategories' => ["leaders","investigators","clients","subjects"], 'searchTitles' => ["Lead Investigator","Investigators","Clients","Subjects"], 'searchPermissionFilters' => ["Investigator","Investigator",null,null]])
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="form-group">
+        {{Form::label('assignees', 'Assignees')}}
+        @include('includes.components.searchbox-add-to-list', ['sourceCat' => 'casefiles', 'sourceId' => $data['obj']->id, 'searchCategories' => ["leaders","investigators","clients","subjects","assets","vehicles"]])
+    </div>
         @if(!\App\Http\Controllers\Services\PermissionsService::canDoWithObj('casefiles', $data['obj']->id,\App\Http\Controllers\Services\PermissionsService::getPermCode('approve'), true) && $data['obj']->approved == false)
             <span class="badge font-weight-normal badge-warning">This casefile needs approval by a {{\App\Http\Controllers\Services\PermissionsService::getPermissionsTextArray(\App\Http\Controllers\Services\PermissionsService::getBitwiseValue(['Casemanager']))[0]}}</span><br>
         @endif

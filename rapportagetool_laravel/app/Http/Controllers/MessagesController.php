@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Services\Helper;
 use App\Http\Controllers\Services\PermissionsService;
-use App\LinkMessageUser;
-use App\Message;
-use App\Post;
+use App\Models\PivotLinks\LinkMessageUser;
+use App\Models\Message;
 use App\Traits\ControllerHelper;
-use App\User;
-use Composer\Package\Link;
-use DB;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MessagesController extends Controller
@@ -38,7 +34,13 @@ class MessagesController extends Controller
 
                 //With admin rights (d_adv)
         if (PermissionsService::canDoWithCat($this->category, 'd_adv')) {
-            $messages = User::find(auth()->user()->id)->messages()->where('messages.draft', false)->withPivot('marked_as_read')->orderBy('marked_as_read', 'ASC')->orderBy('created_at', 'DESC')->paginate($limitPerPage);
+            $messages = User::find(auth()->user()->id)
+                ->messages()
+                ->where('messages.draft', false)
+                ->withPivot('marked_as_read')
+                ->orderBy('marked_as_read', 'ASC')
+                ->orderBy('created_at', 'DESC')
+                ->paginate($limitPerPage);
         } else { //Without admin rights (normal users)
             $messages = User::find(auth()->user()->id)->messages()->where('messages.deleted', false)->where('messages.draft', false)->withPivot('marked_as_read')->orderBy('marked_as_read', 'ASC')->orderBy('created_at', 'DESC')->paginate($limitPerPage);
         }

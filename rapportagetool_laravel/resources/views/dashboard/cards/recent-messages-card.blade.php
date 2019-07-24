@@ -17,7 +17,7 @@
                     <a href="/messages/{{$message->id}}">@if($message->deleted ==  true) deleted @elseif($message->pivot->marked_as_read ==  true) read @else <b>New</b> @endif </a>
                 </td>
                 <td class="line-clamp">
-                    <a href="/users/{{$message->user->id}}">{{$message->user->name}}</a>
+                    <a href="/users/{{$message->creator->id}}">{{$message->creator->name}}</a>
                 </td>
                 <td class="text-right">
                     {{\Carbon\Carbon::parse($message->created_at)->format('d/m/Y')}}

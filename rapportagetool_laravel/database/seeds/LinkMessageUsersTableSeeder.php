@@ -1,6 +1,6 @@
 <?php
 
-use App\LinkMessageUser;
+use App\Models\PivotLinks\LinkMessageUser;
 use Illuminate\Database\Seeder;
 
 class LinkMessageUsersTableSeeder extends Seeder
